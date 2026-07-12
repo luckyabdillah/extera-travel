@@ -1,0 +1,353 @@
+@extends('layouts.main')
+
+@section('content')
+	<main>
+		<!-- Hero -->
+		<section class="relative overflow-hidden bg-ink-950 pb-0 pt-32 lg:pt-40" id="hero" data-nav-theme="dark">
+			<div class="pointer-events-none absolute inset-0 dot-grid opacity-40"></div>
+			<div class="pointer-events-none absolute -left-24 top-24 h-72 w-72 rounded-full bg-primary-600/40 blur-3xl"></div>
+			<div class="pointer-events-none absolute -right-16 bottom-10 h-72 w-72 rounded-full bg-gold-500/20 blur-3xl"></div>
+
+			<div class="relative z-10 mx-auto grid max-w-7xl gap-12 px-6 pb-24 lg:grid-cols-2 lg:items-center lg:px-8 lg:pb-32">
+				<div class="text-white">
+					<span class="inline-flex items-center gap-2 rounded-full border border-gold-400/40 bg-white/5 px-4 py-1.5 text-xs font-semibold tracking-wide text-gold-200 backdrop-blur">
+						Trusted Umrah Travel Partner
+					</span>
+					<h1 class="mt-5 font-display text-4xl leading-[1.1] text-white sm:text-5xl lg:text-6xl">
+						Umrah Nyaman Bersama <span class="text-gold-300">Generasi Muda</span>
+					</h1>
+					<p class="mt-6 max-w-lg text-base text-ink-100/80 sm:text-lg">
+						Untuk kamu yang ingin berangkat bersama teman-teman seusia, didampingi dari niat berangkat sampai pulang ke rumah, dengan pelayanan yang jelas dan nyaman.
+					</p>
+					<div class="mt-8 flex flex-wrap gap-3">
+						<a href="#paket" class="rounded-full bg-gold-400 px-7 py-3.5 text-sm font-bold text-ink-900 shadow-gold transition hover:-translate-y-0.5 hover:bg-gold-300">Lihat Paket</a>
+						<a href="#kontak" class="rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/10">Chat Admin</a>
+					</div>
+
+					<div class="mt-10 flex flex-wrap gap-6 border-t border-white/10 pt-6">
+						<div>
+							<p class="font-display text-2xl text-gold-300">5000+</p>
+							<p class="text-xs text-ink-100/70">Jamaah Terdaftar</p>
+						</div>
+						<div>
+							<p class="font-display text-2xl text-gold-300">4.9/5</p>
+							<p class="text-xs text-ink-100/70">Rating dari jamaah</p>
+						</div>
+						<div>
+							<p class="font-display text-2xl text-gold-300">100%</p>
+							<p class="text-xs text-ink-100/70">Pendampingan</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="relative mx-auto w-full max-w-sm">
+					<div class="absolute -inset-4 rounded-t-[999px] rounded-b-3xl border-2 border-dashed border-gold-400/30"></div>
+					<div id="carousel" class="relative aspect-4/5 w-full overflow-hidden rounded-t-[999px] rounded-b-3xl shadow-soft ring-1 ring-white/10">
+						<div class="slide absolute inset-0 opacity-100 transition-opacity duration-700">
+							<img src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=900&q=80" alt="Perjalanan umrah" class="h-full w-full object-cover" />
+						</div>
+						<div class="slide absolute inset-0 opacity-0 transition-opacity duration-700">
+							<img src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=900&q=80" alt="Suasana ibadah" class="h-full w-full object-cover" />
+						</div>
+						<div class="slide absolute inset-0 opacity-0 transition-opacity duration-700">
+							<img src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=900&q=80" alt="Momen jamaah" class="h-full w-full object-cover" />
+						</div>
+						<div class="absolute inset-0 bg-linear-to-t from-ink-950/70 via-transparent to-transparent"></div>
+					</div>
+
+					<div class="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+						<button class="dot h-2 w-7 rounded-full bg-gold-300"></button>
+						<button class="dot h-2 w-2 rounded-full bg-white/40"></button>
+						<button class="dot h-2 w-2 rounded-full bg-white/40"></button>
+					</div>
+
+					<div class="absolute -bottom-6 -left-6 rounded-2xl bg-white p-4 shadow-soft">
+						<p class="font-display text-lg text-primary-700">4.9 ★</p>
+						<p class="text-[11px] font-semibold text-ink-400">4500+ jamaah muda</p>
+					</div>
+				</div>
+			</div>
+
+			<div style="--scallop-color:#fbfaf6" class="scallop"></div>
+		</section>
+
+		<!-- Product -->
+		<section id="paket" class="mx-auto max-w-7xl px-6 py-20 lg:px-8" data-nav-theme="light">
+			<div class="reveal mb-12 text-center">
+				<p class="text-sm font-bold uppercase tracking-wider text-gold-700">Paket</p>
+				<h2 class="mt-3 font-display text-3xl text-ink-900 sm:text-4xl">Umrah Pilihan Buat Kamu</h2>
+			</div>
+
+			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<article class="reveal group overflow-hidden rounded-3xl border border-primary-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
+					<div class="relative h-40 overflow-hidden rounded-t-[999px] mx-6 mt-6">
+						<img src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=700&q=80" alt="Umrah Reguler" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+					</div>
+					<div class="p-6 pt-4">
+						<h3 class="font-display text-xl text-ink-900">Umrah Reguler</h3>
+						<p class="mt-2 text-sm text-ink-400">Paket yang pas buat kamu yang baru mulai menabung untuk umrah.</p>
+						<p class="mt-5 font-display text-2xl text-gold-700">Mulai 28 Jt</p>
+						<button class="product-detail-btn mt-6 w-full rounded-full bg-primary-100 px-4 py-2.5 text-sm font-bold text-primary-800 transition group-hover:bg-primary-600 group-hover:text-white">Lihat Detail</button>
+					</div>
+				</article>
+
+				<article class="reveal group overflow-hidden rounded-3xl border-2 border-gold-300 bg-white shadow-gold transition hover:-translate-y-1">
+					<div class="relative">
+						<span class="absolute right-4 top-4 z-10 rounded-full bg-gold-400 px-3 py-1 text-[11px] font-bold text-ink-900">Favorit</span>
+						<div class="relative h-40 overflow-hidden rounded-t-[999px] mx-6 mt-6">
+							<img src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=700&q=80" alt="Umrah Plus Turki" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+						</div>
+					</div>
+					<div class="p-6 pt-4">
+						<h3 class="font-display text-xl text-ink-900">Umrah Plus Turki</h3>
+						<p class="mt-2 text-sm text-ink-400">Ibadah tuntas, lanjut menjelajah jejak sejarah Islam di Turki bersama teman-teman seperjalanan.</p>
+						<p class="mt-5 font-display text-2xl text-gold-700">Mulai 39 Jt</p>
+						<button class="product-detail-btn mt-6 w-full rounded-full bg-primary-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-primary-700">Lihat Detail</button>
+					</div>
+				</article>
+
+				<article class="reveal group overflow-hidden rounded-3xl border border-primary-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
+					<div class="relative h-40 overflow-hidden rounded-t-[999px] mx-6 mt-6">
+						<img src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=700&q=80" alt="Umrah Eksklusif" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+					</div>
+					<div class="p-6 pt-4">
+						<h3 class="font-display text-xl text-ink-900">Umrah Eksklusif</h3>
+						<p class="mt-2 text-sm text-ink-400">Hotel dekat Masjidil Haram, buat kamu yang mau ibadah tanpa capek mikirin logistik.</p>
+						<p class="mt-5 font-display text-2xl text-gold-700">Mulai 52 Jt</p>
+						<button class="product-detail-btn mt-6 w-full rounded-full bg-primary-100 px-4 py-2.5 text-sm font-bold text-primary-800 transition group-hover:bg-primary-600 group-hover:text-white">Lihat Detail</button>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<!-- Why Choose Us -->
+		<section id="kenapa-kita" class="bg-ink-950 py-20" data-nav-theme="dark">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="reveal mb-12 text-center">
+					<p class="text-sm font-bold uppercase tracking-wider text-gold-400">Kenapa Kita</p>
+					<h2 class="mt-3 font-display text-3xl text-white sm:text-4xl">4 Alasan Jamaah Pilih Extera</h2>
+				</div>
+
+				<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+					<div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+						<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-t-[999px] rounded-b-md bg-gold-400/15">
+							<svg class="h-6 w-6 text-gold-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z" />
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+							</svg>
+						</div>
+						<h3 class="font-display text-lg text-white">Berizin & Terpercaya</h3>
+						<p class="mt-2 text-sm text-ink-100/70">Terdaftar resmi, jadi kamu dan orang tua bisa sama-sama tenang.</p>
+					</div>
+
+					<div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+						<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-t-[999px] rounded-b-md bg-gold-400/15">
+							<svg class="h-6 w-6 text-gold-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" />
+								<circle cx="9" cy="7" r="4" stroke-width="2" />
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M23 21v-2a4 4 0 00-3-3.87" />
+							</svg>
+						</div>
+						<h3 class="font-display text-lg text-white">Tim Muda, Ngerti Kamu</h3>
+						<p class="mt-2 text-sm text-ink-100/70">Pendamping berpengalaman yang sepemikiran dengan kamu, dari manasik sampai pulang.</p>
+					</div>
+
+					<div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+						<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-t-[999px] rounded-b-md bg-gold-400/15">
+							<svg class="h-6 w-6 text-gold-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M5 21V7a2 2 0 012-2h10a2 2 0 012 2v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01" />
+							</svg>
+						</div>
+						<h3 class="font-display text-lg text-white">Hotel Strategis</h3>
+						<p class="mt-2 text-sm text-ink-100/70">Dekat lokasi ibadah, jalan kaki gampang, nggak buang waktu di jalan.</p>
+					</div>
+
+					<div class="reveal rounded-3xl border border-white/10 bg-white/5 p-6">
+						<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-t-[999px] rounded-b-md bg-gold-400/15">
+							<svg class="h-6 w-6 text-gold-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l2 2 4-4m-9 9V3h12v18l-3-2-3 2-3-2-3 2z" />
+							</svg>
+						</div>
+						<h3 class="font-display text-lg text-white">Harga Transparan</h3>
+						<p class="mt-2 text-sm text-ink-100/70">Rincian biaya jelas dari awal, nggak ada kejutan pas udah deposit.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Gallery -->
+		<section class="mx-auto max-w-7xl px-6 py-20 lg:px-8" data-nav-theme="light">
+			<div class="reveal mb-12 text-center">
+				<p class="text-sm font-bold uppercase tracking-wider text-gold-700">Galeri</p>
+				<h2 class="mt-3 font-display text-3xl text-ink-900 sm:text-4xl">Momen Jamaah Muda</h2>
+			</div>
+
+			<div class="swiper gallerySwiper overflow-hidden rounded-3xl">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=800&q=80" alt="Gallery image 1">
+					</div>
+					<div class="swiper-slide">
+						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=800&q=80" alt="Gallery image 2">
+					</div>
+					<div class="swiper-slide">
+						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=800&q=80" alt="Gallery image 3">
+					</div>
+					<div class="swiper-slide">
+						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=800&q=80" alt="Gallery image 4">
+					</div>
+					<div class="swiper-slide">
+						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=800&q=80" alt="Gallery image 5">
+					</div>
+					<div class="swiper-slide">
+						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=800&q=80" alt="Gallery image 6">
+					</div>
+					<div class="swiper-slide">
+						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=800&q=80" alt="Gallery image 7">
+					</div>
+					<div class="swiper-slide">
+						<a href="/gallery" class="rounded-3xl">
+							<div class="h-56 w-full bg-linear-to-br from-gold-300 to-gold-500 flex items-center justify-center p-4 rounded-3xl shadow-soft">
+								<p class="text-ink-900 font-bold text-lg">Lihat Selengkapnya</p>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="mt-6 flex items-center justify-between">
+					<div class="swiper-pagination static!"></div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Testimoni -->
+		<section id="testimoni" class="bg-white py-20" data-nav-theme="light">
+			<div class="mx-auto max-w-7xl px-6 lg:px-8">
+				<div class="reveal mb-12 text-center">
+					<p class="text-sm font-bold uppercase tracking-wider text-gold-700">Testimoni</p>
+					<h2 class="mt-3 font-display text-3xl text-ink-900 sm:text-4xl">Kata Jamaah Kami</h2>
+				</div>
+
+				<div class="grid gap-6 md:grid-cols-3">
+					<blockquote class="reveal rounded-3xl border border-primary-200 bg-primary-50 p-6">
+						<p class="font-display text-4xl leading-none text-gold-400">"</p>
+						<p class="mt-2 text-sm text-ink-700">Rombongannya seru, pembimbingnya sabar banget, umrah pertamaku jadi terasa nyaman.</p>
+						<div class="mt-5 flex items-center gap-3">
+							<img src="https://i.pravatar.cc/64?img=47" alt="Rani" class="h-10 w-10 rounded-full object-cover ring-2 ring-gold-300" />
+							<div>
+								<p class="text-sm font-bold text-ink-900">Rani, 24</p>
+								<p class="text-xs text-ink-400">Jakarta</p>
+							</div>
+						</div>
+					</blockquote>
+					<blockquote class="reveal rounded-3xl border border-primary-200 bg-primary-50 p-6">
+						<p class="font-display text-4xl leading-none text-gold-400">"</p>
+						<p class="mt-2 text-sm text-ink-700">Hotelnya deket banget, itinerary jelas dari awal. Nggak buang-buang waktu di jalan.</p>
+						<div class="mt-5 flex items-center gap-3">
+							<img src="https://i.pravatar.cc/64?img=32" alt="Fajar" class="h-10 w-10 rounded-full object-cover ring-2 ring-gold-300" />
+							<div>
+								<p class="text-sm font-bold text-ink-900">Fajar, 27</p>
+								<p class="text-xs text-ink-400">Bandung</p>
+							</div>
+						</div>
+					</blockquote>
+					<blockquote class="reveal rounded-3xl border border-primary-200 bg-primary-50 p-6">
+						<p class="font-display text-4xl leading-none text-gold-400">"</p>
+						<p class="mt-2 text-sm text-ink-700">Pertama kali jauh dari orang tua, tapi tetap di-handle rapi. Tim-nya responsif banget.</p>
+						<div class="mt-5 flex items-center gap-3">
+							<img src="https://i.pravatar.cc/64?img=15" alt="Nadia" class="h-10 w-10 rounded-full object-cover ring-2 ring-gold-300" />
+							<div>
+								<p class="text-sm font-bold text-ink-900">Nadia, 22</p>
+								<p class="text-xs text-ink-400">Surabaya</p>
+							</div>
+						</div>
+					</blockquote>
+				</div>
+			</div>
+		</section>
+
+		<!-- Follow Us -->
+		<section class="mx-auto max-w-7xl px-6 py-20 lg:px-8" data-nav-theme="light">
+			<div class="reveal mb-12 text-center">
+				<p class="text-sm font-bold uppercase tracking-wider text-gold-700">Sosmed</p>
+				<h2 class="mt-3 font-display text-3xl text-ink-900 sm:text-4xl">Ikuti Kami di Media Sosial</h2>
+			</div>
+
+			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<article class="reveal group rounded-3xl border border-primary-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
+					<h3 class="font-display text-xl text-ink-900">Instagram</h3>
+					<p class="mt-2 text-sm text-ink-400">Temukan inspirasi perjalanan, momen seru, dan destinasi favorit kami di Instagram.</p>
+					<a href="https://instagram.com" target="_blank" class="inline-block mt-4 rounded-full bg-linear-to-r from-[#f58529] via-[#dd2a7b] to-[#8134af] px-4 py-2 text-sm font-bold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="inline-block mb-1 me-1" viewBox="0 0 16 16">
+							<path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+						</svg>
+						exteratravel
+					</a>
+				</article>
+
+				<article class="reveal group rounded-3xl border border-primary-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
+					<h3 class="font-display text-xl text-ink-900">TikTok</h3>
+					<p class="mt-2 text-sm text-ink-400">Jangan lewatkan konten video menarik dan rekomendasi liburan terbaru di TikTok.</p>
+					<a href="https://tiktok.com" target="_blank" class="inline-block mt-4 rounded-full bg-[#121212] px-4 py-2 text-sm font-bold text-white transition-all duration-300 hover:scale-105 hover:shadow-lg" style="box-shadow: -2px 0 0 #25F4EE, 2px 0 0 #FE2C55;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="inline-block mb-1 me-1" viewBox="0 0 16 16">
+							<path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/>
+						</svg>
+						exteratravel
+					</a>
+				</article>
+
+				<article class="reveal group rounded-3xl border border-primary-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
+					<h3 class="font-display text-xl text-ink-900">Facebook</h3>
+					<p class="mt-2 text-sm text-ink-400">Ikuti Facebook kami untuk mendapatkan update layanan, promo, dan informasi perjalanan terkini.</p>
+					<a href="https://facebook.com" target="_blank" class="inline-block mt-4 rounded-full bg-[#1877F2] px-4 py-2 text-sm font-bold text-white transition-all duration-300 hover:scale-105 hover:bg-[#166FE5] hover:shadow-lg">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="inline-block mb-1 me-1" viewBox="0 0 16 16">
+							<path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+						</svg>
+						Extera Travel
+					</a>
+				</article>
+			</div>
+		</section>
+	</main>
+
+	<!-- Product Detail Modal -->
+	<div id="productModal" class="fixed inset-0 z-60 hidden items-center justify-center p-4" aria-hidden="true">
+		<div id="modalBackdrop" class="absolute inset-0 bg-ink-950/70 backdrop-blur-sm"></div>
+		<div class="relative z-10 w-full max-w-xl rounded-3xl border border-gold-200 bg-white p-6 shadow-soft sm:p-8">
+			<div class="mb-6 flex items-start justify-between gap-4">
+				<div>
+					<p class="text-xs font-bold uppercase tracking-wider text-gold-700">Detail Paket</p>
+					<h3 class="mt-2 font-display text-2xl text-ink-900">Paket Umrah Extera Travel</h3>
+				</div>
+				<button id="closeModalBtn" class="rounded-full border border-primary-200 px-3 py-1.5 text-sm font-bold text-primary-700 transition hover:bg-primary-50">Tutup</button>
+			</div>
+
+			<div class="space-y-4 text-sm text-ink-700">
+				<p>Paket sudah termasuk tiket pesawat PP, akomodasi hotel, konsumsi, transportasi lokal, dan perlengkapan umrah.</p>
+				<ul class="list-inside list-disc space-y-1">
+					<li>Durasi perjalanan: 9 - 12 hari</li>
+					<li>Pendamping ibadah berpengalaman</li>
+					<li>Manasik umrah sebelum keberangkatan</li>
+					<li>Dokumentasi perjalanan jamaah</li>
+				</ul>
+				<p class="rounded-2xl bg-primary-50 p-3 text-primary-900">Catatan: ini modal statis untuk tahap testing, konten dapat dibuat dinamis pada tahap berikutnya.</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Floating WhatsApp CTA -->
+	<a href="https://wa.me/6281234567890" target="_blank" class="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-gold-400 px-5 py-3.5 text-sm font-bold text-ink-900 shadow-gold transition hover:-translate-y-0.5 hover:bg-gold-300">
+		<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+			<path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.99.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.336-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+		</svg>
+		Chat Admin
+	</a>
+@endsection
+
+@push('styles')
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+@endpush
+
+@push('scripts')
+    @vite(['resources/js/pages/home.js'])
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+@endpush

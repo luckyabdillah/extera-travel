@@ -1,0 +1,108 @@
+@import 'tailwindcss';
+@plugin 'daisyui' {
+    themes: light, dark;
+    prefix: 'd-';
+}
+@plugin 'daisyui/theme' {
+    name: "light";
+    default: true;
+    --color-primary: oklch(0.3923 0.0777 149.41);
+    --color-secondary: oklch(0.8603 0.1603 95.3305);
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@utility d-btn {
+    @apply rounded-full px-6 py-3 text-sm font-semibold shadow-soft transition;
+}
+
+@utility d-badge {
+    @apply rounded-full border px-4 py-1 text-xs tracking-wide;
+}
+
+@theme {
+    --color-primary-50: #eef8f2;
+    --color-primary-100: #d9efdf;
+    --color-primary-200: #b7e0c1;
+    --color-primary-300: #8fcc9d;
+    --color-primary-400: #67b57a;
+    --color-primary-500: #3f855e;
+    --color-primary-600: #34704f;
+    --color-primary-700: #285a40;
+    --color-primary-800: #1f4632;
+    --color-primary-900: #173627;
+
+    --color-gold-50: #fff9e8;
+    --color-gold-100: #fef1bd;
+    --color-gold-200: #f9e08a;
+    --color-gold-300: #f2c94c;
+    --color-gold-400: #e3b93a;
+    --color-gold-500: #c99a1e;
+    --color-gold-600: #a97f13;
+    --color-gold-700: #86630f;
+    --color-gold-800: #654a0b;
+    --color-gold-900: #443207;
+
+    --color-ink-50: #f5f5f5;
+    --color-ink-100: #e6e6e6;
+    --color-ink-300: #a3a3a5;
+    --color-ink-400: #727275;
+    --color-ink-700: #232325;
+    --color-ink-800: #17181a;
+    --color-ink-900: #0b0b0c;
+    --color-ink-950: #050505;
+
+    --shadow-soft: 0 20px 45px -15px rgba(11, 11, 12, 0.35);
+    --shadow-gold: 0 10px 30px -8px rgba(224, 165, 46, 0.45);
+}
+
+body { font-family: 'Plus Jakarta Sans', sans-serif; }
+.font-display { font-family: 'Reem Kufi', sans-serif; }
+
+/* Scalloped arch divider — the recurring signature motif */
+.scallop {
+    height: 16px;
+    width: 100%;
+    background-image: radial-gradient(circle at 12px 0, transparent 11px, var(--scallop-color) 11.5px);
+    background-size: 24px 16px;
+    background-repeat: repeat-x;
+}
+.scallop-flip {
+    transform: scaleY(-1);
+}
+
+/* Scroll reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dot-grid {
+    background-image: radial-gradient(circle, rgba(224,165,46,0.35) 1.5px, transparent 1.5px);
+    background-size: 18px 18px;
+}
+
+.swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.45);
+    opacity: 1;
+}
+.swiper-pagination-bullet-active {
+    background: #d4af37;
+}
+
+/* apply flex flex-col gap-1 py-1 */
+.d-menu li ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
