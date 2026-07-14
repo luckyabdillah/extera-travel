@@ -26,7 +26,7 @@
 					Foto
 				</summary>
 				<ul>
-					<li><a href="#" class="{{ request()->routeIs('admin.galleries') ? 'd-menu-active' : '' }}">Galeri</a></li>
+					<li><a href="{{ route('admin.galleries.index') }}" class="{{ request()->routeIs('admin.galleries*') ? 'd-menu-active' : '' }}">Galeri</a></li>
 					<li><a href="{{ route('admin.hero-images.index') }}" class="{{ request()->routeIs('admin.hero-images*') ? 'd-menu-active' : '' }}">Landing Page</a></li>
 				</ul>
 			</details>

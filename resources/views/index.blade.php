@@ -194,27 +194,33 @@
 
 			<div class="swiper gallerySwiper overflow-hidden rounded-3xl">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=800&q=80" alt="Gallery image 1">
-					</div>
-					<div class="swiper-slide">
-						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=800&q=80" alt="Gallery image 2">
-					</div>
-					<div class="swiper-slide">
-						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=800&q=80" alt="Gallery image 3">
-					</div>
-					<div class="swiper-slide">
-						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=800&q=80" alt="Gallery image 4">
-					</div>
-					<div class="swiper-slide">
-						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=800&q=80" alt="Gallery image 5">
-					</div>
-					<div class="swiper-slide">
-						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=800&q=80" alt="Gallery image 6">
-					</div>
-					<div class="swiper-slide">
-						<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=800&q=80" alt="Gallery image 7">
-					</div>
+					@forelse($galleries as $gallery)
+						<div class="swiper-slide">
+							<img class="h-56 w-full rounded-3xl object-cover" src="{{ asset('storage/' . $gallery->path) }}" alt="{{ $gallery->title ?? 'Gallery' }}">
+						</div>
+					@empty
+						<div class="swiper-slide">
+							<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=800&q=80" alt="Gallery image 1">
+						</div>
+						<div class="swiper-slide">
+							<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=800&q=80" alt="Gallery image 2">
+						</div>
+						<div class="swiper-slide">
+							<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=800&q=80" alt="Gallery image 3">
+						</div>
+						<div class="swiper-slide">
+							<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=800&q=80" alt="Gallery image 4">
+						</div>
+						<div class="swiper-slide">
+							<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=800&q=80" alt="Gallery image 5">
+						</div>
+						<div class="swiper-slide">
+							<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=800&q=80" alt="Gallery image 6">
+						</div>
+						<div class="swiper-slide">
+							<img class="h-56 w-full rounded-3xl object-cover" src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=800&q=80" alt="Gallery image 7">
+						</div>
+					@endforelse
 					<div class="swiper-slide">
 						<a href="/gallery" class="rounded-3xl">
 							<div class="h-56 w-full bg-linear-to-br from-gold-300 to-gold-500 flex items-center justify-center p-4 rounded-3xl shadow-soft">
