@@ -48,7 +48,7 @@
                     <li><a href="#hero" class="nav-link transition">Home</a></li>
                     <li><a href="#paket" class="nav-link transition">Paket</a></li>
                     <li><a href="#kenapa-kita" class="nav-link transition">Kenapa Kita</a></li>
-                    <li><a href="#testimoni" class="nav-link transition">Testimoni</a></li>
+                    <li><a href="/faq" class="nav-link transition">FAQ</a></li>
                     <li><a href="#kontak" class="nav-link transition">Kontak</a></li>
                 </ul>
 
@@ -67,7 +67,7 @@
                     <li><a href="#hero" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Home</a></li>
                     <li><a href="#paket" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Paket</a></li>
                     <li><a href="#kenapa-kita" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Kenapa Kita</a></li>
-                    <li><a href="#testimoni" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Testimoni</a></li>
+                    <li><a href="/faq" class="mobile-nav-link block rounded-lg px-3 py-2 transition">FAQ</a></li>
                     <li><a href="#kontak" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Kontak</a></li>
                     <li><a href="#paket" class="mt-2 block rounded-full bg-gold-400 px-4 py-2 text-center font-bold text-ink-900">Gabung Sekarang</a></li>
                 </ul>

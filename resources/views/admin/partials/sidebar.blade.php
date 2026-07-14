@@ -53,7 +53,7 @@
 		</li>
 
 		<li>
-			<a href="#" class="{{ request()->routeIs('admin.faqs') ? 'd-menu-active' : '' }}">
+			<a href="{{ route('admin.faqs.index') }}" class="{{ request()->routeIs('admin.faqs*') ? 'd-menu-active' : '' }}">
 				<x-lucide-message-circle-question-mark class="h-4 w-4" />
 				FAQ
 			</a>
