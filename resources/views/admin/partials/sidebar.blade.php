@@ -46,7 +46,7 @@
 		</li>
 
 		<li>
-			<a href="#" class="{{ request()->routeIs('admin.blogs') ? 'd-menu-active' : '' }}">
+			<a href="{{ route('admin.blogs.index') }}" class="{{ request()->routeIs('admin.blogs*') ? 'd-menu-active' : '' }}">
 				<x-lucide-newspaper class="h-4 w-4" />
 				Blog
 			</a>
