@@ -23,6 +23,10 @@
     @apply rounded-full border px-4 py-1 text-xs tracking-wide;
 }
 
+@utility d-menu-active {
+    @apply bg-primary-50/10 rounded-xl;
+}
+
 @theme {
     --color-primary-50: #eef8f2;
     --color-primary-100: #d9efdf;
@@ -98,11 +102,17 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; }
     background: #d4af37;
 }
 
-/* apply flex flex-col gap-1 py-1 */
-.d-menu li ul {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+/* remove scrollbar */
+.d-drawer-side {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.d-menu li a {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+}
+
+svg {
+    flex-shrink: 0;
 }

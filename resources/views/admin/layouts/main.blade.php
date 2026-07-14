@@ -10,6 +10,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+        
+	<!-- Icon -->
+	<link rel="mask-icon" href="{{ asset('assets/img/logo/square-light.png') }}">
+	<link rel="alternate icon" class="js-site-favicon" type="image/png" href="{{ asset('assets/img/logo/square-light.png') }}">
+	<link rel="icon" class="js-site-favicon" type="image/png" href="{{ asset('assets/img/logo/square-light.png') }}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/logo/square-light.png') }}">
+	<link rel="shortcut icon" href="{{ asset('assets/img/logo/square-light.png') }}" type="image/x-icon">
 
 	{{-- Cegah flash tema saat reload kalau user pernah pilih dark mode --}}
 	<script>
