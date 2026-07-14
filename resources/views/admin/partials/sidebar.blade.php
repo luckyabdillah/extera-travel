@@ -11,7 +11,7 @@
     
 	<ul class="d-menu w-full gap-2 px-3 pb-6 [&_li>details>summary]:font-semibold">
 		<li>
-			<a href="#" class="{{ request()->routeIs('admin') ? 'd-menu-active' : '' }}">
+			<a href="{{ route('admin') }}" class="{{ request()->routeIs('admin') ? 'd-menu-active' : '' }}">
 				<x-lucide-layout-dashboard class="h-4 w-4" />
 				Dashboard
 			</a>
@@ -27,7 +27,7 @@
 				</summary>
 				<ul>
 					<li><a href="#" class="{{ request()->routeIs('admin.galleries') ? 'd-menu-active' : '' }}">Galeri</a></li>
-					<li><a href="#" class="{{ request()->routeIs('admin.hero-images') ? 'd-menu-active' : '' }}">Landing Page</a></li>
+					<li><a href="{{ route('admin.hero-images.index') }}" class="{{ request()->routeIs('admin.hero-images*') ? 'd-menu-active' : '' }}">Landing Page</a></li>
 				</ul>
 			</details>
 		</li>

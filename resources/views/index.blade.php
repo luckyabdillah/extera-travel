@@ -43,22 +43,32 @@
 				<div class="relative mx-auto w-full max-w-sm">
 					<div class="absolute -inset-4 rounded-t-[999px] rounded-b-3xl border-2 border-dashed border-gold-400/30"></div>
 					<div id="carousel" class="relative aspect-4/5 w-full overflow-hidden rounded-t-[999px] rounded-b-3xl shadow-soft ring-1 ring-white/10">
-						<div class="slide absolute inset-0 opacity-100 transition-opacity duration-700">
-							<img src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=900&q=80" alt="Perjalanan umrah" class="h-full w-full object-cover" />
-						</div>
-						<div class="slide absolute inset-0 opacity-0 transition-opacity duration-700">
-							<img src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=900&q=80" alt="Suasana ibadah" class="h-full w-full object-cover" />
-						</div>
-						<div class="slide absolute inset-0 opacity-0 transition-opacity duration-700">
-							<img src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=900&q=80" alt="Momen jamaah" class="h-full w-full object-cover" />
-						</div>
+						@forelse($heroImages as $index => $hero)
+							<div class="slide absolute inset-0 {{ $index === 0 ? 'opacity-100' : 'opacity-0' }} transition-opacity duration-700">
+								<img src="{{ asset('storage/' . $hero->path) }}" alt="{{ $hero->title ?? 'Hero Image' }}" class="h-full w-full object-cover" />
+							</div>
+						@empty
+							<div class="slide absolute inset-0 opacity-100 transition-opacity duration-700">
+								<img src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=900&q=80" alt="Perjalanan umrah" class="h-full w-full object-cover" />
+							</div>
+							<div class="slide absolute inset-0 opacity-0 transition-opacity duration-700">
+								<img src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=900&q=80" alt="Suasana ibadah" class="h-full w-full object-cover" />
+							</div>
+							<div class="slide absolute inset-0 opacity-0 transition-opacity duration-700">
+								<img src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=900&q=80" alt="Momen jamaah" class="h-full w-full object-cover" />
+							</div>
+						@endforelse
 						<div class="absolute inset-0 bg-linear-to-t from-ink-950/70 via-transparent to-transparent"></div>
 					</div>
 
 					<div class="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
-						<button class="dot h-2 w-7 rounded-full bg-gold-300"></button>
-						<button class="dot h-2 w-2 rounded-full bg-white/40"></button>
-						<button class="dot h-2 w-2 rounded-full bg-white/40"></button>
+						@forelse($heroImages as $index => $hero)
+							<button class="dot h-2 {{ $index === 0 ? 'w-7 bg-gold-300' : 'w-2 bg-white/40' }} rounded-full" aria-label="Slide {{ $index + 1 }}"></button>
+						@empty
+							<button class="dot h-2 w-7 rounded-full bg-gold-300"></button>
+							<button class="dot h-2 w-2 rounded-full bg-white/40"></button>
+							<button class="dot h-2 w-2 rounded-full bg-white/40"></button>
+						@endforelse
 					</div>
 
 					<div class="absolute -bottom-6 -left-6 rounded-2xl bg-white p-4 shadow-soft">
