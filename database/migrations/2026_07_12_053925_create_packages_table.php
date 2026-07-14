@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->foreignId('package_category_id')->constrained('package_categories')->onDelete('set null');
+            $table->foreignId('package_category_id')->nullable()->constrained('package_categories')->onDelete('set null');
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('flyer_path')->nullable();

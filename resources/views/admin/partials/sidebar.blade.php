@@ -20,24 +20,16 @@
 		<li class="menu-title mt-3 text-[11px] uppercase tracking-wider text-ink-100/40">Master Data</li>
 
 		<li>
-			<a href="#" class="{{ request()->routeIs('admin.faqs') ? 'd-menu-active' : '' }}">
-				<x-lucide-message-circle-question-mark class="h-4 w-4" />
-				FAQ
-			</a>
-		</li>
-
-		<li>
-			<a href="#" class="{{ request()->routeIs('admin.blogs') ? 'd-menu-active' : '' }}">
-				<x-lucide-newspaper class="h-4 w-4" />
-				Blog
-			</a>
-		</li>
-
-		<li>
-			<a href="#" class="{{ request()->routeIs('admin.galleries') ? 'd-menu-active' : '' }}">
-				<x-lucide-image class="h-4 w-4" />
-				Galeri
-			</a>
+			<details {{ request()->routeIs('admin.galleries*') || request()->routeIs('admin.hero-images*') ? 'open' : '' }}>
+				<summary>
+					<x-lucide-image class="h-4 w-4" />
+					Foto
+				</summary>
+				<ul>
+					<li><a href="#" class="{{ request()->routeIs('admin.galleries') ? 'd-menu-active' : '' }}">Galeri</a></li>
+					<li><a href="#" class="{{ request()->routeIs('admin.hero-images') ? 'd-menu-active' : '' }}">Landing Page</a></li>
+				</ul>
+			</details>
 		</li>
 
 		<li>
@@ -51,6 +43,20 @@
 					<li><a href="#" class="{{ request()->routeIs('admin.package-categories') ? 'd-menu-active' : '' }}">Kategori Paket</a></li>
 				</ul>
 			</details>
+		</li>
+
+		<li>
+			<a href="#" class="{{ request()->routeIs('admin.blogs') ? 'd-menu-active' : '' }}">
+				<x-lucide-newspaper class="h-4 w-4" />
+				Blog
+			</a>
+		</li>
+
+		<li>
+			<a href="#" class="{{ request()->routeIs('admin.faqs') ? 'd-menu-active' : '' }}">
+				<x-lucide-message-circle-question-mark class="h-4 w-4" />
+				FAQ
+			</a>
 		</li>
 		
 		<li class="menu-title mt-3 text-[11px] uppercase tracking-wider text-ink-100/40">Transaksi</li>
