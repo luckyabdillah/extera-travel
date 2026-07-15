@@ -4,17 +4,18 @@ namespace Database\Seeders;
 
 use App\Models\PackageCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class PackageCategorySeeder extends Seeder
 {
     public function run(): void
     {
         $categories = [
-            ['name' => 'Umrah Reguler', 'mark_as_favorite' => false],
-            ['name' => 'Umrah Plus Turki', 'mark_as_favorite' => true],
-            ['name' => 'Umrah Eksklusif', 'mark_as_favorite' => false],
-            ['name' => 'Haji Furoda', 'mark_as_favorite' => false],
-            ['name' => 'Wisata Halal', 'mark_as_favorite' => false],
+            ['uuid' => Str::uuid()->toString(), 'name' => 'Umrah Reguler', 'mark_as_favorite' => false],
+            ['uuid' => Str::uuid()->toString(), 'name' => 'Umrah Plus Turki', 'mark_as_favorite' => true],
+            ['uuid' => Str::uuid()->toString(), 'name' => 'Umrah Eksklusif', 'mark_as_favorite' => false],
+            ['uuid' => Str::uuid()->toString(), 'name' => 'Haji Furoda', 'mark_as_favorite' => false],
+            ['uuid' => Str::uuid()->toString(), 'name' => 'Wisata Halal', 'mark_as_favorite' => false],
         ];
 
         foreach ($categories as $category) {

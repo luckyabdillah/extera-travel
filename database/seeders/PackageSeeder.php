@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Package;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class PackageSeeder extends Seeder
 {
@@ -12,7 +13,9 @@ class PackageSeeder extends Seeder
     {
         $packages = [
             [
+                'uuid' => Str::uuid()->toString(),
                 'title' => 'Umrah Reguler 9 Hari',
+                'slug' => Str::slug('Umrah Reguler 9 Hari'),
                 'package_category_id' => 1,
                 'flight_by' => 'Saudia Airlines',
                 'date' => Carbon::now()->addMonths(2),
@@ -22,12 +25,16 @@ class PackageSeeder extends Seeder
                 'exclusions' => "Biaya visa tambahan jika ada perubahan\nBiaya kelebihan bagasi\nBiaya tour tambahan di luar paket\nLaundry dan telepon hotel",
                 'requirements' => "Paspor masa berlaku min 12 bulan\nKTP asli dan fotokopi\nKK fotokopi\nPas foto 4x6 latar putih\nBuku nikah (jika suami/istri)\nAkta kelahiran (jika mendaftarkan anak)",
                 'prices' => [
-                    ['currency' => 'IDR', 'price' => 28000000],
-                    ['currency' => 'USD', 'price' => 1800],
+                    ['price_type' => 'QUAD', 'currency' => 'IDR', 'price' => 28000000],
+                    ['price_type' => 'TRIPLE', 'currency' => 'IDR', 'price' => 30000000],
+                    ['price_type' => 'DOUBLE', 'currency' => 'IDR', 'price' => 32000000],
+                    ['price_type' => 'SINGLE', 'currency' => 'IDR', 'price' => 36000000],
                 ],
             ],
             [
+                'uuid' => Str::uuid()->toString(),
                 'title' => 'Umrah Plus Turki 12 Hari',
+                'slug' => Str::slug('Umrah Plus Turki 12 Hari'),
                 'package_category_id' => 2,
                 'flight_by' => 'Turkish Airlines',
                 'date' => Carbon::now()->addMonths(3),
@@ -37,12 +44,16 @@ class PackageSeeder extends Seeder
                 'exclusions' => "Biaya tour tambahan di luar paket\nLaundry dan telepon hotel\nBiaya kelebihan bagasi",
                 'requirements' => "Paspor masa berlaku min 18 bulan\nKTP asli dan fotokopi\nKK fotokopi\nPas foto 4x6 latar putih\nBuku nikah (jika suami/istri)",
                 'prices' => [
-                    ['currency' => 'IDR', 'price' => 39000000],
-                    ['currency' => 'USD', 'price' => 2500],
+                    ['price_type' => 'QUAD', 'currency' => 'IDR', 'price' => 45000000],
+                    ['price_type' => 'TRIPLE', 'currency' => 'IDR', 'price' => 47000000],
+                    ['price_type' => 'DOUBLE', 'currency' => 'IDR', 'price' => 49000000],
+                    ['price_type' => 'SINGLE', 'currency' => 'IDR', 'price' => 53000000],
                 ],
             ],
             [
+                'uuid' => Str::uuid()->toString(),
                 'title' => 'Umrah Eksklusif 9 Hari',
+                'slug' => Str::slug('Umrah Eksklusif 9 Hari'),
                 'package_category_id' => 3,
                 'flight_by' => 'Garuda Indonesia',
                 'date' => Carbon::now()->addMonths(1),
@@ -52,8 +63,8 @@ class PackageSeeder extends Seeder
                 'exclusions' => "Biaya tour tambahan di luar paket\nLaundry dan telepon hotel",
                 'requirements' => "Paspor masa berlaku min 12 bulan\nKTP asli dan fotokopi\nKK fotokopi\nPas foto 4x6 latar putih",
                 'prices' => [
-                    ['currency' => 'IDR', 'price' => 52000000],
-                    ['currency' => 'USD', 'price' => 3400],
+                    ['price_type' => 'DOUBLE', 'currency' => 'IDR', 'price' => 75000000],
+                    ['price_type' => 'SINGLE', 'currency' => 'IDR', 'price' => 85000000],
                 ],
             ],
         ];

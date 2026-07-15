@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('package_prices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('package_id')->constrained('packages')->onDelete('cascade');
+            $table->string('price_type', 50);
             $table->string('currency', 10)->default('IDR');
             $table->decimal('price', 12, 2)->default(0.00);
             $table->timestamps();
