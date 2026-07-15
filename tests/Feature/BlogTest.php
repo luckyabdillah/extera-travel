@@ -82,6 +82,52 @@ it('can update a blog and its slug', function () {
     ]);
 });
 
+it('deletes removed blog images when a post is updated', function () {
+    Storage::fake('public');
+
+    Storage::disk('public')->put('blog-images/old-one.jpg', 'one');
+    Storage::disk('public')->put('blog-images/keep-one.jpg', 'two');
+
+    $oldImage = Storage::disk('public')->url('blog-images/old-one.jpg');
+    $keepImage = Storage::disk('public')->url('blog-images/keep-one.jpg');
+
+    $blog = Blog::create([
+        'title' => 'Blog With Images',
+        'slug' => 'blog-with-images',
+        'content' => '<p><img src="' . $oldImage . '"></p><p><img src="' . $keepImage . '"></p>',
+    ]);
+
+    $response = $this->put(route('admin.blogs.update', $blog), [
+        'title' => 'Blog With Images',
+        'content' => '<p><img src="' . $keepImage . '"></p>',
+    ]);
+
+    $response->assertRedirect(route('admin.blogs.index'));
+    Storage::disk('public')->assertMissing('blog-images/old-one.jpg');
+    Storage::disk('public')->assertExists('blog-images/keep-one.jpg');
+});
+
+it('deletes blog images when a post is deleted', function () {
+    Storage::fake('public');
+
+    Storage::disk('public')->put('blog-images/delete-me.jpg', 'one');
+    $imageUrl = Storage::disk('public')->url('blog-images/delete-me.jpg');
+
+    $blog = Blog::create([
+        'title' => 'Delete Blog',
+        'slug' => 'delete-blog',
+        'content' => '<p><img src="' . $imageUrl . '"></p>',
+    ]);
+
+    $response = $this->delete(route('admin.blogs.destroy', $blog));
+
+    $response->assertRedirect(route('admin.blogs.index'));
+    $this->assertDatabaseMissing('blogs', [
+        'id' => $blog->id,
+    ]);
+    Storage::disk('public')->assertMissing('blog-images/delete-me.jpg');
+});
+
 it('can delete a blog', function () {
     $blog = Blog::create([
         'title' => 'Delete Blog',

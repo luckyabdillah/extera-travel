@@ -56,6 +56,9 @@ class BlogController extends Controller
             'content' => 'required|string',
         ]);
 
+        $oldImagePaths = $this->extractBlogImagePaths($blog->content);
+        $newImagePaths = $this->extractBlogImagePaths($request->content);
+
         $data = [
             'title' => $request->title,
             'content' => $request->content,
@@ -74,11 +77,14 @@ class BlogController extends Controller
 
         $blog->update($data);
 
+        $this->deleteBlogImages(array_diff($oldImagePaths, $newImagePaths));
+
         return redirect()->route('admin.blogs.index')->with('success', 'Artikel blog berhasil diperbarui.');
     }
 
     public function destroy(Blog $blog)
     {
+        $this->deleteBlogImages($this->extractBlogImagePaths($blog->content));
         $blog->delete();
 
         return redirect()->route('admin.blogs.index')->with('success', 'Artikel blog berhasil dihapus.');
@@ -95,5 +101,29 @@ class BlogController extends Controller
         return response()->json([
             'url' => Storage::disk('public')->url($path),
         ]);
+    }
+
+    private function extractBlogImagePaths(string $content): array
+    {
+        $pattern = "/<img[^>]+src=[\"']([^\"']+)[\"']/i";
+        preg_match_all($pattern, $content, $matches);
+
+        return collect($matches[1] ?? [])
+            ->map(function (string $url) {
+                $path = parse_url($url, PHP_URL_PATH) ?: $url;
+                $path = ltrim($path, '/');
+
+                return Str::startsWith($path, 'storage/') ? Str::after($path, 'storage/') : null;
+            })
+            ->filter(fn ($path) => is_string($path) && Str::startsWith($path, 'blog-images/'))
+            ->values()
+            ->all();
+    }
+
+    private function deleteBlogImages(array $paths): void
+    {
+        foreach ($paths as $path) {
+            Storage::disk('public')->delete($path);
+        }
     }
 }
