@@ -39,8 +39,8 @@
 					Paket
 				</summary>
 				<ul>
-					<li><a href="#" class="{{ request()->routeIs('admin.packages') ? 'd-menu-active' : '' }}">Paket Perjalanan</a></li>
-					<li><a href="#" class="{{ request()->routeIs('admin.package-categories') ? 'd-menu-active' : '' }}">Kategori Paket</a></li>
+					<li><a href="{{ route('admin.packages.index') }}" class="{{ request()->routeIs('admin.packages*') ? 'd-menu-active' : '' }}">Paket Perjalanan</a></li>
+					<li><a href="{{ route('admin.package-categories.index') }}" class="{{ request()->routeIs('admin.package-categories*') ? 'd-menu-active' : '' }}">Kategori Paket</a></li>
 				</ul>
 			</details>
 		</li>

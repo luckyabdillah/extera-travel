@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\FaqSeeder;
 use Database\Seeders\BlogSeeder;
+use Database\Seeders\PackageCategorySeeder;
+use Database\Seeders\PackageSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $this->call([FaqSeeder::class, BlogSeeder::class]);
+        $this->call([FaqSeeder::class, BlogSeeder::class, PackageCategorySeeder::class, PackageSeeder::class]);
 
         // User::factory()->create([
         //     'name' => 'Test User',

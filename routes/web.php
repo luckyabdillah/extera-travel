@@ -5,6 +5,8 @@ use App\Http\Controllers\HeroImageController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PackageCategoryController;
+use App\Http\Controllers\PackageController;
 use App\Models\HeroImage;
 
 Route::get('/', function () {
@@ -37,4 +39,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('faqs', FaqController::class);
     Route::post('blogs/upload-image', [BlogController::class, 'uploadImage'])->name('blogs.upload-image');
     Route::resource('blogs', BlogController::class);
+    Route::get('package-categories/{uuid}/restore', [PackageCategoryController::class, 'restore'])->name('package-categories.restore');
+    Route::resource('package-categories', PackageCategoryController::class);
+    Route::resource('packages', PackageController::class);
 });
