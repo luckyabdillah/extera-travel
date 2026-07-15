@@ -123,7 +123,15 @@
 								</div>
 
 								<div class="mt-4 flex gap-2">
-									<button class="product-detail-btn flex-1 rounded-full bg-primary-100 px-4 py-2.5 text-sm font-bold text-primary-800 transition group-hover:bg-primary-600 group-hover:text-white">Lihat Detail</button>
+									<button type="button"
+										class="detail-btn flex-1 rounded-full bg-primary-100 px-4 py-2.5 text-sm font-bold text-primary-800 transition hover:bg-primary-600 hover:text-white"
+										data-uuid="{{ $package->uuid }}">
+										Lihat Detail
+									</button>
+									<a href="{{ route('checkout', $package->uuid) }}"
+										class="flex-1 rounded-full text-center border border-primary-200 bg-white px-4 py-2.5 text-sm font-bold text-ink-600 transition hover:bg-primary-50 hover:text-primary-700">
+										Book
+									</a>
 								</div>
 							</div>
 						</article>
@@ -143,4 +151,196 @@
 		@endforelse
 	</section>
 </main>
-@endsection
+
+{{-- Detail Modal --}}
+<div id="packageModal" class="fixed inset-0 z-60 hidden items-center justify-center p-4" aria-hidden="true">
+	<div id="modalBackdrop" class="absolute inset-0 bg-ink-950/70 backdrop-blur-sm"></div>
+	<div class="relative z-10 w-full max-w-3xl min-h-[300px] max-h-[85vh] overflow-y-auto rounded-3xl border border-gold-200 bg-white shadow-soft">
+		{{-- Modal header --}}
+		<div class="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-primary-100 bg-white p-6 pb-4">
+			<div>
+				<p class="text-xs font-bold uppercase tracking-wider text-gold-700">Detail Paket</p>
+				<h3 id="modalTitle" class="mt-1 font-display text-2xl text-ink-900">Memuat...</h3>
+			</div>
+			<button id="closeModalBtn" class="rounded-full border border-primary-200 px-3 py-1.5 text-sm font-bold text-primary-700 transition hover:bg-primary-50">Tutup</button>
+		</div>
+
+		{{-- Loading spinner --}}
+		<div id="modalLoading" class="flex flex-col items-center justify-center py-20">
+			<div class="h-8 w-8 animate-spin rounded-full border-3 border-gold-400 border-t-transparent"></div>
+			<p class="mt-4 text-sm text-ink-400">Memuat detail paket...</p>
+		</div>
+
+		{{-- Modal content --}}
+		<div id="modalContent" class="hidden p-6 pt-4 space-y-6">
+			<div id="modalInfo" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+			<div id="modalPrices" class="rounded-2xl bg-primary-50 p-4">
+				<h4 class="font-display text-sm font-semibold text-primary-800 mb-2">Harga Paket</h4>
+				<div class="space-y-1"></div>
+			</div>
+			<div id="modalLists">
+				<div id="modalTabs" class="tabs tabs-bordered flex gap-0 border-b border-primary-200 mb-4" role="tablist">
+					<button class="tab tab-active font-bold text-sm px-5 py-2.5 text-primary-700 border-b-2 border-primary-600" data-tab="inclusions" role="tab">Termasuk</button>
+					<button class="tab font-bold text-sm px-5 py-2.5 text-ink-500 border-b-2 border-transparent hover:text-ink-700" data-tab="exclusions" role="tab">Tidak Termasuk</button>
+					<button class="tab font-bold text-sm px-5 py-2.5 text-ink-500 border-b-2 border-transparent hover:text-ink-700" data-tab="requirements" role="tab">Persyaratan</button>
+				</div>
+				<div id="modalTabContent" class="min-h-[120px]"></div>
+			</div>
+			<div id="modalItinerary">
+				<h4 class="font-display text-base font-semibold text-ink-900 mb-4 flex items-center gap-2">
+					<x-lucide-map-pin class="h-5 w-5 text-gold-600" />
+					Itinerary Perjalanan
+				</h4>
+				<div class="space-y-3"></div>
+			</div>
+		</div>
+
+		{{-- Error state --}}
+		<div id="modalError" class="hidden flex flex-col items-center justify-center py-16">
+			<x-lucide-alert-circle class="h-12 w-12 text-error/60" />
+			<p class="mt-4 text-sm font-semibold text-ink-600">Gagal memuat detail paket</p>
+			<p class="mt-1 text-xs text-ink-400">Silakan coba lagi.</p>
+		</div>
+	</div>
+</div>
+
+@push('scripts')
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	let modal = document.getElementById("packageModal");
+	let backdrop = document.getElementById("modalBackdrop");
+	let closeBtn = document.getElementById("closeModalBtn");
+	let loading = document.getElementById("modalLoading");
+	let content = document.getElementById("modalContent");
+	let error = document.getElementById("modalError");
+	let modalTitle = document.getElementById("modalTitle");
+	let modalInfo = document.getElementById("modalInfo");
+	let modalPrices = document.getElementById("modalPrices").querySelector(".space-y-1");
+	let modalItinerary = document.getElementById("modalItinerary").querySelector(".space-y-3");
+
+	function renderModal(data) {
+		modalTitle.textContent = data.title;
+
+		modalInfo.innerHTML = ""
+			+ '<div class="rounded-xl bg-base-100 p-3 text-center"><p class="text-xs text-base-content/50">Kategori</p><p class="font-display text-sm font-bold text-ink-900 mt-0.5">' + (data.category || "-") + '</p></div>'
+			+ '<div class="rounded-xl bg-base-100 p-3 text-center"><p class="text-xs text-base-content/50">Maskapai</p><p class="font-display text-sm font-bold text-ink-900 mt-0.5">' + (data.flight_by || "-") + '</p></div>'
+			+ '<div class="rounded-xl bg-base-100 p-3 text-center"><p class="text-xs text-base-content/50">Keberangkatan</p><p class="font-display text-sm font-bold text-ink-900 mt-0.5">' + data.date + '</p></div>'
+			+ '<div class="rounded-xl bg-base-100 p-3 text-center"><p class="text-xs text-base-content/50">Durasi</p><p class="font-display text-sm font-bold text-ink-900 mt-0.5">' + data.total_days + " hari / Kuota " + data.quota + '</p></div>';
+
+		modalPrices.innerHTML = "";
+		if (data.prices && data.prices.length) {
+			data.prices.forEach(function(p) {
+				modalPrices.innerHTML += '<div class="flex items-center justify-between text-sm py-1"><span class="text-ink-600">' + p.price_type + '</span><span class="font-display font-bold text-gold-700">' + (p.currency === "IDR" ? "Rp" : p.currency) + " " + p.price + '</span></div>';
+			});
+		} else {
+			modalPrices.innerHTML = '<p class="text-sm text-ink-400">Hubungi Admin</p>';
+		}
+
+
+
+		modalItinerary.innerHTML = "";
+		if (data.itineraries && data.itineraries.length) {
+			data.itineraries.forEach(function(i, idx) {
+				let acd = i.accommodation_days ? " (" + i.accommodation_days + " malam)" : "";
+				let meta = i.accommodation_place || i.meals
+					? '<div class="flex flex-wrap gap-x-4 gap-y-1 px-4 pb-3 text-xs text-ink-500 border-t border-primary-100 pt-3">'
+						+ (i.accommodation_place ? "<span>" + i.accommodation_place + acd + "</span>" : "")
+						+ (i.meals ? "<span>" + i.meals + "</span>" : "")
+						+ "</div>"
+					: "";
+				modalItinerary.innerHTML += '<details class="group rounded-xl border border-primary-200 overflow-hidden ' + (idx === 0 ? "open" : "") + '">'
+					+ '<summary class="flex cursor-pointer items-center justify-between gap-3 bg-primary-50 px-4 py-3 list-none marker:content-none">'
+					+ '<div class="flex items-center gap-3"><span class="d-badge d-badge-primary d-badge-sm font-bold shrink-0">' + i.marker + '</span>'
+					+ '<span class="font-display text-sm font-bold text-ink-900">' + i.title + '</span></div>'
+					+ '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4 shrink-0 text-primary-600 transition group-open:rotate-180"><path d="m6 9 6 6 6-6"/></svg>'
+					+ '</summary>'
+					+ '<div class="px-4 py-3 text-sm text-ink-600 leading-relaxed whitespace-pre-line">' + i.itinerary + '</div>'
+					+ meta + '</details>';
+			});
+		} else {
+			modalItinerary.innerHTML = '<p class="text-sm text-ink-400">Itinerary belum tersedia untuk paket ini.</p>';
+		}
+
+		window._modalData = data;
+		loading.classList.add("hidden");
+		error.classList.add("hidden");
+		content.classList.remove("hidden");
+		switchTab("inclusions");
+	}
+
+	function showError(msg) {
+		loading.classList.add("hidden");
+		content.classList.add("hidden");
+		error.classList.remove("hidden");
+	}
+
+	function openModalWithUuid(uuid) {
+		modalTitle.textContent = "Memuat...";
+		loading.classList.remove("hidden");
+		content.classList.add("hidden");
+		error.classList.add("hidden");
+
+		modal.classList.remove("hidden");
+		modal.classList.add("flex");
+		modal.setAttribute("aria-hidden", "false");
+		document.body.classList.add("overflow-hidden");
+
+		fetch("/api/packages/" + uuid)
+			.then(function(r) { if (!r.ok) throw new Error("Fetch failed"); return r.json(); })
+			.then(renderModal)
+			.catch(function() { showError(); });
+	}
+
+	let tabContent = document.getElementById("modalTabContent");
+
+	function switchTab(key) {
+		let data = window._modalData;
+		if (!data) return;
+		let val = data[key];
+		let html = "";
+		if (val) {
+			html += "<ul class=\"list-disc pl-5 space-y-2 text-sm text-ink-700 leading-relaxed\">";
+			val.split("\n").forEach(function(line) {
+				if (line.trim()) html += "<li>" + line.trim() + "</li>";
+			});
+			html += "</ul>";
+		} else {
+			html += "<p class=\"text-sm text-ink-400 italic\">Tidak ada informasi.</p>";
+		}
+		tabContent.innerHTML = html;
+	}
+
+	document.querySelectorAll("#modalTabs button").forEach(function(btn) {
+		btn.addEventListener("click", function() {
+			document.querySelectorAll("#modalTabs button").forEach(function(b) {
+				b.classList.remove("tab-active", "text-primary-700", "border-primary-600");
+				b.classList.add("text-ink-500", "border-transparent");
+			});
+			btn.classList.add("tab-active", "text-primary-700", "border-primary-600");
+			btn.classList.remove("text-ink-500", "border-transparent");
+			switchTab(btn.dataset.tab);
+		});
+	});
+
+	function closeModal() {
+		modal.classList.add("hidden");
+		modal.classList.remove("flex");
+		modal.setAttribute("aria-hidden", "true");
+		document.body.classList.remove("overflow-hidden");
+	}
+
+	document.querySelectorAll(".detail-btn").forEach(function(btn) {
+		btn.addEventListener("click", function() {
+			openModalWithUuid(this.dataset.uuid);
+		});
+	});
+
+	if (backdrop) backdrop.addEventListener("click", closeModal);
+	if (closeBtn) closeBtn.addEventListener("click", closeModal);
+	document.addEventListener("keydown", function(e) {
+		if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+	});
+});
+</script>
+@endpush
+

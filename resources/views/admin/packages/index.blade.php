@@ -84,6 +84,9 @@
 									</td>
 									<td class="text-right">
 										<div class="flex justify-end gap-2">
+											<a href="{{ route('admin.packages.itineraries.index', $package) }}" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Itinerary">
+												<x-lucide-map-pin class="h-4 w-4 text-primary" />
+											</a>
 											<a href="{{ route('admin.packages.edit', $package) }}" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Edit">
 												<x-lucide-edit-3 class="h-4 w-4 text-info" />
 											</a>

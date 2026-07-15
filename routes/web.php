@@ -7,6 +7,8 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PackageCategoryController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PackageItineraryController;
+use App\Http\Controllers\OrderController;
 use App\Models\HeroImage;
 
 Route::get('/', function () {
@@ -26,8 +28,45 @@ Route::get('/blogs/{blog:slug}', function (App\Models\Blog $blog) {
 })->name('blogs.show');
 
 
+
+Route::get('/api/packages/{package}', function (App\Models\Package $package) {
+    $package->load(['category', 'prices', 'itineraries']);
+
+    return response()->json([
+        'title' => $package->title,
+        'category' => $package->category?->name,
+        'flight_by' => $package->flight_by,
+        'date' => \Carbon\Carbon::parse($package->date)->locale('id')->isoFormat('DD MMMM YYYY'),
+        'total_days' => $package->total_days,
+        'quota' => $package->quota,
+        'inclusions' => $package->inclusions,
+        'exclusions' => $package->exclusions,
+        'requirements' => $package->requirements,
+        'prices' => $package->prices->map(fn ($p) => [
+            'price_type' => $p->price_type,
+            'currency' => $p->currency,
+            'price' => number_format($p->price, 0, ',', '.'),
+        ]),
+        'itineraries' => $package->itineraries->map(fn ($i) => [
+            'marker' => $i->marker,
+            'title' => $i->title,
+            'itinerary' => $i->itinerary,
+            'accommodation_place' => $i->accommodation_place,
+            'accommodation_days' => $i->accommodation_days,
+            'meals' => $i->meals,
+        ]),
+    ]);
+});
+
+
+
+Route::get('/checkout/{package}', [OrderController::class, 'checkout'])->name('checkout');
+Route::post('/checkout/{package}/customers', [OrderController::class, 'storeCustomers'])->name('checkout.customers');
+Route::post('/checkout/{package}/confirm', [OrderController::class, 'confirm'])->name('checkout.confirm');
+Route::get('/checkout/success/{transaction}', [OrderController::class, 'success'])->name('checkout.success');
+
 Route::get('/packages', function (Illuminate\Http\Request $request) {
-    $query = App\Models\Package::with(['category', 'prices']);
+    $query = App\Models\Package::with(['category', 'prices', 'itineraries']);
 
     if ($request->filled('category_id')) {
         $query->where('package_category_id', $request->category_id);
@@ -76,4 +115,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('package-categories/{uuid}/restore', [PackageCategoryController::class, 'restore'])->name('package-categories.restore');
     Route::resource('package-categories', PackageCategoryController::class);
     Route::resource('packages', PackageController::class);
+    Route::resource('packages.itineraries', PackageItineraryController::class)->except(['show']);
 });

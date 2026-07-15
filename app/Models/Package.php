@@ -28,6 +28,11 @@ class Package extends Model
         return $this->hasMany(PackagePrice::class);
     }
 
+    public function itineraries()
+    {
+        return $this->hasMany(PackageItinerary::class);
+    }
+
     public function cheapestPrice(): ?PackagePrice
     {
         return $this->prices->sortBy('price')->first();
