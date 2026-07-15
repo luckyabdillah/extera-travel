@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Blog;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 it('can list blogs on the admin panel', function () {
     Blog::create([
@@ -33,6 +35,18 @@ it('can store a new blog and auto-generate slug', function () {
         'title' => 'My New Blog Post',
         'slug' => 'my-new-blog-post',
     ]);
+});
+
+it('can upload blog images for quill', function () {
+    Storage::fake('public');
+
+    $response = $this->postJson(route('admin.blogs.upload-image'), [
+        'image' => UploadedFile::fake()->image('content.jpg'),
+    ]);
+
+    $response->assertOk()->assertJsonStructure(['url']);
+    expect($response->json('url'))->toContain('/storage/blog-images/');
+    expect(Storage::disk('public')->allFiles('blog-images'))->toHaveCount(1);
 });
 
 it('can show the edit form', function () {
@@ -90,7 +104,7 @@ it('shows blogs on the public index page', function () {
         'content' => 'Content list',
     ]);
 
-    $response = $this->get('/blog');
+    $response = $this->get('/blogs');
 
     $response->assertStatus(200);
     $response->assertSee('Public Blog List');
@@ -103,7 +117,7 @@ it('shows a specific blog post', function () {
         'content' => 'Specific content inside.',
     ]);
 
-    $response = $this->get('/blog/specific-blog');
+    $response = $this->get('/blogs/specific-blog');
 
     $response->assertStatus(200);
     $response->assertSee('Specific Blog');

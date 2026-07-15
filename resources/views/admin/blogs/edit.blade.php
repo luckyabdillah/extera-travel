@@ -22,9 +22,9 @@
 					</a>
 				</div>
 
-				<form action="{{ route('admin.blogs.update', $blog) }}" method="POST" class="space-y-4" id="blogForm">
+				<form action="{{ route('admin.blogs.update', $blog) }}" method="POST" class="space-y-4" id="blogForm" data-blog-editor data-upload-url="{{ route('admin.blogs.upload-image') }}">
 					@csrf
-                    @method('PUT')
+					@method('PUT')
 
 					<div class="d-form-control w-full">
 						<label class="label">
@@ -40,14 +40,11 @@
 						<label class="label">
 							<span class="label-text font-semibold">Konten <span class="text-error">*</span></span>
 						</label>
-                        
-                        <div class="bg-base-100 rounded-lg overflow-hidden border border-base-300">
-						    <div id="editor-container" class="h-96"></div>
-                        </div>
-                        
-						<textarea name="content" id="content" class="hidden">{{ old('content', $blog->content) }}</textarea>
-						
-                        @error('content')
+						<div class="bg-base-100 rounded-lg overflow-hidden border border-base-300">
+							<div id="editor-container" data-blog-editor-container class="h-96"></div>
+						</div>
+						<textarea name="content" id="content" data-blog-editor-input class="hidden">{{ old('content', $blog->content) }}</textarea>
+						@error('content')
 							<span class="text-xs text-error mt-1">{{ $message }}</span>
 						@enderror
 					</div>
@@ -68,43 +65,23 @@
 @push('styles')
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <style>
-    .ql-toolbar.ql-snow { border: none; border-bottom: 1px solid var(--fallback-bc,oklch(var(--bc)/0.2)); background-color: var(--fallback-b2,oklch(var(--b2)/1)); font-family: inherit; }
-    .ql-container.ql-snow { border: none; font-family: inherit; font-size: 1rem; }
-    .ql-editor { min-height: 24rem; }
+    .ql-toolbar.ql-snow {
+        border: none;
+        border-bottom: 1px solid var(--fallback-bc,oklch(var(--bc)/0.2));
+        background-color: var(--fallback-b2,oklch(var(--b2)/1));
+        font-family: inherit;
+    }
+    .ql-container.ql-snow {
+        border: none;
+        font-family: inherit;
+        font-size: 1rem;
+    }
+    .ql-editor {
+        min-height: 24rem;
+    }
 </style>
 @endpush
 
 @push('scripts')
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var quill = new Quill('#editor-container', {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['link', 'image', 'blockquote'],
-                    ['clean']
-                ]
-            }
-        });
-
-        // Load existing content
-        var oldContent = document.getElementById('content').value;
-        if (oldContent) {
-            quill.root.innerHTML = oldContent;
-        }
-
-        document.getElementById('blogForm').onsubmit = function() {
-            var contentInput = document.getElementById('content');
-            if (quill.getText().trim().length === 0 && !quill.root.querySelector('img')) {
-                contentInput.value = '';
-            } else {
-                contentInput.value = quill.root.innerHTML;
-            }
-        };
-    });
-</script>
 @endpush

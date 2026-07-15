@@ -4,9 +4,9 @@
 
 @section('content')
 <main>
-	<section class="bg-ink-950 py-20" data-nav-theme="dark">
+	<section class="bg-ink-950 py-30" data-nav-theme="dark">
 		<div class="mx-auto max-w-4xl px-6 text-center">
-			<a href="{{ url('/blog') }}" class="inline-flex items-center gap-2 text-sm font-bold text-gold-400 hover:text-gold-300 transition">
+			<a href="{{ url('/blogs') }}" class="inline-flex items-center gap-2 text-sm font-bold text-gold-400 hover:text-gold-300 transition">
 				<x-lucide-arrow-left class="h-4 w-4" />
 				Kembali ke Blog
 			</a>
@@ -21,7 +21,7 @@
 		</article>
 
 		<div class="mt-16 border-t border-primary-200 pt-8 flex justify-between items-center">
-			<a href="{{ url('/blog') }}" class="inline-flex items-center gap-2 text-sm font-bold text-primary-600 transition hover:text-primary-800">
+			<a href="{{ url('/blogs') }}" class="inline-flex items-center gap-2 text-sm font-bold text-primary-600 transition hover:text-primary-800">
 				<x-lucide-arrow-left class="h-4 w-4" />
 				Artikel Lainnya
 			</a>

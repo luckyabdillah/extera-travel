@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
@@ -81,5 +82,18 @@ class BlogController extends Controller
         $blog->delete();
 
         return redirect()->route('admin.blogs.index')->with('success', 'Artikel blog berhasil dihapus.');
+    }
+
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+        ]);
+
+        $path = $request->file('image')->store('blog-images', 'public');
+
+        return response()->json([
+            'url' => Storage::disk('public')->url($path),
+        ]);
     }
 }

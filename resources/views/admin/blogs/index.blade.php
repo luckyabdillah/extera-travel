@@ -47,14 +47,14 @@
 								<tr>
 									<td>
 										<span class="font-medium text-base-content">{{ $blog->title }}</span>
-                                        <p class="text-xs text-base-content/50 mt-1">/blog/{{ $blog->slug }}</p>
+                                        <p class="text-xs text-base-content/50 mt-1">/blogs/{{ $blog->slug }}</p>
 									</td>
 									<td class="hidden md:table-cell">
 										<span class="text-xs text-base-content/70">{{ $blog->created_at->format('d M Y, H:i') }}</span>
 									</td>
 									<td class="text-right">
 										<div class="flex justify-end gap-2">
-                                            <a href="{{ route('blog.show', $blog->slug) }}" target="_blank" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Lihat">
+                                            <a href="{{ route('blogs.show', $blog->slug) }}" target="_blank" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Lihat">
 												<x-lucide-external-link class="h-4 w-4 text-base-content/70" />
 											</a>
 											<a href="{{ route('admin.blogs.edit', $blog) }}" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Edit">

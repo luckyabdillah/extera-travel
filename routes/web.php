@@ -13,14 +13,14 @@ Route::get('/', function () {
     return view('index', compact('heroImages', 'galleries'));
 });
 
-Route::get('/blog', function () {
+Route::get('/blogs', function () {
     $blogs = App\Models\Blog::latest()->paginate(9);
-    return view('blog.index', compact('blogs'));
+    return view('blogs.index', compact('blogs'));
 });
 
-Route::get('/blog/{blog:slug}', function (App\Models\Blog $blog) {
-    return view('blog.show', compact('blog'));
-})->name('blog.show');
+Route::get('/blogs/{blog:slug}', function (App\Models\Blog $blog) {
+    return view('blogs.show', compact('blog'));
+})->name('blogs.show');
 
 Route::get('/faq', function () {
     $faqs = App\Models\Faq::latest()->get();
@@ -35,5 +35,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('hero-images', HeroImageController::class);
     Route::resource('galleries', GalleryController::class);
     Route::resource('faqs', FaqController::class);
+    Route::post('blogs/upload-image', [BlogController::class, 'uploadImage'])->name('blogs.upload-image');
     Route::resource('blogs', BlogController::class);
 });
