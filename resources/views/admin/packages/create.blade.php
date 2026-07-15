@@ -124,7 +124,11 @@
 											<option value="SAR">SAR</option>
 										</select>
 									</div>
-									<div class="d-form-control flex-[2]">
+									<div class="d-form-control flex-1">
+										<label class="label p-0 pb-1"><span class="label-text text-xs">Tipe</span></label>
+										<input type="text" name="prices[0][price_type]" value="{{ old('prices[0][price_type]') }}" placeholder="Contoh: DOUBLE" class="d-input d-input-bordered d-input-sm w-full" />
+									</div>
+									<div class="d-form-control flex-1">
 										<label class="label p-0 pb-1"><span class="label-text text-xs">Jumlah</span></label>
 										<input type="number" name="prices[0][amount]" step="0.01" min="0" class="d-input d-input-bordered d-input-sm w-full" />
 									</div>
@@ -197,7 +201,11 @@
                 + '<select name="prices[' + idx + '][currency]" class="d-select d-select-bordered d-select-sm w-full">'
                 + '<option value="IDR">IDR</option><option value="USD">USD</option><option value="SAR">SAR</option>'
                 + '</select></div>'
-                + '<div class="d-form-control flex-[2]">'
+				+ '<div class="d-form-control flex-1">'
+				+ '<label class="label"><span class="label-text text-xs">Tipe</span></label>'
+				+ '<input type="text" name="prices[' + idx + '][price_type]" placeholder="Contoh: DOUBLE" class="d-input d-input-bordered d-input-sm w-full" />'
+				+ '</div>'
+                + '<div class="d-form-control flex-1">'
                 + '<label class="label p-0 pb-1"><span class="label-text text-xs">Jumlah</span></label>'
                 + '<input type="number" name="prices[' + idx + '][amount]" step="0.01" min="0" class="d-input d-input-bordered d-input-sm w-full" />'
                 + '</div>'

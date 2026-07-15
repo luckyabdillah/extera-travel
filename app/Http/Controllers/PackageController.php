@@ -36,6 +36,7 @@ class PackageController extends Controller
             'requirements' => 'nullable|string',
             'prices' => 'nullable|array',
             'prices.*.currency' => 'required|string|max:10',
+            'prices.*.price_type' => 'required|string|max:50',
             'prices.*.amount' => 'required|numeric|min:0',
         ]);
 
@@ -61,6 +62,7 @@ class PackageController extends Controller
             foreach ($request->prices as $price) {
                 $package->prices()->create([
                     'currency' => $price['currency'],
+                    'price_type' => $price['price_type'],
                     'price' => $price['amount'],
                 ]);
             }
@@ -92,6 +94,7 @@ class PackageController extends Controller
             'requirements' => 'nullable|string',
             'prices' => 'nullable|array',
             'prices.*.currency' => 'required|string|max:10',
+            'prices.*.price_type' => 'required|string|max:50',
             'prices.*.amount' => 'required|numeric|min:0',
         ]);
 
@@ -122,6 +125,7 @@ class PackageController extends Controller
             foreach ($request->prices as $price) {
                 $package->prices()->create([
                     'currency' => $price['currency'],
+                    'price_type' => $price['price_type'],
                     'price' => $price['amount'],
                 ]);
             }
