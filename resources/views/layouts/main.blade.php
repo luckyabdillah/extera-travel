@@ -46,14 +46,15 @@
 
                 <ul id="desktopNav" class="hidden items-center gap-8 text-sm font-semibold md:flex text-gold-100 transition-colors duration-300">
                     <li><a href="/#hero" class="nav-link transition">Home</a></li>
-                    <li><a href="/#paket" class="nav-link transition">Paket</a></li>
-                    <li><a href="/#kenapa-kita" class="nav-link transition">Kenapa Kita</a></li>
+                    <li><a href="/packages" class="nav-link transition">Paket</a></li>
+                    <li><a href="/blogs" class="nav-link transition">Artikel</a></li>
+                    <li><a href="/packages" class="nav-link transition">Paket</a></li>
                     <li><a href="/faq" class="nav-link transition">FAQ</a></li>
                     <li><a href="/#kontak" class="nav-link transition">Kontak</a></li>
                 </ul>
 
                 <div class="flex items-center gap-3">
-                    <a href="/#paket" class="hidden rounded-full bg-gold-400 px-5 py-2.5 text-sm font-bold text-ink-900 shadow-gold transition hover:bg-gold-300 md:inline-block">Gabung Sekarang</a>
+                    <a href="/packages" class="hidden rounded-full bg-gold-400 px-5 py-2.5 text-sm font-bold text-ink-900 shadow-gold transition hover:bg-gold-300 md:inline-block">Gabung Sekarang</a>
                     <button id="menuBtn" class="rounded-xl border border-gold-200 bg-white/90 p-2 text-primary-700 md:hidden transition-colors duration-300" aria-label="Open menu">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -65,11 +66,12 @@
             <div id="mobileMenu" class="hidden bg-ink-950/95 backdrop-blur-lg px-6 py-4 md:hidden transition-colors duration-300">
                 <ul class="space-y-2 text-sm font-semibold">
                     <li><a href="/#hero" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Home</a></li>
-                    <li><a href="/#paket" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Paket</a></li>
-                    <li><a href="/#kenapa-kita" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Kenapa Kita</a></li>
+                    <li><a href="/packages" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Paket</a></li>
+                    <li><a href="/blogs" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Artikel</a></li>
+                    <li><a href="/packages" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Paket</a></li>
                     <li><a href="/faq" class="mobile-nav-link block rounded-lg px-3 py-2 transition">FAQ</a></li>
                     <li><a href="/#kontak" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Kontak</a></li>
-                    <li><a href="/#paket" class="mt-2 block rounded-full bg-gold-400 px-4 py-2 text-center font-bold text-ink-900">Gabung Sekarang</a></li>
+                    <li><a href="/packages" class="mt-2 block rounded-full bg-gold-400 px-4 py-2 text-center font-bold text-ink-900">Gabung Sekarang</a></li>
                 </ul>
             </div>
         </header>
@@ -89,9 +91,10 @@
                     <h4 class="font-bold text-gold-100">Menu</h4>
                     <ul class="mt-3 space-y-2 text-sm text-ink-100/70">
                         <li><a href="#hero" class="hover:text-white">Home</a></li>
-                        <li><a href="#paket" class="hover:text-white">Paket</a></li>
-                        <li><a href="#kenapa-kita" class="hover:text-white">Kenapa Kita</a></li>
-                        <li><a href="#testimoni" class="hover:text-white">Testimoni</a></li>
+                        <li><a href="/packages" class="hover:text-white">Paket</a></li>
+                        <li><a href="/blogs" class="hover:text-white">Artikel</a></li>
+                        <li><a href="/faq" class="hover:text-white">FAQ</a></li>
+                        <li><a href="/contact" class="hover:text-white">Kontak</a></li>
                     </ul>
                 </div>
 

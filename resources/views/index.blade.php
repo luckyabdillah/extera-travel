@@ -85,48 +85,57 @@
 		<section id="paket" class="mx-auto max-w-7xl px-6 py-20 lg:px-8" data-nav-theme="light">
 			<div class="reveal mb-12 text-center">
 				<p class="text-sm font-bold uppercase tracking-wider text-gold-700">Paket</p>
-				<h2 class="mt-3 font-display text-3xl text-ink-900 sm:text-4xl">Umrah Pilihan Buat Kamu</h2>
+				<h2 class="mt-3 font-display text-3xl text-ink-900 sm:text-4xl">Paket Pilihan Buat Kamu</h2>
 			</div>
 
-			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-				<article class="reveal group overflow-hidden rounded-3xl border border-primary-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-					<div class="relative h-40 overflow-hidden rounded-t-[999px] mx-6 mt-6">
-						<img src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?auto=format&fit=crop&w=700&q=80" alt="Umrah Reguler" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-					</div>
-					<div class="p-6 pt-4">
-						<h3 class="font-display text-xl text-ink-900">Umrah Reguler</h3>
-						<p class="mt-2 text-sm text-ink-400">Paket yang pas buat kamu yang baru mulai menabung untuk umrah.</p>
-						<p class="mt-5 font-display text-2xl text-gold-700">Mulai 28 Jt</p>
-						<button class="product-detail-btn mt-6 w-full rounded-full bg-primary-100 px-4 py-2.5 text-sm font-bold text-primary-800 transition group-hover:bg-primary-600 group-hover:text-white">Lihat Detail</button>
-					</div>
-				</article>
+			<div class="swiper packageSwiper overflow-hidden rounded-3xl">
+				<div class="swiper-wrapper">
+					@forelse($packageCategories as $category)
+						<article class="swiper-slide reveal group overflow-hidden rounded-3xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft @if($category->mark_as_favorite) border-2 border-gold-300 shadow-gold @else border-primary-200 @endif">
+							@if($category->mark_as_favorite)
+								<div class="relative">
+									<span class="absolute right-4 top-4 z-10 rounded-full bg-gold-400 px-3 py-1 text-[11px] font-bold text-ink-900">Favorit</span>
+									<div class="relative h-40 overflow-hidden rounded-t-[999px] mx-6 mt-6">
+							@else
+								<div class="relative h-40 overflow-hidden rounded-t-[999px] mx-6 mt-6">
+							@endif
+								@if($category->image_cover)
+									<img src="{{ asset('storage/' . $category->image_cover) }}" alt="{{ $category->name }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+								@else
+									<div class="h-full w-full bg-linear-to-br from-primary-100/50 to-primary-200/50 flex items-center justify-center">
+										<x-lucide-image class="h-12 w-12 text-primary-300/60" />
+									</div>
+								@endif
+							@if($category->mark_as_favorite)
+									</div>
+								</div>
+							@else
+								</div>
+							@endif
 
-				<article class="reveal group overflow-hidden rounded-3xl border-2 border-gold-300 bg-white shadow-gold transition hover:-translate-y-1">
-					<div class="relative">
-						<span class="absolute right-4 top-4 z-10 rounded-full bg-gold-400 px-3 py-1 text-[11px] font-bold text-ink-900">Favorit</span>
-						<div class="relative h-40 overflow-hidden rounded-t-[999px] mx-6 mt-6">
-							<img src="https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?auto=format&fit=crop&w=700&q=80" alt="Umrah Plus Turki" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-						</div>
-					</div>
-					<div class="p-6 pt-4">
-						<h3 class="font-display text-xl text-ink-900">Umrah Plus Turki</h3>
-						<p class="mt-2 text-sm text-ink-400">Ibadah tuntas, lanjut menjelajah jejak sejarah Islam di Turki bersama teman-teman seperjalanan.</p>
-						<p class="mt-5 font-display text-2xl text-gold-700">Mulai 39 Jt</p>
-						<button class="product-detail-btn mt-6 w-full rounded-full bg-primary-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-primary-700">Lihat Detail</button>
-					</div>
-				</article>
-
-				<article class="reveal group overflow-hidden rounded-3xl border border-primary-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
-					<div class="relative h-40 overflow-hidden rounded-t-[999px] mx-6 mt-6">
-						<img src="https://images.unsplash.com/photo-1577587230708-187fdbef4d91?auto=format&fit=crop&w=700&q=80" alt="Umrah Eksklusif" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-					</div>
-					<div class="p-6 pt-4">
-						<h3 class="font-display text-xl text-ink-900">Umrah Eksklusif</h3>
-						<p class="mt-2 text-sm text-ink-400">Hotel dekat Masjidil Haram, buat kamu yang mau ibadah tanpa capek mikirin logistik.</p>
-						<p class="mt-5 font-display text-2xl text-gold-700">Mulai 52 Jt</p>
-						<button class="product-detail-btn mt-6 w-full rounded-full bg-primary-100 px-4 py-2.5 text-sm font-bold text-primary-800 transition group-hover:bg-primary-600 group-hover:text-white">Lihat Detail</button>
-					</div>
-				</article>
+							<div class="p-6 pt-4">
+								<h3 class="font-display text-xl text-ink-900">{{ $category->name }}</h3>
+								<p class="mt-5 font-display text-2xl text-gold-700">
+									@php($cheapest = $category->cheapestPackagePrice())
+									@if($cheapest)
+										Mulai {{ $cheapest->currency === 'IDR' ? 'Rp ' : ($cheapest->currency === 'USD' ? '$ ' : $cheapest->currency . ' ') }}{{ number_format($cheapest->price, 0, ',', '.') }}
+									@else
+										Hubungi Admin
+									@endif
+								</p>
+								<button class="product-detail-btn mt-6 w-full rounded-full px-4 py-2.5 text-sm font-bold transition @if($category->mark_as_favorite) bg-primary-600 text-white hover:bg-primary-700 @else bg-primary-100 text-primary-800 group-hover:bg-primary-600 group-hover:text-white @endif">Lihat Detail</button>
+							</div>
+						</article>
+					@empty
+						<article class="col-span-full py-12 text-center">
+							<x-lucide-package class="mx-auto h-12 w-12 text-base-content/20" />
+							<p class="mt-4 text-base-content/50">Belum ada kategori paket tersedia.</p>
+						</article>
+					@endforelse
+				</div>
+				<div class="mt-6 flex items-center justify-between">
+					<div class="swiper-pagination static!"></div>
+				</div>
 			</div>
 		</section>
 

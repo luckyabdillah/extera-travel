@@ -116,6 +116,15 @@
 							</div>
 							<div id="priceRows" class="space-y-2">
 								<div class="price-row flex items-end gap-2">
+									<div class="d-form-control w-28">
+										<label class="label p-0 pb-1"><span class="label-text text-xs">Tipe</span></label>
+										<select name="prices[0][price_type]" class="d-select d-select-bordered d-select-sm w-full">
+											<option value="Single">Single</option>
+											<option value="Double" selected>Double</option>
+											<option value="Triple">Triple</option>
+											<option value="Quad">Quad</option>
+										</select>
+									</div>
 									<div class="d-form-control flex-1">
 										<label class="label p-0 pb-1"><span class="label-text text-xs">Mata Uang</span></label>
 										<select name="prices[0][currency]" class="d-select d-select-bordered d-select-sm w-full">

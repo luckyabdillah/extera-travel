@@ -93,6 +93,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 	});
+
+	new Swiper('.packageSwiper', {
+        slidesPerView: 1,
+		loop: true,
+		spaceBetween: 20,
+		pagination: {
+			el: '.packageSwiper .swiper-pagination',
+			clickable: true,
+		},
+        breakpoints: {
+            1024: {
+                slidesPerView: 3
+            }
+        }
+	});
     
     menuBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');

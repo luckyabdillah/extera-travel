@@ -41,8 +41,8 @@ it('can store a new package with prices', function () {
         'inclusions' => "Item 1\nItem 2",
         'exclusions' => "Item 3",
         'prices' => [
-            ['currency' => 'IDR', 'amount' => 30000000],
-            ['currency' => 'USD', 'amount' => 2000],
+            ['price_type' => 'Double', 'currency' => 'IDR', 'amount' => 30000000],
+            ['price_type' => 'Single', 'currency' => 'USD', 'amount' => 2000],
         ],
     ]);
 
@@ -95,7 +95,7 @@ it('can update a package and sync prices', function () {
         'total_days' => 9,
         'quota' => 10,
     ]);
-    $package->prices()->create(['currency' => 'IDR', 'price' => 25000000]);
+    $package->prices()->create(['price_type' => 'Double', 'currency' => 'IDR', 'price' => 25000000]);
 
     $newCategory = PackageCategory::create(['name' => 'New Cat']);
 
@@ -106,7 +106,7 @@ it('can update a package and sync prices', function () {
         'total_days' => 12,
         'quota' => 20,
         'prices' => [
-            ['currency' => 'USD', 'amount' => 2200],
+            ['price_type' => 'Single', 'currency' => 'USD', 'amount' => 2200],
         ],
     ]);
 

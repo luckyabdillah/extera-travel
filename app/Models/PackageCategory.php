@@ -24,6 +24,20 @@ class PackageCategory extends Model
         return 'uuid';
     }
 
+    public function packages()
+    {
+        return $this->hasMany(Package::class, 'package_category_id');
+    }
+
+    public function cheapestPackagePrice(): ?PackagePrice
+    {
+        return $this->packages
+            ->loadMissing('prices')
+            ->flatMap->prices
+            ->sortBy('price')
+            ->first();
+    }
+
     protected static function booted()
     {
         static::creating(function ($category) {

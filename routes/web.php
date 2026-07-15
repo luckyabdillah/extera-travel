@@ -12,7 +12,8 @@ use App\Models\HeroImage;
 Route::get('/', function () {
     $heroImages = HeroImage::latest()->get();
     $galleries = App\Models\Gallery::latest()->get();
-    return view('index', compact('heroImages', 'galleries'));
+    $packageCategories = App\Models\PackageCategory::with(['packages.prices'])->latest()->get();
+    return view('index', compact('heroImages', 'galleries', 'packageCategories'));
 });
 
 Route::get('/blogs', function () {
@@ -23,6 +24,39 @@ Route::get('/blogs', function () {
 Route::get('/blogs/{blog:slug}', function (App\Models\Blog $blog) {
     return view('blogs.show', compact('blog'));
 })->name('blogs.show');
+
+
+Route::get('/packages', function (Illuminate\Http\Request $request) {
+    $query = App\Models\Package::with(['category', 'prices']);
+
+    if ($request->filled('category_id')) {
+        $query->where('package_category_id', $request->category_id);
+    }
+
+    if ($request->filled('month')) {
+        $query->whereYear('date', substr($request->month, 0, 4))
+              ->whereMonth('date', substr($request->month, 5, 2));
+    }
+
+    if ($request->boolean('available')) {
+        $query->where('quota', '>', 0);
+    }
+
+    $packages = $query->orderBy('date')->get()->groupBy(function ($p) {
+        return \Carbon\Carbon::parse($p->date)->format('F Y');
+    });
+
+    $months = App\Models\Package::get()
+        ->map(fn ($p) => \Carbon\Carbon::parse($p->date)->format('Y-m'))
+        ->unique()
+        ->sort()
+        ->values();
+
+    $categories = App\Models\PackageCategory::all();
+
+    return view('packages.index', compact('packages', 'months', 'categories'));
+});
+
 
 Route::get('/faq', function () {
     $faqs = App\Models\Faq::latest()->get();
