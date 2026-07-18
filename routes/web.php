@@ -10,6 +10,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageItineraryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CustomerController;
 use App\Models\HeroImage;
 
 Route::get('/', function () {
@@ -119,4 +120,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('packages', PackageController::class);
     Route::resource('packages.itineraries', PackageItineraryController::class)->except(['show']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'show', 'update']);
+    Route::resource('customers', CustomerController::class);
 });

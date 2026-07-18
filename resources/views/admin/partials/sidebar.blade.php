@@ -69,7 +69,7 @@
 		</li>
 
 		<li>
-			<a href="#">
+			<a href="{{ route('admin.customers.index') }}" class="{{ request()->routeIs('admin.customers*') ? 'd-menu-active' : '' }}">
 				<x-lucide-users class="h-4 w-4" />
 				Jamaah
 			</a>
