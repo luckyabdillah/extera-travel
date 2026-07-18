@@ -45,7 +45,7 @@
                 </a>
 
                 <ul id="desktopNav" class="hidden items-center gap-8 text-sm font-semibold md:flex text-gold-100 transition-colors duration-300">
-                    <li><a href="/#hero" class="nav-link transition">Home</a></li>
+                    <li><a href="/" class="nav-link transition">Home</a></li>
                     <li><a href="/packages" class="nav-link transition">Paket</a></li>
                     <li><a href="/blogs" class="nav-link transition">Artikel</a></li>
                     <li><a href="/packages" class="nav-link transition">Paket</a></li>
@@ -65,7 +65,7 @@
 
             <div id="mobileMenu" class="hidden bg-ink-950/95 backdrop-blur-lg px-6 py-4 md:hidden transition-colors duration-300">
                 <ul class="space-y-2 text-sm font-semibold">
-                    <li><a href="/#hero" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Home</a></li>
+                    <li><a href="/" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Home</a></li>
                     <li><a href="/packages" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Paket</a></li>
                     <li><a href="/blogs" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Artikel</a></li>
                     <li><a href="/packages" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Paket</a></li>
@@ -90,7 +90,7 @@
                 <div>
                     <h4 class="font-bold text-gold-100">Menu</h4>
                     <ul class="mt-3 space-y-2 text-sm text-ink-100/70">
-                        <li><a href="#hero" class="hover:text-white">Home</a></li>
+                        <li><a href="/" class="hover:text-white">Home</a></li>
                         <li><a href="/packages" class="hover:text-white">Paket</a></li>
                         <li><a href="/blogs" class="hover:text-white">Artikel</a></li>
                         <li><a href="/faq" class="hover:text-white">FAQ</a></li>

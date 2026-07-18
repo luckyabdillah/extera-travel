@@ -72,7 +72,7 @@
 					</div>
 
 					<div class="absolute -bottom-6 -left-6 rounded-2xl bg-white p-4 shadow-soft">
-						<p class="font-display text-lg text-primary-700">4.9 ★</p>
+						<p class="font-display text-lg text-primary-700">4.9 Ã¢Ëœâ€¦</p>
 						<p class="text-[11px] font-semibold text-ink-400">4500+ jamaah muda</p>
 					</div>
 				</div>
@@ -136,6 +136,13 @@
 				<div class="mt-6 flex items-center justify-between">
 					<div class="swiper-pagination static!"></div>
 				</div>
+			</div>
+
+			<!-- CTA on customizeable package -->
+			<div class="reveal mt-12 rounded-3xl border border-primary-200 bg-primary-50 p-6 text-center shadow-soft">
+				<h3 class="font-display text-xl text-primary-800">Punya rencana berangkat tapi paketnya belum ada?</h3>
+				<p class="mt-2 text-sm text-primary-700">Kamu bisa request paket sesuai kebutuhan, dan tim kami akan bantu buatkan.</p>
+				<button type="button" onclick="openCustomModal()" class="mt-4 inline-block rounded-full bg-primary-600 px-6 py-2.5 text-sm font-bold text-white shadow-soft transition hover:bg-primary-700">Custom Paket</button>
 			</div>
 		</section>
 
@@ -366,6 +373,158 @@
 		</svg>
 		Chat Admin
 	</a>
+
+	<!-- Custom Paket Modal -->
+	<div id="customModal" class="fixed inset-0 z-60 hidden items-center justify-center p-4" aria-hidden="true">
+		<div id="customModalBackdrop" class="absolute inset-0 bg-ink-950/70 backdrop-blur-sm"></div>
+		<div class="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl border border-gold-200 bg-white p-6 shadow-soft sm:p-8">
+			<div class="mb-6 flex items-start justify-between gap-4">
+				<div>
+					<p class="text-xs font-bold uppercase tracking-wider text-gold-700">Request Paket</p>
+					<h3 class="mt-1 font-display text-2xl text-ink-900">Buat Paket Kustom</h3>
+					<p class="mt-1 text-sm text-ink-400">Isi form di bawah, tim kami akan menghubungi kamu dalam 1x24 jam.</p>
+				</div>
+				<button type="button" id="closeCustomModalBtn" class="rounded-full border border-primary-200 px-3 py-1.5 text-sm font-bold text-primary-700 transition hover:bg-primary-50">Tutup</button>
+			</div>
+
+			<form id="customForm" class="space-y-5">
+				<div class="grid gap-5 sm:grid-cols-2">
+					<div>
+						<label class="mb-1 block text-sm font-semibold text-ink-700">Nama Lengkap <span class="text-error">*</span></label>
+						<input type="text" name="name" required
+							class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200" />
+					</div>
+					<div>
+						<label class="mb-1 block text-sm font-semibold text-ink-700">Email <span class="text-error">*</span></label>
+						<input type="email" name="email" required
+							class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200" />
+					</div>
+				</div>
+
+				<div class="grid gap-5 sm:grid-cols-2">
+					<div>
+						<label class="mb-1 block text-sm font-semibold text-ink-700">No. Telepon / WhatsApp <span class="text-error">*</span></label>
+						<input type="tel" name="phone" required
+							class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200" />
+					</div>
+					<div>
+						<label class="mb-1 block text-sm font-semibold text-ink-700">Jumlah Jamaah</label>
+						<input type="number" name="total_pax" min="1" max="100" value="1"
+							class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200" />
+					</div>
+				</div>
+
+				<div class="grid gap-5 sm:grid-cols-2">
+					<div>
+						<label class="mb-1 block text-sm font-semibold text-ink-700">Keberangkatan (Bulan & Tahun)</label>
+						<input type="month" name="departure_month" min="2026-07"
+							class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200" />
+					</div>
+					<div>
+						<label class="mb-1 block text-sm font-semibold text-ink-700">Destinasi / Kota Tujuan</label>
+						<select name="destination"
+							class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200">
+							<option value="">Pilih destinasi...</option>
+							<option value="mekkah-madinah">Mekkah & Madinah</option>
+							<option value="mekkah-madinah-jeddah">Mekkah, Madinah & Jeddah</option>
+							<option value="mekkah-madinah-turki">Mekkah, Madinah & Turki</option>
+							<option value="mekkah-madinah-mesir">Mekkah, Madinah & Mesir</option>
+							<option value="mekkah-madinah-yordania">Mekkah, Madinah & Yordania</option>
+							<option value="umrah-plus">Umrah Plus (Lainnya)</option>
+							<option value="haji">Haji Khusus</option>
+							<option value="wisata-religi">Wisata Religi Nusantara</option>
+							<option value="other">Lainnya</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="grid gap-5 sm:grid-cols-2">
+					<div>
+						<label class="mb-1 block text-sm font-semibold text-ink-700">Durasi</label>
+						<select name="duration"
+							class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200">
+							<option value="">Pilih durasi...</option>
+							<option value="7">7 Hari</option>
+							<option value="9">9 Hari</option>
+							<option value="10">10 Hari</option>
+							<option value="12">12 Hari</option>
+							<option value="14">14 Hari</option>
+							<option value="21">21 Hari</option>
+							<option value="flexible">Fleksibel</option>
+						</select>
+					</div>
+					<div>
+						<label class="mb-1 block text-sm font-semibold text-ink-700">Budget Per Orang</label>
+						<select name="budget"
+							class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200">
+							<option value="">Pilih rentang budget...</option>
+							<option value="<25">&lt; Rp 25 Juta</option>
+							<option value="25-35">Rp 25 - 35 Juta</option>
+							<option value="35-50">Rp 35 - 50 Juta</option>
+							<option value="50-75">Rp 50 - 75 Juta</option>
+							<option value="75-100">Rp 75 - 100 Juta</option>
+							<option value=">100">&gt; Rp 100 Juta</option>
+							<option value="flexible">Belum Tahu / Fleksibel</option>
+						</select>
+					</div>
+				</div>
+
+				<div>
+					<label class="mb-1 block text-sm font-semibold text-ink-700">Catatan Tambahan</label>
+					<textarea name="notes" rows="4"
+						class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200"
+						placeholder="Ceritakan kebutuhan spesifik kamu di sini..."></textarea>
+				</div>
+
+				<div class="flex items-center gap-3 pt-2">
+					<button type="submit" class="rounded-full bg-gold-400 px-8 py-3 text-sm font-bold text-ink-900 shadow-gold transition hover:bg-gold-300">Kirim Permintaan</button>
+					<button type="button" id="closeCustomModalBtn2" class="rounded-full border border-primary-200 px-6 py-3 text-sm font-bold text-primary-700 transition hover:bg-primary-50">Batal</button>
+				</div>
+
+				<p class="text-xs text-ink-400">Dengan mengirim form ini, kamu menyetujui bahwa tim Extera Travel akan menghubungi kamu melalui WhatsApp atau email dalam 1x24 jam.</p>
+			</form>
+		</div>
+	</div>
+
+
+	<!-- Custom Paket Modal Script -->
+	<script>
+		function openCustomModal() {
+			var modal = document.getElementById("customModal");
+			modal.classList.remove("hidden");
+			modal.classList.add("flex");
+			document.body.style.overflow = "hidden";
+		}
+
+		function closeCustomModal() {
+			var modal = document.getElementById("customModal");
+			modal.classList.add("hidden");
+			modal.classList.remove("flex");
+			document.body.style.overflow = "";
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			var modal = document.getElementById("customModal");
+			var backdrop = document.getElementById("customModalBackdrop");
+			var closeBtns = document.querySelectorAll("#closeCustomModalBtn, #closeCustomModalBtn2");
+
+			for (var i = 0; i < closeBtns.length; i++) {
+				closeBtns[i].addEventListener("click", closeCustomModal);
+			}
+
+			backdrop.addEventListener("click", closeCustomModal);
+
+			document.addEventListener("keydown", function(e) {
+				if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+					closeCustomModal();
+				}
+			});
+
+			modal.querySelector(".relative.z-10").addEventListener("click", function(e) {
+				e.stopPropagation();
+			});
+		});
+	</script>
 @endsection
 
 @push('styles')
