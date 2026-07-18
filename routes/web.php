@@ -9,6 +9,7 @@ use App\Http\Controllers\PackageCategoryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageItineraryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TransactionController;
 use App\Models\HeroImage;
 
 Route::get('/', function () {
@@ -62,6 +63,7 @@ Route::get('/api/packages/{package}', function (App\Models\Package $package) {
 
 Route::get('/checkout/{package}', [OrderController::class, 'checkout'])->name('checkout');
 Route::post('/checkout/{package}/customers', [OrderController::class, 'storeCustomers'])->name('checkout.customers');
+Route::get('/checkout/{package}/confirm', [OrderController::class, 'getConfirmation'])->name('checkout.getConfirmation');
 Route::post('/checkout/{package}/confirm', [OrderController::class, 'confirm'])->name('checkout.confirm');
 Route::get('/checkout/success/{transaction}', [OrderController::class, 'success'])->name('checkout.success');
 
@@ -116,4 +118,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('package-categories', PackageCategoryController::class);
     Route::resource('packages', PackageController::class);
     Route::resource('packages.itineraries', PackageItineraryController::class)->except(['show']);
+    Route::resource('transactions', TransactionController::class)->only(['index', 'show', 'update']);
 });

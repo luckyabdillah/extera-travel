@@ -1,4 +1,4 @@
-<aside class="min-h-full w-72 bg-ink-950 text-ink-100">
+﻿<aside class="min-h-full w-72 bg-ink-950 text-ink-100">
 
 	{{-- Brand --}}
 	<div class="flex items-center gap-3 px-5 py-5">
@@ -61,14 +61,14 @@
 		
 		<li class="menu-title mt-3 text-[11px] uppercase tracking-wider text-ink-100/40">Transaksi</li>
 
-		<li class="{{ request()->routeIs('admin.transactions') ? 'd-menu-active' : '' }}">
-			<a href="#">
+		<li>
+			<a href="{{ route('admin.transactions.index') }}" class="{{ request()->routeIs('admin.transactions*') ? 'd-menu-active' : '' }}">
 				<x-lucide-scroll-text class="h-4 w-4" />
 				Pemesanan
 			</a>
 		</li>
 
-		<li class="{{ request()->routeIs('admin.customers') ? 'd-menu-active' : '' }}">
+		<li>
 			<a href="#">
 				<x-lucide-users class="h-4 w-4" />
 				Jamaah

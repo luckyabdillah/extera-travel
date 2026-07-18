@@ -58,6 +58,23 @@ class OrderController extends Controller
         $cheapest = $package->cheapestPrice();
         $package->load('prices');
 
+        return redirect()->route('checkout.getConfirmation', $package)->with([
+            'package' => $package,
+            'customers' => $customers,
+            'cheapest' => $cheapest,
+        ]);
+    }
+
+    public function getConfirmation(Package $package)
+    {
+        $checkout = session('checkout');
+        if (!$checkout) {
+            return redirect()->route('packages.index')->with('error', 'Sesi checkout tidak ditemukan. Silakan mulai lagi.');
+        }
+
+        $customers = Customer::whereIn('uuid', $checkout['customer_uuids'])->get();
+        $cheapest = $package->cheapestPrice();
+
         return view('checkout.confirm', compact('package', 'customers', 'cheapest'));
     }
 
@@ -96,16 +113,23 @@ class OrderController extends Controller
                 'unit_price' => $cheapest?->price ?? 0,
             ]);
 
+            $package->decrement('quota', $checkout['total_pax']);
+
             return $transaction;
         });
 
         session()->forget('checkout');
 
-        // Send email
         try {
-            Mail::send('emails.invoice', compact('transaction', 'package', 'customers'), function ($msg) use ($transaction) {
+            Mail::send('emails.order-confirmation', [
+                'name' => $transaction->name,
+                'email' => $transaction->email,
+                'phone' => $transaction->phone,
+                'invoice_no' => $transaction->invoice_no,
+                'total_bill' => $transaction->total_bill,
+            ], function ($msg) use ($transaction) {
                 $msg->to($transaction->email, $transaction->name)
-                    ->subject('Invoice #' . $transaction->invoice_no . ' - Extera Travel');
+                    ->subject('Pesanan Diterima - Extera Travel');
             });
         } catch (\Exception $e) {
             // Email failure shouldn't break the flow

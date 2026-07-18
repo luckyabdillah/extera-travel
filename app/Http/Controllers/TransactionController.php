@@ -7,59 +7,50 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $query = Transaction::with('details')
+            ->latest();
+
+        if ($request->filled('search')) {
+            $s = $request->search;
+            $query->where(function ($q) use ($s) {
+                $q->where('invoice_no', 'like', "%{$s}%")
+                  ->orWhere('name', 'like', "%{$s}%")
+                  ->orWhere('email', 'like', "%{$s}%");
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('payment_status')) {
+            $query->where('payment_status', $request->payment_status);
+        }
+
+        $transactions = $query->paginate(15);
+
+        return view('admin.transactions.index', compact('transactions'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Transaction $transaction)
     {
-        //
+        $transaction->load('details');
+
+        return view('admin.transactions.show', compact('transaction'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Transaction $transaction)
     {
-        //
-    }
+        $validated = $request->validate([
+            'status' => 'nullable|in:pending,confirmed',
+            'payment_status' => 'nullable|in:unpaid,paid',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Transaction $transaction)
-    {
-        //
+        $transaction->update($validated);
+
+        return redirect()->route('admin.transactions.show', $transaction)
+            ->with('success', 'Status transaksi berhasil diperbarui.');
     }
 }

@@ -135,10 +135,13 @@
 									</span>
 								</div>
 							</div>
-							<button class="d-btn d-btn-primary mt-6 w-full">
-								<x-lucide-check-circle class="mr-2 h-4 w-4"/>
-								Konfirmasi & Kirim Invoice
-							</button>
+							<form action="{{ route('checkout.confirm', $package) }}" method="POST">
+								@csrf
+								<button class="d-btn d-btn-primary mt-6 w-full">
+									<x-lucide-check-circle class="mr-2 h-4 w-4"/>
+									Konfirmasi
+								</button>
+							</form>
 							<a href="{{ url('/packages') }}" class="d-btn d-btn-ghost mt-2 w-full">
 								Batal
 							</a>

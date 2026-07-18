@@ -12,6 +12,11 @@ class Transaction extends Model
         'total_bill', 'status', 'payment_status', 'expiration_time',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     protected function casts(): array
     {
         return [
