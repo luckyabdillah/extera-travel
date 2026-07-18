@@ -1,10 +1,9 @@
 ﻿<x-mail::message>
-# Assalamu'alaikum, {{ $name }}
+# Assalamu'alaikum, {{ $transaction->name }}
 
 Terima kasih telah mempercayakan rencana perjalanan ibadah Anda kepada **Extera Travel**.
 
-Permintaan pemesanan Anda telah kami terima dengan baik. Tim kami akan segera menghubungi Anda melalui email **{{ $email }}** atau nomor **{{ $phone }}** untuk melakukan konfirmasi dan membantu proses selanjutnya.
-
+Permintaan pemesanan Anda telah kami terima dengan baik. Tim kami akan segera menghubungi Anda melalui email **{{ $transaction->email }}** atau nomor **{{ $transaction->phone }}** untuk melakukan konfirmasi dan membantu proses selanjutnya.
 Apabila terdapat pertanyaan sebelum kami menghubungi Anda, jangan ragu untuk menghubungi tim kami.
 
 Semoga Allah SWT memudahkan setiap langkah menuju ibadah yang penuh keberkahan.

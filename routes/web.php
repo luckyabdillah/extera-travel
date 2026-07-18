@@ -13,6 +13,11 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CustomerController;
 use App\Models\HeroImage;
 
+Route::get('/order-confirmation-mail-preview', function () {
+    $transaction = App\Models\Transaction::latest()->first();
+    return new App\Mail\OrderConfirmationMail($transaction);
+});
+
 Route::get('/', function () {
     $heroImages = HeroImage::latest()->get();
     $galleries = App\Models\Gallery::latest()->get();

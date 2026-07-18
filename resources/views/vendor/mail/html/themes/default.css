@@ -80,7 +80,7 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #fafafa;
+    background-color: #d9efdf;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -112,11 +112,10 @@ img {
 /* Logo */
 
 .logo {
-    height: 75px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    max-height: 75px;
-    width: 75px;
+    /* margin-top: 15px; */
+    /* margin-bottom: 10px; */
+    max-height: 100px;
+    width: 100px;
 }
 
 /* Body */
@@ -125,9 +124,9 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #fafafa;
-    border-bottom: 1px solid #fafafa;
-    border-top: 1px solid #fafafa;
+    background-color: #d9efdf;
+    border-bottom: 1px solid #d9efdf;
+    border-top: 1px solid #d9efdf;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -272,7 +271,7 @@ img {
 }
 
 .panel-content {
-    background-color: #fafafa;
+    background-color: #d9efdf;
     color: #52525b;
     padding: 16px;
 }

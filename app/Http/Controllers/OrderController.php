@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderConfirmationMail;
 use App\Models\Package;
 use App\Models\Customer;
 use App\Models\Transaction;
@@ -121,18 +122,9 @@ class OrderController extends Controller
         session()->forget('checkout');
 
         try {
-            Mail::send('emails.order-confirmation', [
-                'name' => $transaction->name,
-                'email' => $transaction->email,
-                'phone' => $transaction->phone,
-                'invoice_no' => $transaction->invoice_no,
-                'total_bill' => $transaction->total_bill,
-            ], function ($msg) use ($transaction) {
-                $msg->to($transaction->email, $transaction->name)
-                    ->subject('Pesanan Diterima - Extera Travel');
-            });
+            Mail::to($transaction->email)->send(new OrderConfirmationMail($transaction));
         } catch (\Exception $e) {
-            // Email failure shouldn't break the flow
+            \Log::error('Failed to send order confirmation email: ' . $e->getMessage());
         }
 
         return redirect()->route('checkout.success', $transaction->uuid);

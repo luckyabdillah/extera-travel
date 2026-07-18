@@ -88,9 +88,9 @@
 				<h2 class="mt-3 font-display text-3xl text-ink-900 sm:text-4xl">Paket Pilihan Buat Kamu</h2>
 			</div>
 
-			<div class="swiper packageSwiper overflow-hidden rounded-3xl">
-				<div class="swiper-wrapper">
-					@forelse($packageCategories as $category)
+			@forelse($packageCategories as $category)
+				<div class="swiper packageSwiper overflow-hidden rounded-3xl">
+					<div class="swiper-wrapper">
 						<article class="swiper-slide reveal group overflow-hidden rounded-3xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft @if($category->mark_as_favorite) border-2 border-gold-300 shadow-gold @else border-primary-200 @endif">
 							@if($category->mark_as_favorite)
 								<div class="relative">
@@ -126,17 +126,17 @@
 								<button class="product-detail-btn mt-6 w-full rounded-full px-4 py-2.5 text-sm font-bold transition @if($category->mark_as_favorite) bg-primary-600 text-white hover:bg-primary-700 @else bg-primary-100 text-primary-800 group-hover:bg-primary-600 group-hover:text-white @endif">Lihat Detail</button>
 							</div>
 						</article>
-					@empty
-						<article class="col-span-full py-12 text-center">
-							<x-lucide-package class="mx-auto h-12 w-12 text-base-content/20" />
-							<p class="mt-4 text-base-content/50">Belum ada kategori paket tersedia.</p>
-						</article>
-					@endforelse
+					</div>
+					<div class="mt-6 flex items-center justify-between">
+						<div class="swiper-pagination static!"></div>
+					</div>
 				</div>
-				<div class="mt-6 flex items-center justify-between">
-					<div class="swiper-pagination static!"></div>
-				</div>
-			</div>
+			@empty
+				<article class="col-span-full py-12 text-center">
+					<x-lucide-package class="mx-auto h-12 w-12 text-base-content/20" />
+					<p class="mt-4 text-base-content/50">Belum ada kategori paket tersedia.</p>
+				</article>
+			@endforelse
 
 			<!-- CTA on customizeable package -->
 			<div class="reveal mt-12 rounded-3xl border border-primary-200 bg-primary-50 p-6 text-center shadow-soft">
@@ -382,7 +382,7 @@
 				<div>
 					<p class="text-xs font-bold uppercase tracking-wider text-gold-700">Request Paket</p>
 					<h3 class="mt-1 font-display text-2xl text-ink-900">Buat Paket Kustom</h3>
-					<p class="mt-1 text-sm text-ink-400">Isi form di bawah, tim kami akan menghubungi kamu dalam 1x24 jam.</p>
+					<p class="mt-1 text-sm text-ink-400">Isi form di bawah, tim kami akan menghubungi kamu segera.</p>
 				</div>
 				<button type="button" id="closeCustomModalBtn" class="rounded-full border border-primary-200 px-3 py-1.5 text-sm font-bold text-primary-700 transition hover:bg-primary-50">Tutup</button>
 			</div>
