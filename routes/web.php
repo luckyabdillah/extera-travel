@@ -10,6 +10,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageItineraryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionDetailController;
 use App\Http\Controllers\CustomerController;
 use App\Models\HeroImage;
 
@@ -33,8 +34,6 @@ Route::get('/blogs', function () {
 Route::get('/blogs/{blog:slug}', function (App\Models\Blog $blog) {
     return view('blogs.show', compact('blog'));
 })->name('blogs.show');
-
-
 
 Route::get('/api/packages/{package}', function (App\Models\Package $package) {
     $package->load(['category', 'prices', 'itineraries']);
@@ -64,8 +63,6 @@ Route::get('/api/packages/{package}', function (App\Models\Package $package) {
         ]),
     ]);
 });
-
-
 
 Route::get('/checkout/{package}', [OrderController::class, 'checkout'])->name('checkout');
 Route::post('/checkout/{package}/customers', [OrderController::class, 'storeCustomers'])->name('checkout.customers');
@@ -104,7 +101,6 @@ Route::get('/packages', function (Illuminate\Http\Request $request) {
     return view('packages.index', compact('packages', 'months', 'categories'));
 });
 
-
 Route::get('/faq', function () {
     $faqs = App\Models\Faq::latest()->get();
     return view('faq', compact('faqs'));
@@ -122,8 +118,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('blogs', BlogController::class);
     Route::get('package-categories/{uuid}/restore', [PackageCategoryController::class, 'restore'])->name('package-categories.restore');
     Route::resource('package-categories', PackageCategoryController::class);
+    Route::get('packages/{uuid}/restore', [PackageController::class, 'restore'])->name('packages.restore');
     Route::resource('packages', PackageController::class);
     Route::resource('packages.itineraries', PackageItineraryController::class)->except(['show']);
-    Route::resource('transactions', TransactionController::class)->only(['index', 'show', 'update']);
+    Route::resource('transactions', TransactionController::class)->only(['index', 'create', 'store', 'show', 'update']);
+    Route::post('transactions/{transaction}/details', [TransactionDetailController::class, 'store'])->name('transactions.details.store');
+    Route::patch('transactions/{transaction}/details/{detail}', [TransactionDetailController::class, 'update'])->name('transactions.details.update');
+    Route::delete('transactions/{transaction}/details/{detail}', [TransactionDetailController::class, 'destroy'])->name('transactions.details.destroy');
     Route::resource('customers', CustomerController::class);
 });

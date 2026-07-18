@@ -42,12 +42,13 @@
 								<th class="hidden lg:table-cell">Keberangkatan</th>
 								<th class="hidden md:table-cell">Harga Mulai</th>
 								<th class="hidden md:table-cell">Kuota</th>
+								<th class="hidden sm:table-cell">Status</th>
 								<th class="w-32 text-right">Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
 							@foreach($packages as $package)
-								<tr>
+								<tr class="{{ $package->trashed() ? 'opacity-50' : '' }}">
 									<td>
 										@if($package->flyer_path)
 											<img src="{{ asset('storage/' . $package->flyer_path) }}" alt="{{ $package->title }}" class="h-14 w-20 object-cover rounded-lg border border-base-300 shadow-sm" />
@@ -82,21 +83,34 @@
 											{{ $package->quota }}
 										</span>
 									</td>
+									<td class="hidden sm:table-cell">
+										@if($package->trashed())
+											<span class="d-badge d-badge-ghost d-badge-sm">Diarsipkan</span>
+										@else
+											<span class="d-badge d-badge-success d-badge-sm">Aktif</span>
+										@endif
+									</td>
 									<td class="text-right">
 										<div class="flex justify-end gap-2">
-											<a href="{{ route('admin.packages.itineraries.index', $package) }}" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Itinerary">
-												<x-lucide-map-pin class="h-4 w-4 text-primary" />
-											</a>
-											<a href="{{ route('admin.packages.edit', $package) }}" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Edit">
-												<x-lucide-edit-3 class="h-4 w-4 text-info" />
-											</a>
-											<form action="{{ route('admin.packages.destroy', $package) }}" method="POST" onsubmit="return confirm('Hapus paket ini? Semua harga terkait akan ikut terhapus.')" class="inline-block">
-												@csrf
-												@method('DELETE')
-												<button type="submit" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Hapus">
-													<x-lucide-trash-2 class="h-4 w-4 text-error" />
-												</button>
-											</form>
+											@if($package->trashed())
+												<a href="{{ route('admin.packages.restore', $package->uuid) }}" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Pulihkan">
+													<x-lucide-rotate-ccw class="h-4 w-4 text-success" />
+												</a>
+											@else
+												<a href="{{ route('admin.packages.itineraries.index', $package) }}" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Itinerary">
+													<x-lucide-map-pin class="h-4 w-4 text-primary" />
+												</a>
+												<a href="{{ route('admin.packages.edit', $package) }}" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Edit">
+													<x-lucide-edit-3 class="h-4 w-4 text-info" />
+												</a>
+												<form action="{{ route('admin.packages.destroy', $package) }}" method="POST" onsubmit="return confirm('Arsipkan paket ini?')" class="inline-block">
+													@csrf
+													@method('DELETE')
+													<button type="submit" class="d-btn d-btn-square d-btn-ghost d-btn-sm" title="Arsipkan">
+														<x-lucide-archive class="h-4 w-4 text-warning" />
+													</button>
+												</form>
+											@endif
 										</div>
 									</td>
 								</tr>

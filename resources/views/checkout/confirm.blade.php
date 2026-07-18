@@ -80,19 +80,24 @@
 							</span>
 						</div>
 						<div class="space-y-3">
-							@foreach($customers as $i => $c)
+							@foreach($passengerPrices as $i => $pp)
 							<div class="rounded-xl border border-base-300 p-4">
 								<div class="flex items-start justify-between">
 									<div>
 										<p class="font-semibold">
-											{{ $c->name }}
+											{{ $pp['customer']->name }}
 										</p>
 										<p class="mt-1 text-sm text-ink-500">
-											{{ $c->sex == 'male' ? 'Laki-laki' : 'Perempuan' }}
-											@if($c->email)
-												- {{ $c->email }}
+											{{ $pp['customer']->sex == 'male' ? 'Laki-laki' : 'Perempuan' }}
+											@if($pp['customer']->email)
+												- {{ $pp['customer']->email }}
 											@endif
-
+										</p>
+										<p class="mt-1 text-xs font-medium text-primary-600">
+											{{ $pp['price']->price_type ?? '-' }}
+											&mdash;
+											{{ ($pp['price']->currency ?? 'IDR') === 'IDR' ? 'Rp' : '$' }}
+											{{ number_format($pp['price']->price ?? 0, 0, ',', '.') }}
 										</p>
 									</div>
 									<span class="text-sm font-bold text-primary">
@@ -115,13 +120,22 @@
 								Ringkasan Pembayaran
 							</h3>
 							<div class="mt-5 space-y-3 text-sm">
-								<div class="flex justify-between">
-									<span>Harga / Jamaah</span>
-									<span>
-										{{ $cheapest->currency === 'IDR' ? 'Rp' : '$' }}
-										{{ number_format($cheapest->price,0,',','.') }}
-									</span>
-								</div>
+								@php
+									$grandTotal = 0;
+								@endphp
+								@foreach($grouped as $priceId => $items)
+									@php
+										$priceObj = $items->first()['price'];
+										$qty = $items->count();
+										$subtotal = ($priceObj->price ?? 0) * $qty;
+										$grandTotal += $subtotal;
+										$symbol = ($priceObj->currency ?? 'IDR') === 'IDR' ? 'Rp' : '$';
+									@endphp
+									<div class="flex justify-between">
+										<span>{{ $priceObj->price_type ?? '-' }} ({{ $qty }} pax)</span>
+										<span>{{ $symbol }} {{ number_format($priceObj->price ?? 0, 0, ',', '.') }}</span>
+									</div>
+								@endforeach
 								<div class="flex justify-between">
 									<span>Total Jamaah</span>
 									<span>{{ session('checkout.total_pax') }}</span>
@@ -130,8 +144,7 @@
 								<div class="flex justify-between text-lg font-bold">
 									<span>Total</span>
 									<span class="text-primary">
-										{{ $cheapest->currency === 'IDR' ? 'Rp ' : '$ ' }}
-										{{ number_format($cheapest->price * session('checkout.total_pax'),0,',','.') }}
+										Rp {{ number_format($grandTotal, 0, ',', '.') }}
 									</span>
 								</div>
 							</div>

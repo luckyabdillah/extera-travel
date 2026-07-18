@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.main')
+@extends('admin.layouts.main')
 
 @section('title', 'Transaksi')
 
@@ -21,6 +21,14 @@
 					<h2 class="d-card-title font-display text-xl">Pemesanan</h2>
 					<p class="text-xs text-base-content/50">Daftar transaksi pemesanan paket umrah & wisata.</p>
 				</div>
+				<div class="flex gap-2">
+					<a href="{{ route('admin.transactions.create') }}" class="d-btn d-btn-primary d-btn-sm">
+						<x-lucide-plus class="h-4 w-4 mr-1" /> Buat Transaksi
+					</a>
+				</div>
+			</div>
+
+			<div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 				<div class="flex gap-2">
 					<form method="GET" class="flex flex-wrap gap-2">
 						<input type="text" name="search" placeholder="Cari invoice, nama, email..." value="{{ request('search') }}"
@@ -55,7 +63,6 @@
 							<tr>
 								<th>Invoice</th>
 								<th>Nama Pemesan</th>
-								<th class="hidden md:table-cell">Email</th>
 								<th class="hidden lg:table-cell">Total</th>
 								<th class="hidden lg:table-cell">Tanggal</th>
 								<th>Status</th>
@@ -75,7 +82,6 @@
 											<p class="text-xs text-base-content/50">{{ $t->phone }}</p>
 										@endif
 									</td>
-									<td class="hidden md:table-cell text-xs text-base-content/70">{{ $t->email }}</td>
 									<td class="hidden lg:table-cell font-display text-sm">
 										Rp {{ number_format($t->total_bill, 0, ',', '.') }}
 									</td>
@@ -86,7 +92,7 @@
 										@if($t->status === 'confirmed')
 											<span class="d-badge d-badge-success d-badge-sm">Confirmed</span>
 										@else
-											<span class="d-badge d-badge-ghost d-badge-sm">Pending</span>
+											<span class="d-badge d-badge-error d-badge-sm">Pending</span>
 										@endif
 									</td>
 									<td>

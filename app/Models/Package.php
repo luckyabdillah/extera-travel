@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Package extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'uuid', 'package_category_id', 'title', 'slug', 'flyer_path',
         'flight_by', 'date', 'total_days', 'quota',
@@ -26,6 +29,11 @@ class Package extends Model
     public function prices()
     {
         return $this->hasMany(PackagePrice::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 
     public function itineraries()

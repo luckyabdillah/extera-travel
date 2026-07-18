@@ -11,7 +11,7 @@ class PackageController extends Controller
 {
     public function index()
     {
-        $packages = Package::with(['category', 'prices'])->latest()->get();
+        $packages = Package::withTrashed()->with(['category', 'prices'])->latest()->get();
         return view('admin.packages.index', compact('packages'));
     }
 
@@ -137,12 +137,18 @@ class PackageController extends Controller
 
     public function destroy(Package $package)
     {
-        if ($package->flyer_path) {
-            Storage::disk('public')->delete($package->flyer_path);
-        }
         $package->delete();
 
         return redirect()->route('admin.packages.index')
             ->with('success', 'Paket berhasil dihapus.');
+    }
+
+    public function restore($uuid)
+    {
+        $package = Package::withTrashed()->where('uuid', $uuid)->firstOrFail();
+        $package->restore();
+
+        return redirect()->route('admin.packages.index')
+            ->with('success', 'Paket berhasil dipulihkan.');
     }
 }

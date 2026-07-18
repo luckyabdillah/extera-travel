@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.main')
+@extends('admin.layouts.main')
 
 @section('title', 'Transaksi #' . $transaction->invoice_no)
 @section('page-title', '#' . $transaction->invoice_no)
@@ -13,6 +13,22 @@
 	@if(session('success'))
 		<div class="d-alert d-alert-success mb-4 shadow-sm">
 			<span>{{ session('success') }}</span>
+		</div>
+	@endif
+
+	@if(session('error'))
+		<div class="d-alert d-alert-error mb-4 shadow-sm">
+			<span>{{ session('error') }}</span>
+		</div>
+	@endif
+
+	@if ($errors->any())
+		<div class="d-alert d-alert-error mb-4 shadow-sm">
+			<ul class="list-disc list-inside text-sm">
+				@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+			</ul>
 		</div>
 	@endif
 
@@ -36,7 +52,7 @@
 						@if($transaction->status === 'confirmed')
 							<span class="d-badge d-badge-success d-badge-sm">Confirmed</span>
 						@else
-							<span class="d-badge d-badge-ghost d-badge-sm">Pending</span>
+							<span class="d-badge d-badge-error d-badge-sm">Pending</span>
 						@endif
 					</div>
 					<div>
@@ -62,29 +78,105 @@
 								<th class="text-center w-20">Qty</th>
 								<th class="text-right w-36">Harga Satuan</th>
 								<th class="text-right w-36">Subtotal</th>
+								<th class="w-24 text-center">Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
 							@forelse($transaction->details as $detail)
-								<tr>
-									<td>{{ $detail->description }}</td>
-									<td class="text-center">{{ $detail->qty }}</td>
-									<td class="text-right">Rp {{ number_format($detail->unit_price, 0, ',', '.') }}</td>
-									<td class="text-right font-semibold">Rp {{ number_format($detail->unit_price * $detail->qty, 0, ',', '.') }}</td>
-								</tr>
+								@if(request('edit') == $detail->id)
+									<tr>
+										<td colspan="5">
+											<form method="POST" action="{{ route('admin.transactions.details.update', [$transaction, $detail]) }}" class="flex flex-wrap items-end gap-2 py-1">
+												@csrf
+												@method('PATCH')
+												<div class="flex-1 min-w-[150px]">
+													<input type="text" name="description" value="{{ $detail->description }}" class="d-input d-input-bordered d-input-sm w-full" required />
+												</div>
+												<div class="w-20">
+													<input type="number" name="qty" value="{{ $detail->qty }}" min="1" class="d-input d-input-bordered d-input-sm w-full text-center" required />
+												</div>
+												<div class="w-36">
+													<input type="number" name="unit_price" value="{{ $detail->unit_price }}" min="0" step="0.01" class="d-input d-input-bordered d-input-sm w-full text-right" required />
+												</div>
+												<div class="flex gap-1">
+													<button type="submit" class="d-btn d-btn-primary d-btn-sm" title="Simpan">
+														<x-lucide-check class="h-4 w-4" />
+													</button>
+													<a href="{{ route('admin.transactions.show', $transaction) }}" class="d-btn d-btn-ghost d-btn-sm" title="Batal">
+														<x-lucide-x class="h-4 w-4" />
+													</a>
+												</div>
+											</form>
+										</td>
+									</tr>
+								@else
+									<tr>
+										<td>{{ $detail->description }}</td>
+										<td class="text-center">{{ $detail->qty }}</td>
+										<td class="text-right">Rp {{ number_format($detail->unit_price, 0, ',', '.') }}</td>
+										<td class="text-right font-semibold">Rp {{ number_format($detail->unit_price * $detail->qty, 0, ',', '.') }}</td>
+										<td class="text-center">
+											<div class="flex justify-center gap-1">
+												<a href="{{ route('admin.transactions.show', $transaction) }}?edit={{ $detail->id }}" class="d-btn d-btn-square d-btn-ghost d-btn-xs" title="Edit">
+													<x-lucide-pencil class="h-3 w-3 text-warning" />
+												</a>
+												<form method="POST" action="{{ route('admin.transactions.details.destroy', [$transaction, $detail]) }}" onsubmit="return confirm('Hapus item ini?')" class="inline">
+													@csrf
+													@method('DELETE')
+													<button type="submit" class="d-btn d-btn-square d-btn-ghost d-btn-xs" title="Hapus">
+														<x-lucide-trash-2 class="h-3 w-3 text-error" />
+													</button>
+												</form>
+											</div>
+										</td>
+									</tr>
+								@endif
 							@empty
 								<tr>
-									<td colspan="4" class="text-center text-base-content/50 py-4">Tidak ada detail item.</td>
+									<td colspan="5" class="text-center text-base-content/50 py-4">Tidak ada detail item.</td>
 								</tr>
 							@endforelse
 						</tbody>
 						<tfoot>
 							<tr class="font-bold">
-								<td colspan="3" class="text-right">Total</td>
+								<td colspan="4" class="text-right">Total</td>
 								<td class="text-right text-primary-700">Rp {{ number_format($transaction->total_bill, 0, ',', '.') }}</td>
 							</tr>
 						</tfoot>
 					</table>
+				</div>
+
+				{{-- Add Custom Item --}}
+				<div class="mt-6 border-t border-base-300 pt-4">
+					<h4 class="font-display text-base font-semibold mb-3">Tambah Item Kustom</h4>
+					<form method="POST" action="{{ route('admin.transactions.details.store', $transaction) }}">
+						@csrf
+						<div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+							<div class="sm:col-span-5">
+								<label class="d-label text-xs mb-1">
+									<span>Deskripsi</span>
+								</label>
+								<input type="text" name="description" placeholder="Nama produk / layanan tambahan" class="d-input d-input-bordered d-input-sm w-full" required />
+							</div>
+							<div class="sm:col-span-2">
+								<label class="d-label text-xs mb-1">
+									<span>Qty</span>
+								</label>
+								<input type="number" name="qty" value="1" min="1" class="d-input d-input-bordered d-input-sm w-full text-center" required />
+							</div>
+							<div class="sm:col-span-3">
+								<label class="d-label text-xs mb-1">
+									<span>Harga Satuan (Rp)</span>
+								</label>
+								<input type="number" name="unit_price" value="0" min="0" step="1000" class="d-input d-input-bordered d-input-sm w-full text-right" required />
+							</div>
+							<div class="sm:col-span-2">
+								<button type="submit" class="d-btn d-btn-secondary d-btn-sm w-full">
+									<x-lucide-plus class="h-4 w-4 mr-1" /> Tambah
+								</button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

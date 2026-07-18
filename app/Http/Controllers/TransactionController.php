@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -34,6 +35,46 @@ class TransactionController extends Controller
         return view('admin.transactions.index', compact('transactions'));
     }
 
+    public function create()
+    {
+        $packages = Package::orderBy('title')->get();
+
+        return view('admin.transactions.create', compact('packages'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:100',
+            'package_id' => 'nullable|exists:packages,id',
+            'status' => 'required|in:pending,confirmed',
+            'payment_status' => 'required|in:unpaid,paid',
+            'expiration_time' => 'nullable|integer|min:0',
+        ]);
+
+        $year = date('Y');
+        $lastInvoice = Transaction::where('invoice_year', $year)->max('invoice_no');
+        $nextNum = $lastInvoice ? (int)substr($lastInvoice, 3) + 1 : 1;
+
+        $transaction = Transaction::create([
+            'package_id' => $validated['package_id'] ?? null,
+            'invoice_no' => 'INV' . str_pad($nextNum, 5, '0', STR_PAD_LEFT),
+            'invoice_year' => $year,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? null,
+            'total_bill' => 0,
+            'status' => $validated['status'],
+            'payment_status' => $validated['payment_status'],
+            'expiration_time' => $validated['expiration_time'] ?? 24,
+        ]);
+
+        return redirect()->route('admin.transactions.show', $transaction)
+            ->with('success', 'Transaksi berhasil dibuat. Silakan tambahkan item pesanan.');
+    }
+
     public function show(Transaction $transaction)
     {
         $transaction->load('details');
@@ -48,7 +89,24 @@ class TransactionController extends Controller
             'payment_status' => 'nullable|in:unpaid,paid',
         ]);
 
+        $oldStatus = $transaction->status;
+        $newStatus = $validated['status'] ?? $oldStatus;
+
         $transaction->update($validated);
+
+        if ($oldStatus !== $newStatus && $transaction->package_id) {
+            $package = Package::find($transaction->package_id);
+
+            if ($package) {
+                $totalPax = $transaction->details->sum('qty');
+
+                if ($newStatus === 'confirmed') {
+                    $package->decrement('quota', $totalPax);
+                } elseif ($oldStatus === 'confirmed' && $newStatus === 'pending') {
+                    $package->increment('quota', $totalPax);
+                }
+            }
+        }
 
         return redirect()->route('admin.transactions.show', $transaction)
             ->with('success', 'Status transaksi berhasil diperbarui.');
