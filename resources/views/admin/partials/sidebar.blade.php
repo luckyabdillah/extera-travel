@@ -58,6 +58,13 @@
 				FAQ
 			</a>
 		</li>
+
+		<li>
+			<a href="{{ route('admin.hotels.index') }}" class="{{ request()->routeIs('admin.hotels*') ? 'd-menu-active' : '' }}">
+				<x-lucide-building class="h-4 w-4" />
+				Hotel
+			</a>
+		</li>
 		
 		<li class="menu-title mt-3 text-[11px] uppercase tracking-wider text-ink-100/40">Transaksi</li>
 

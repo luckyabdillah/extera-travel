@@ -5,6 +5,7 @@ use App\Http\Controllers\HeroImageController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HotelController;
 use App\Http\Controllers\PackageCategoryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackageItineraryController;
@@ -114,6 +115,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('hero-images', HeroImageController::class);
     Route::resource('galleries', GalleryController::class);
     Route::resource('faqs', FaqController::class);
+    Route::resource('hotels', HotelController::class);
     Route::post('blogs/upload-image', [BlogController::class, 'uploadImage'])->name('blogs.upload-image');
     Route::resource('blogs', BlogController::class);
     Route::get('package-categories/{uuid}/restore', [PackageCategoryController::class, 'restore'])->name('package-categories.restore');
