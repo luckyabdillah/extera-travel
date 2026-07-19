@@ -15,6 +15,40 @@ use App\Http\Controllers\TransactionDetailController;
 use App\Http\Controllers\CustomerController;
 use App\Models\HeroImage;
 
+Route::get('/custom-package-mail-preview', function () {
+    $data = [
+        'name' => 'John Doe',
+        'email' => 'john.doe@example.com',
+        'phone' => '081234567890',
+        'total_pax' => 4,
+        'departure_month' => '2024-07',
+        'destination' => 'Mekkah',
+        'duration' => '7 hari',
+        'destination_label' => 'Mekkah & Madinah',
+        'duration_label' => '7 Hari',
+        'budget_label' => 'Rp 25 - 35 Juta',
+        'notes' => null,
+    ];
+    return new App\Mail\CustomPackageMail($data);
+});
+
+Route::get('/custom-package-internal-mail-preview', function () {
+    $data = [
+        'name' => 'John Doe',
+        'email' => 'john.doe@example.com',
+        'phone' => '081234567890',
+        'total_pax' => 4,
+        'departure_month' => '2024-07',
+        'destination' => 'Mekkah',
+        'duration' => '7 hari',
+        'destination_label' => 'Mekkah & Madinah',
+        'duration_label' => '7 Hari',
+        'budget_label' => 'Rp 25 - 35 Juta',
+        'notes' => null,
+    ];
+    return new App\Mail\CustomPackageInternalMail($data);
+});
+
 Route::get('/order-confirmation-mail-preview', function () {
     $transaction = App\Models\Transaction::latest()->first();
     return new App\Mail\OrderConfirmationMail($transaction);
@@ -24,7 +58,12 @@ Route::get('/', function () {
     $heroImages = HeroImage::latest()->get();
     $galleries = App\Models\Gallery::latest()->get();
     $packageCategories = App\Models\PackageCategory::with(['packages.prices'])->latest()->get();
-    return view('index', compact('heroImages', 'galleries', 'packageCategories'));
+    $hotelsByCity = App\Models\Hotel::select('id', 'name', 'city', 'latitude', 'longitude')->orderBy('city')->orderBy('name')->get()->groupBy('city');
+    $hotelsByCityCount = $hotelsByCity->count();
+    $gridCols = $hotelsByCityCount % 3 === 0 ? 3 : 2;
+    $lastHotelFullWidth = $hotelsByCityCount % 5 == 0 || $hotelsByCityCount % 7 == 0 ? true : false;
+    
+    return view('index', compact('heroImages', 'galleries', 'packageCategories', 'hotelsByCity', 'hotelsByCityCount', 'gridCols', 'lastHotelFullWidth'));
 });
 
 Route::get('/blogs', function () {
@@ -70,6 +109,76 @@ Route::post('/checkout/{package}/customers', [OrderController::class, 'storeCust
 Route::get('/checkout/{package}/confirm', [OrderController::class, 'getConfirmation'])->name('checkout.getConfirmation');
 Route::post('/checkout/{package}/confirm', [OrderController::class, 'confirm'])->name('checkout.confirm');
 Route::get('/checkout/success/{transaction}', [OrderController::class, 'success'])->name('checkout.success');
+Route::post('/custom-package', function (Illuminate\Http\Request $request) {
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'required|string|max:100',
+        'total_pax' => 'nullable|integer|min:1|max:100',
+        'departure_month' => 'nullable|string|max:100',
+        'destination' => 'nullable|string|max:255',
+        'duration' => 'nullable|string|max:100',
+        'budget' => 'nullable|string|max:100',
+        'notes' => 'nullable|string|max:5000',
+    ]);
+
+    $destinationLabels = [
+        'mekkah-madinah' => 'Mekkah & Madinah',
+        'mekkah-madinah-jeddah' => 'Mekkah, Madinah & Jeddah',
+        'mekkah-madinah-turki' => 'Mekkah, Madinah & Turki',
+        'mekkah-madinah-mesir' => 'Mekkah, Madinah & Mesir',
+        'mekkah-madinah-yordania' => 'Mekkah, Madinah & Yordania',
+        'umrah-plus' => 'Umrah Plus (Lainnya)',
+        'haji' => 'Haji Khusus',
+        'wisata-religi' => 'Wisata Religi Nusantara',
+        'other' => 'Lainnya',
+    ];
+
+    $durationLabels = [
+        '7' => '7 Hari',
+        '9' => '9 Hari',
+        '10' => '10 Hari',
+        '12' => '12 Hari',
+        '14' => '14 Hari',
+        '21' => '21 Hari',
+        'flexible' => 'Fleksibel',
+    ];
+
+    $budgetLabels = [
+        '<25' => '< Rp 25 Juta',
+        '25-35' => 'Rp 25 - 35 Juta',
+        '35-50' => 'Rp 35 - 50 Juta',
+        '50-75' => 'Rp 50 - 75 Juta',
+        '75-100' => 'Rp 75 - 100 Juta',
+        '>100' => '> Rp 100 Juta',
+        'flexible' => 'Belum Tahu / Fleksibel',
+    ];
+
+    $data = array_merge($validated, [
+        'destination_label' => $destinationLabels[$validated['destination']] ?? $validated['destination'],
+        'duration_label' => $durationLabels[$validated['duration']] ?? $validated['duration'],
+        'budget_label' => $budgetLabels[$validated['budget']] ?? $validated['budget'],
+        'total_pax' => $validated['total_pax'] ?? 1,
+        'departure_month' => $validated['departure_month'] ?? '',
+        'notes' => $validated['notes'] ?? '',
+    ]);
+
+    try {
+        \Illuminate\Support\Facades\Mail::to($data['email'])
+            ->send(new \App\Mail\CustomPackageMail($data));
+    } catch (\Exception $e) {
+        \Log::error('Failed to send custom package customer email: ' . $e->getMessage());
+    }
+
+    try {
+        \Illuminate\Support\Facades\Mail::to(config('mail.from.address'))
+            ->send(new \App\Mail\CustomPackageInternalMail($data));
+    } catch (\Exception $e) {
+        \Log::error('Failed to send custom package internal email: ' . $e->getMessage());
+    }
+
+    return redirect('/#kontak')->with('success', 'Permintaan paket kustom berhasil dikirim! Tim kami akan menghubungi kamu dalam 1x24 jam.');
+})->name('custom-package.submit');
 
 Route::get('/packages', function (Illuminate\Http\Request $request) {
     $query = App\Models\Package::with(['category', 'prices', 'itineraries']);

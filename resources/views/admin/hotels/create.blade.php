@@ -40,7 +40,7 @@
         <span class="label-text font-semibold">Kota <span class="text-error">*</span></span>
        </label>
        <select name="city" class="d-select d-select-bordered w-full" required>
-        <option value="">-- Pilih Kota --</option>
+        <option value="">Pilih Kota</option>
         <option value="makkah" @selected(old('city') === 'makkah')>Makkah</option>
         <option value="madinah" @selected(old('city') === 'madinah')>Madinah</option>
         <option value="jeddah" @selected(old('city') === 'jeddah')>Jeddah</option>

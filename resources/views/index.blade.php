@@ -20,8 +20,8 @@
 						Untuk kamu yang ingin berangkat bersama teman-teman seusia, didampingi dari niat berangkat sampai pulang ke rumah, dengan pelayanan yang jelas dan nyaman.
 					</p>
 					<div class="mt-8 flex flex-wrap gap-3">
-						<a href="#paket" class="rounded-full bg-gold-400 px-7 py-3.5 text-sm font-bold text-ink-900 shadow-gold transition hover:-translate-y-0.5 hover:bg-gold-300">Lihat Paket</a>
-						<a href="#kontak" class="rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/10">Chat Admin</a>
+						<a href="/packages" class="rounded-full bg-gold-400 px-7 py-3.5 text-sm font-bold text-ink-900 shadow-gold transition hover:-translate-y-0.5 hover:bg-gold-300">Lihat Paket</a>
+						<a href="/contact" class="rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/10">Chat Admin</a>
 					</div>
 
 					<div class="mt-10 flex flex-wrap gap-6 border-t border-white/10 pt-6">
@@ -72,7 +72,7 @@
 					</div>
 
 					<div class="absolute -bottom-6 -left-6 rounded-2xl bg-white p-4 shadow-soft">
-						<p class="font-display text-lg text-primary-700">4.9 Ã¢Ëœâ€¦</p>
+						<p class="font-display text-lg text-primary-700">4.9 ⭐</p>
 						<p class="text-[11px] font-semibold text-ink-400">4500+ jamaah muda</p>
 					</div>
 				</div>
@@ -367,7 +367,7 @@
 	</div>
 
 	<!-- Floating WhatsApp CTA -->
-	<a href="https://wa.me/6281234567890" target="_blank" class="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-gold-400 px-5 py-3.5 text-sm font-bold text-ink-900 shadow-gold transition hover:-translate-y-0.5 hover:bg-gold-300">
+	<a href="https://wa.me/6281283890098" target="_blank" class="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-primary-500 px-5 py-3.5 text-sm font-bold text-white shadow-gold transition hover:-translate-y-0.5 hover:bg-primary-400">
 		<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
 			<path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.99.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.336-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
 		</svg>
@@ -384,7 +384,9 @@
 					<h3 class="mt-1 font-display text-2xl text-ink-900">Buat Paket Kustom</h3>
 					<p class="mt-1 text-sm text-ink-400">Isi form di bawah, tim kami akan menghubungi kamu segera.</p>
 				</div>
-				<button type="button" id="closeCustomModalBtn" class="rounded-full border border-primary-200 px-3 py-1.5 text-sm font-bold text-primary-700 transition hover:bg-primary-50">Tutup</button>
+				<div class="flex items-center gap-2">
+                    <button type="button" onclick="openHotelHintModal()" class="rounded-full border border-gold-300 bg-gold-50 px-3 py-1.5 text-sm font-bold text-gold-700 transition hover:bg-gold-100">Peta Hotel</button>
+                    <button type="button" id="closeCustomModalBtn" class="rounded-full border border-primary-200 px-3 py-1.5 text-sm font-bold text-primary-700 transition hover:bg-primary-50">Tutup</button></div>
 			</div>
 
 			<form id="customForm" class="space-y-5">
@@ -469,12 +471,30 @@
 					</div>
 				</div>
 
-				<div>
-					<label class="mb-1 block text-sm font-semibold text-ink-700">Catatan Tambahan</label>
-					<textarea name="notes" rows="4"
-						class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200"
-						placeholder="Ceritakan kebutuhan spesifik kamu di sini..."></textarea>
-				</div>
+                <div role="alert" class="d-alert d-alert-info d-alert-soft">
+                    <span>Kesulitan memilih hotel? Klik tombol <strong>Peta Hotel</strong> di atas untuk melihat lokasi hotel.</span>
+                </div>
+
+                <div class="grid gap-5 grid-cols-1 sm:grid-cols-{{ $gridCols }}">
+                    @foreach($hotelsByCity as $city => $hotels)
+                        <div @class(['sm:col-span-2' => $lastHotelFullWidth && $i === $hotelsByCityCount - 1])>
+                            <label class="mb-1 block text-sm font-semibold text-ink-700">Hotel {{ ucwords(str_replace('-', ' ', $city)) }}</label>
+                            <select name="hotels[{{ str_replace('-', '_', $city) }}]"
+                                class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200">
+                                <option value="">Pilih hotel...</option>
+                                @foreach($hotels as $hotel)
+                                    <option value="{{ $hotel->name }}">{{ $hotel->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endforeach
+                </div>
+
+                <label class="mb-1 block text-sm font-semibold text-ink-700">Catatan Tambahan</label>
+                <textarea name="notes" rows="4"
+                    class="w-full rounded-xl border border-primary-200 bg-primary-50/50 px-4 py-2.5 text-sm text-ink-900 outline-none transition focus:border-gold-400 focus:ring-2 focus:ring-gold-200"
+                    placeholder="Ceritakan kebutuhan spesifik kamu di sini...">
+                </textarea>
 
 				<div class="flex items-center gap-3 pt-2">
 					<button type="submit" class="rounded-full bg-gold-400 px-8 py-3 text-sm font-bold text-ink-900 shadow-gold transition hover:bg-gold-300">Kirim Permintaan</button>
@@ -486,29 +506,80 @@
 		</div>
 	</div>
 
+	<!-- Hotel Hint Modal -->
+	<div id="hotelHintModal" class="fixed inset-0 z-60 hidden items-center justify-center p-4" aria-hidden="true">
+		<div id="hotelHintBackdrop" class="absolute inset-0 bg-ink-950/70 backdrop-blur-sm"></div>
+		<div class="relative z-10 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border border-gold-200 bg-white p-6 shadow-soft sm:p-8">
+			<div class="mb-6 flex items-start justify-between gap-4">
+				<div>
+					<p class="text-xs font-bold uppercase tracking-wider text-gold-700">Panduan Hotel</p>
+					<h3 class="mt-1 font-display text-2xl text-ink-900">Petunjuk Lokasi Hotel</h3>
+					<p class="mt-1 text-sm text-ink-400">Lihat posisi hotel di peta untuk membantu memilih paket.</p>
+				</div>
+				<div class="flex items-center gap-2">
+					<button type="button" onclick="openCustomModalFromHint()" class="rounded-full border border-primary-200 px-3 py-1.5 text-sm font-bold text-primary-700 transition hover:bg-primary-50">Kembali</button>
+				</div>
+			</div>
 
-	<!-- Custom Paket Modal Script -->
+			{{-- Tab City --}}
+			<div id="hotelTabs" class="mb-4 flex flex-wrap gap-2 border-b border-primary-100 pb-3">
+				@foreach($hotelsByCity as $city => $hotels)
+					<button type="button"
+						class="city-tab rounded-full px-4 py-1.5 text-xs font-bold transition {{ $loop->first ? 'bg-gold-400 text-ink-900' : 'bg-primary-50 text-ink-600 hover:bg-gold-100' }}"
+						data-city="{{ $city }}">
+						{{ ucwords(str_replace('-', ' ', $city)) }}
+					</button>
+				@endforeach
+			</div>
+
+			{{-- Map Container --}}
+			<div id="hotelMap" class="h-[400px] w-full rounded-2xl border border-primary-200 z-0"></div>
+
+			{{-- Hotel List Under Map --}}
+			<div id="hotelList" class="mt-4 space-y-2">
+				<p class="text-xs font-semibold text-ink-500">Daftar hotel di kota terpilih:</p>
+				<div id="hotelListItems" class="grid gap-2 sm:grid-cols-2"></div>
+			</div>
+
+			{{-- Back to Custom Modal --}}
+			<div class="mt-6 pt-4 border-t border-primary-100 flex items-center gap-3">
+				<button type="button" onclick="openCustomModalFromHint()" class="rounded-full bg-gold-400 px-8 py-3 text-sm font-bold text-ink-900 shadow-gold transition hover:bg-gold-300">← Kembali ke Buat Paket Kustom</button>
+			</div>
+		</div>
+	</div>
+
+@endsection
+
+@push('styles')
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+@endpush
+
+@push('scripts')
+    @vite(['resources/js/pages/home.js'])
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 	<script>
 		function openCustomModal() {
-			var modal = document.getElementById("customModal");
+			let modal = document.getElementById("customModal");
 			modal.classList.remove("hidden");
 			modal.classList.add("flex");
 			document.body.style.overflow = "hidden";
 		}
 
 		function closeCustomModal() {
-			var modal = document.getElementById("customModal");
+			let modal = document.getElementById("customModal");
 			modal.classList.add("hidden");
 			modal.classList.remove("flex");
 			document.body.style.overflow = "";
 		}
 
 		document.addEventListener("DOMContentLoaded", function() {
-			var modal = document.getElementById("customModal");
-			var backdrop = document.getElementById("customModalBackdrop");
-			var closeBtns = document.querySelectorAll("#closeCustomModalBtn, #closeCustomModalBtn2");
+			let modal = document.getElementById("customModal");
+			let backdrop = document.getElementById("customModalBackdrop");
+			let closeBtns = document.querySelectorAll("#closeCustomModalBtn, #closeCustomModalBtn2");
 
-			for (var i = 0; i < closeBtns.length; i++) {
+			for (let i = 0; i < closeBtns.length; i++) {
 				closeBtns[i].addEventListener("click", closeCustomModal);
 			}
 
@@ -525,13 +596,220 @@
 			});
 		});
 	</script>
-@endsection
+    <script>
+        let hotelData = @json($hotelsByCity);
 
-@push('styles')
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-@endpush
+        let hotelMap = null;
+        let hotelMarkers = [];
 
-@push('scripts')
-    @vite(['resources/js/pages/home.js'])
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        function initHotelMap() {
+            if (hotelMap) return;
+            hotelMap = L.map('hotelMap').setView([21.3891, 39.8579], 6);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors',
+                maxZoom: 19
+            }).addTo(hotelMap);
+        }
+
+        function clearMarkers() {
+            hotelMarkers.forEach(function(m) { hotelMap.removeLayer(m); });
+            hotelMarkers = [];
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function showHotelsOnMap(city) {
+            if (!hotelMap) initHotelMap();
+            clearMarkers();
+            let bounds = [];
+            let listHtml = '';
+
+            if (hotelData[city]) {
+                hotelData[city].forEach(function(hotel, i) {
+                    if (hotel.latitude && hotel.longitude) {
+                        let lat = parseFloat(hotel.latitude);
+                        let lng = parseFloat(hotel.longitude);
+                        let marker = L.marker([lat, lng])
+                            .addTo(hotelMap)
+                            .bindPopup('<strong>' + hotel.name + '</strong><br>' + capitalize(hotel.city));
+                        hotelMarkers.push(marker);
+                        bounds.push([lat, lng]);
+
+                        let color = i % 2 === 0 ? 'bg-gold-100 text-gold-800' : 'bg-primary-100 text-primary-800';
+                        listHtml += '<div class="flex items-start gap-2 rounded-lg border border-primary-100 p-2 ' + color + ' text-xs font-semibold">' +
+                            '<span class="mt-0.5">📍</span><span>' + hotel.name + '</span></div>';
+                    }
+                });
+            }
+
+            document.getElementById('hotelListItems').innerHTML = listHtml || '<p class="text-xs text-ink-400 col-span-2">Tidak ada hotel dengan koordinat di kota ini.</p>';
+
+            if (bounds.length > 0) {
+                hotelMap.fitBounds(bounds, { padding: [40, 40] });
+            }
+        }
+
+        // City tab click handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            let tabs = document.querySelectorAll('#hotelTabs .city-tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(function(t) {
+                        t.classList.remove('bg-gold-400', 'text-ink-900');
+                        t.classList.add('bg-primary-50', 'text-ink-600');
+                    });
+                    this.classList.add('bg-gold-400', 'text-ink-900');
+                    this.classList.remove('bg-primary-50', 'text-ink-600');
+                    showHotelsOnMap(this.dataset.city);
+                });
+            });
+        });
+    </script>
+    <script>
+        function openHotelHintModal() {
+            closeCustomModal();
+            let modal = document.getElementById("hotelHintModal");
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            document.body.style.overflow = "hidden";
+            // Show first city
+            setTimeout(function() {
+                let firstTab = document.querySelector('#hotelTabs .city-tab');
+                if (firstTab) showHotelsOnMap(firstTab.dataset.city);
+                initHotelMap();
+            }, 200);
+        }
+
+        function closeHotelHintModal() {
+            let modal = document.getElementById("hotelHintModal");
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+            document.body.style.overflow = "";
+        }
+
+        function openCustomModalFromHint() {
+            closeHotelHintModal();
+            openCustomModal();
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let hintModal = document.getElementById("hotelHintModal");
+            let hintBackdrop = document.getElementById("hotelHintBackdrop");
+
+            hintBackdrop.addEventListener("click", closeHotelHintModal);
+
+            document.addEventListener("keydown", function(e) {
+                if (e.key === "Escape" && !hintModal.classList.contains("hidden")) {
+                    closeHotelHintModal();
+                }
+            });
+
+            hintModal.querySelector(".relative.z-10").addEventListener("click", function(e) {
+                e.stopPropagation();
+            });
+        });
+
+    </script>
+
+    <script>
+        (function() {
+            let form = document.getElementById("customForm");
+            if (!form) return;
+
+            let waNumber = "6281283890098";
+
+            let destinationLabels = {
+                "mekkah-madinah": "Mekkah & Madinah",
+                "mekkah-madinah-jeddah": "Mekkah, Madinah & Jeddah",
+                "mekkah-madinah-turki": "Mekkah, Madinah & Turki",
+                "mekkah-madinah-mesir": "Mekkah, Madinah & Mesir",
+                "mekkah-madinah-yordania": "Mekkah, Madinah & Yordania",
+                "umrah-plus": "Umrah Plus (Lainnya)",
+                "haji": "Haji Khusus",
+                "wisata-religi": "Wisata Religi Nusantara",
+                "other": "Lainnya"
+            };
+
+            let durationLabels = {
+                "7": "7 Hari",
+                "9": "9 Hari",
+                "10": "10 Hari",
+                "12": "12 Hari",
+                "14": "14 Hari",
+                "21": "21 Hari",
+                "flexible": "Fleksibel"
+            };
+
+            let budgetLabels = {
+                "<25": "< Rp 25 Juta",
+                "25-35": "Rp 25 - 35 Juta",
+                "35-50": "Rp 35 - 50 Juta",
+                "50-75": "Rp 50 - 75 Juta",
+                "75-100": "Rp 75 - 100 Juta",
+                ">100": "> Rp 100 Juta",
+                "flexible": "Belum Tahu / Fleksibel"
+            };
+
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+
+                let fd = new FormData(form);
+                let lines = [];
+
+                lines.push("Halo admin Extera, saya ingin membuat paket kustom dengan detail berikut:");
+                lines.push("");
+
+                // Nama
+                let name = fd.get("name");
+                if (name) lines.push("*Nama Lengkap:* " + name);
+
+                // Email
+                let email = fd.get("email");
+                if (email) lines.push("*Email:* " + email);
+                // Phone
+                let phone = fd.get("phone");
+                if (phone) lines.push("*No. Telepon / WhatsApp:* " + phone);
+
+                // Total Pax
+                let pax = fd.get("total_pax");
+                if (pax) lines.push("*Jumlah Jamaah:* " + pax);
+                // Departure
+                let dep = fd.get("departure_month");
+                if (dep) lines.push("*Keberangkatan:* " + dep);
+
+                // Destination
+                let dest = fd.get("destination");
+                if (dest) lines.push("*Destinasi:* " + (destinationLabels[dest] || dest));
+                // Duration
+                let dur = fd.get("duration");
+                if (dur) lines.push("*Durasi:* " + (durationLabels[dur] || dur));
+
+                // Budget
+                let bud = fd.get("budget");
+                if (bud) lines.push("*Budget Per Orang:* " + (budgetLabels[bud] || bud));
+                // Hotels - collect all fields that start with "hotels["
+                let hotelLines = [];
+                for (let pair of fd.entries()) {
+                    if (pair[0].startsWith("hotels[") && pair[1]) {
+                        let city = pair[0].replace("hotels[", "").replace("]", "");
+                        hotelLines.push("- *Hotel " + capitalize(city) + ":* " + pair[1]);
+                    }
+                }
+                if (hotelLines.length > 0) {
+                    lines.push("*Hotel Dipilih:*");
+                    lines = lines.concat(hotelLines);
+                }
+
+                // Notes
+                let notes = fd.get("notes");
+                if (notes && notes.trim()) lines.push("*Catatan Tambahan:* " + notes.trim());
+
+                let message = lines.join("\n");
+                let url = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(message);
+                window.open(url, "_blank");
+            });
+        })();
+    </script>
 @endpush
