@@ -211,6 +211,8 @@ Route::get('/packages', function (Illuminate\Http\Request $request) {
     return view('packages.index', compact('packages', 'months', 'categories'));
 });
 
+Route::get('/contact', function () { return view('contact'); });
+
 Route::get('/faq', function () {
     $faqs = App\Models\Faq::latest()->get();
     return view('faq', compact('faqs'));

@@ -50,7 +50,7 @@
                     <li><a href="/blogs" class="nav-link transition">Artikel</a></li>
                     <li><a href="/packages" class="nav-link transition">Paket</a></li>
                     <li><a href="/faq" class="nav-link transition">FAQ</a></li>
-                    <li><a href="/#kontak" class="nav-link transition">Kontak</a></li>
+                    <li><a href="/contact" class="nav-link transition">Kontak</a></li>
                 </ul>
 
                 <div class="flex items-center gap-3">
@@ -70,7 +70,7 @@
                     <li><a href="/blogs" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Artikel</a></li>
                     <li><a href="/packages" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Paket</a></li>
                     <li><a href="/faq" class="mobile-nav-link block rounded-lg px-3 py-2 transition">FAQ</a></li>
-                    <li><a href="/#kontak" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Kontak</a></li>
+                    <li><a href="/contact" class="mobile-nav-link block rounded-lg px-3 py-2 transition">Kontak</a></li>
                     <li><a href="/packages" class="mt-2 block rounded-full bg-gold-400 px-4 py-2 text-center font-bold text-ink-900">Gabung Sekarang</a></li>
                 </ul>
             </div>
@@ -112,6 +112,71 @@
                 © 2026 Extera Travel. All rights reserved.
             </div>
         </footer>
+
+        <!-- Floating WhatsApp CTA -->
+        <button id="chatBtn" onclick="openChatModal()" target="_blank" class="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-primary-500 px-5 py-3.5 text-sm font-bold text-white shadow-gold transition hover:-translate-y-0.5 hover:bg-primary-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.99.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.336-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+            </svg>
+            Chat Admin
+        </button>
+
+        <!-- Chat Modal -->
+        <div id="chatModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div class="relative mx-4 w-full max-w-md rounded-3xl bg-white p-6 shadow-soft">
+                <button onclick="closeChatModal()" class="absolute right-4 top-4 text-ink-400 hover:text-ink-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <h3 class="font-display text-xl text-ink-900">Chat Admin</h3>
+                <p class="mt-1 text-sm text-ink-400">Ada yang bisa kami bantu?</p>
+                <form id="chatForm" class="mt-5 space-y-4">
+                    <div>
+                        <label class="text-xs font-semibold text-ink-600">Nama</label>
+                        <input type="text" id="chatName" required class="mt-1 w-full rounded-xl border border-ink-200 bg-ink-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-200" placeholder="Nama kamu" />
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold text-ink-600">Pesan</label>
+                        <textarea id="chatMessage" rows="3" required class="mt-1 w-full rounded-xl border border-ink-200 bg-ink-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-200 resize-none" placeholder="Tulis pesan..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full rounded-full bg-gold-400 py-2.5 text-sm font-bold text-ink-900 transition hover:bg-gold-300">
+                        Kirim ke WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            function openChatModal() {
+                document.getElementById('chatModal').classList.remove('hidden');
+                document.getElementById('chatModal').classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeChatModal() {
+                document.getElementById('chatModal').classList.add('hidden');
+                document.getElementById('chatModal').classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                var modal = document.getElementById('chatModal');
+                modal.addEventListener('click', function (e) {
+                    if (e.target === modal) closeChatModal();
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeChatModal();
+                });
+                document.getElementById('chatForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    var name = document.getElementById('chatName').value.trim();
+                    var message = document.getElementById('chatMessage').value.trim();
+                    var whatsappMessage = encodeURIComponent(message + '\n\n\u2013 ' + name);
+                    var whatsappLink = 'https://wa.me/6281283890098?text=' + whatsappMessage;
+                    window.open(whatsappLink, '_blank');
+                    closeChatModal();
+                });
+            });
+        </script>
 
         @stack('scripts')
     </body>
