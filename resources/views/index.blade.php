@@ -471,10 +471,6 @@
 					</div>
 				</div>
 
-                <div role="alert" class="d-alert d-alert-info d-alert-soft">
-                    <span>Kesulitan memilih hotel? Klik tombol <strong>Peta Hotel</strong> di atas untuk melihat lokasi hotel.</span>
-                </div>
-
                 <div class="grid gap-5 grid-cols-1 sm:grid-cols-{{ $gridCols }}">
                     @foreach($hotelsByCity as $city => $hotels)
                         <div @class(['sm:col-span-2' => $lastHotelFullWidth && $i === $hotelsByCityCount - 1])>
@@ -489,6 +485,11 @@
                         </div>
                     @endforeach
                 </div>
+
+				<div role="alert" class="flex items-center gap-3 rounded-xl justify-between border border-orange-200 bg-orange-50 p-2 text-sm text-ink-700">
+					<span class="ps-3">Bingung milih hotel? Intip lokasi hotel.</span>
+					<button type="button" onclick="openHotelHintModal()" class="rounded-xl bg-gold-400 px-8 py-3 text-sm font-bold text-ink-900 shadow-gold transition hover:bg-gold-300">Peta Hotel</button>
+				</div>
 
                 <label class="mb-1 block text-sm font-semibold text-ink-700">Catatan Tambahan</label>
                 <textarea name="notes" rows="4"
@@ -633,7 +634,12 @@
                         let lng = parseFloat(hotel.longitude);
                         let marker = L.marker([lat, lng])
                             .addTo(hotelMap)
-                            .bindPopup('<strong>' + hotel.name + '</strong><br>' + capitalize(hotel.city));
+                            .bindPopup(hotel.name, {
+								autoClose: false,
+								closeOnClick: false,
+								className: 'leaflet-custom-popup'
+							});
+						marker.openPopup();
                         hotelMarkers.push(marker);
                         bounds.push([lat, lng]);
 
@@ -677,7 +683,7 @@
             // Show first city
             setTimeout(function() {
                 let firstTab = document.querySelector('#hotelTabs .city-tab');
-                if (firstTab) showHotelsOnMap(firstTab.dataset.city);
+                if (firstTab) firstTab.click();
                 initHotelMap();
             }, 200);
         }

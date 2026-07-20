@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Transaction extends Model
 {
     protected $fillable = [
-        "uuid", "package_id", "invoice_no", "invoice_year", "name", "email", "phone",
+        "uuid", "package_id", "package_pax", "invoice_no", "invoice_year", "name", "email", "phone",
         "total_bill", "status", "payment_status", "expiration_time",
     ];
 
@@ -21,6 +21,7 @@ class Transaction extends Model
     protected function casts(): array
     {
         return [
+            "package_pax" => "integer",
             "total_bill" => "decimal:2",
         ];
     }

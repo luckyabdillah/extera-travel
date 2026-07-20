@@ -122,6 +122,7 @@ class OrderController extends Controller
 
             $transaction = Transaction::create([
                 'package_id' => $package->id,
+                'package_pax' => $checkout['total_pax'],
                 'invoice_no' => 'INV' . str_pad($nextNum, 5, '0', STR_PAD_LEFT),
                 'invoice_year' => $year,
                 'name' => $checkout['booker_name'],

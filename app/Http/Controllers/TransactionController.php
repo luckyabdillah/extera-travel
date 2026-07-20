@@ -91,19 +91,18 @@ class TransactionController extends Controller
 
         $oldStatus = $transaction->status;
         $newStatus = $validated['status'] ?? $oldStatus;
+        $packagePax = (int) ($transaction->package_pax ?? 0);
 
         $transaction->update($validated);
 
-        if ($oldStatus !== $newStatus && $transaction->package_id) {
+        if ($oldStatus !== $newStatus && $transaction->package_id && $packagePax > 0) {
             $package = Package::find($transaction->package_id);
 
             if ($package) {
-                $totalPax = $transaction->details->sum('qty');
-
                 if ($newStatus === 'confirmed') {
-                    $package->decrement('quota', $totalPax);
+                    $package->decrement('quota', $packagePax);
                 } elseif ($oldStatus === 'confirmed' && $newStatus === 'pending') {
-                    $package->increment('quota', $totalPax);
+                    $package->increment('quota', $packagePax);
                 }
             }
         }
