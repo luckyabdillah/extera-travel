@@ -12,7 +12,7 @@
 		</div>
 	</section>
 
-	<section class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
+	<section class="mx-auto max-w-3xl px-6 py-16 lg:py-24" data-nav-theme="light">
 		@forelse($faqs as $faq)
 			<details class="group border-b border-primary-200 py-5 open:pb-6">
 				<summary class="flex cursor-pointer items-center justify-between gap-4 font-display text-lg text-ink-900 list-none marker:content-none">

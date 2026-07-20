@@ -1,4 +1,4 @@
-﻿@extends('layouts.main')
+@extends('layouts.main')
 
 @section('title', 'Kontak')
 
@@ -12,7 +12,7 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-5xl px-6 py-16 lg:py-24">
+    <section class="mx-auto max-w-5xl px-6 py-16 lg:py-24" data-nav-theme="light">
         <div class="grid gap-10 lg:grid-cols-2">
             {{-- Contact Info --}}
             <div class="space-y-8">
