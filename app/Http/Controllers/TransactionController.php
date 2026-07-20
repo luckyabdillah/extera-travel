@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Package;
 use App\Models\Transaction;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -109,5 +110,23 @@ class TransactionController extends Controller
 
         return redirect()->route('admin.transactions.show', $transaction)
             ->with('success', 'Status transaksi berhasil diperbarui.');
+    }
+
+    public function exportPdf(Transaction $transaction)
+    {
+        $transaction->load('details');
+
+        $pdf = Pdf::loadView('admin.transactions.invoice-pdf', compact('transaction'));
+
+        return $pdf->stream("invoice-{$transaction->invoice_no}.pdf");
+    }
+
+    public function exportQuotationPdf(Transaction $transaction)
+    {
+        $transaction->load('details');
+
+        $pdf = Pdf::loadView('admin.transactions.quotation-pdf', compact('transaction'));
+
+        return $pdf->stream("quotation-{$transaction->uuid}.pdf");
     }
 }

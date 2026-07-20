@@ -34,9 +34,33 @@
 
 	<div class="grid gap-6 lg:grid-cols-3">
 		{{-- Detail Transaksi --}}
-		<div class="d-card bg-base-100 shadow-sm lg:col-span-2">
+		<div class="d-card bg-base-100 shadow-sm lg:col-span-2 min-w-0">
 			<div class="d-card-body">
-				<h3 class="d-card-title font-display text-lg mb-4">Detail Transaksi</h3>
+				<div class="flex items-center justify-between mb-4">
+					<h3 class="d-card-title font-display text-lg">Detail Transaksi</h3>
+					<div class="gap-2 hidden lg:flex">
+						<a href="{{ route('admin.transactions.pdf', $transaction) }}" target="_blank" class="d-btn d-btn-primary d-btn-sm gap-1.5">
+							<x-lucide-file-text class="h-4 w-4" />
+							Invoice PDF
+						</a>
+						<a href="{{ route('admin.transactions.quotation-pdf', $transaction) }}" target="_blank" class="d-btn d-btn-secondary d-btn-sm gap-1.5">
+							<x-lucide-file-text class="h-4 w-4" />
+							Quotation PDF
+						</a>
+					</div>
+					<div class="lg:hidden">
+						<div class="d-dropdown d-dropdown-end">
+							<div tabindex="0" role="button" class="d-btn d-btn-sm m-1">
+								<x-lucide-file-text class="h-4 w-4" />
+								PDF
+							</div>
+							<ul class="d-menu d-dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+								<li><a href="{{ route('admin.transactions.pdf', $transaction) }}" target="_blank">Invoice PDF</a></li>
+								<li><a href="{{ route('admin.transactions.quotation-pdf', $transaction) }}" target="_blank">Quotation PDF</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
 				<div class="grid grid-cols-2 gap-4 text-sm">
 					<div>

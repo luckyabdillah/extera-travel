@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeroImageController;
@@ -233,8 +233,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('packages', PackageController::class);
     Route::resource('packages.itineraries', PackageItineraryController::class)->except(['show']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'create', 'store', 'show', 'update']);
+    Route::get('transactions/{transaction}/pdf', [TransactionController::class, 'exportPdf'])->name('transactions.pdf');
+    Route::get('transactions/{transaction}/quotation-pdf', [TransactionController::class, 'exportQuotationPdf'])->name('transactions.quotation-pdf');
     Route::post('transactions/{transaction}/details', [TransactionDetailController::class, 'store'])->name('transactions.details.store');
     Route::patch('transactions/{transaction}/details/{detail}', [TransactionDetailController::class, 'update'])->name('transactions.details.update');
     Route::delete('transactions/{transaction}/details/{detail}', [TransactionDetailController::class, 'destroy'])->name('transactions.details.destroy');
     Route::resource('customers', CustomerController::class);
 });
+
