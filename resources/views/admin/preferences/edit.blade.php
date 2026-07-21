@@ -101,7 +101,7 @@
 							<label class="label">
 								<span class="label-text font-semibold">Instagram</span>
 							</label>
-							<input type="text" name="instagram_account" value="{{ old('instagram_account', $preferences['instagram_account'] ?? '') }}" class="d-input d-input-bordered w-full" placeholder="marhaba.wefada" />
+							<input type="text" name="instagram_account" value="{{ old('instagram_account', $preferences['instagram_account'] ?? '') }}" class="d-input d-input-bordered w-full" placeholder="https://instagram.com/exteratravel" />
 							@error('instagram_account')
 								<span class="text-xs text-error mt-1">{{ $message }}</span>
 							@enderror
@@ -111,7 +111,7 @@
 							<label class="label">
 								<span class="label-text font-semibold">TikTok</span>
 							</label>
-							<input type="text" name="tiktok_account" value="{{ old('tiktok_account', $preferences['tiktok_account'] ?? '') }}" class="d-input d-input-bordered w-full" placeholder="https://tiktok.com/@exteratravel" />
+							<input type="text" name="tiktok_account" value="{{ old('tiktok_account', $preferences['tiktok_account'] ?? '') }}" class="d-input d-input-bordered w-full" placeholder="k" />
 							@error('tiktok_account')
 								<span class="text-xs text-error mt-1">{{ $message }}</span>
 							@enderror

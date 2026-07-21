@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+	@php(\App\Helpers\PreferenceHelper::class)
 	<div class="max-w-4xl">
 		<div class="d-card bg-base-100 shadow-sm">
 			<div class="d-card-body">
@@ -116,15 +117,6 @@
 							</div>
 							<div id="priceRows" class="space-y-2">
 								<div class="price-row flex items-end gap-2">
-									<div class="d-form-control w-28">
-										<label class="label p-0 pb-1"><span class="label-text text-xs">Tipe</span></label>
-										<select name="prices[0][price_type]" class="d-select d-select-bordered d-select-sm w-full">
-											<option value="Single">Single</option>
-											<option value="Double" selected>Double</option>
-											<option value="Triple">Triple</option>
-											<option value="Quad">Quad</option>
-										</select>
-									</div>
 									<div class="d-form-control flex-1">
 										<label class="label p-0 pb-1"><span class="label-text text-xs">Mata Uang</span></label>
 										<select name="prices[0][currency]" class="d-select d-select-bordered d-select-sm w-full">
@@ -152,34 +144,32 @@
 						</div>
 					</div>
 
-					<div class="grid gap-4 sm:grid-cols-3">
-						<div class="d-form-control w-full">
-							<label class="label">
-								<span class="label-text font-semibold">Termasuk (Inclusions)</span>
-							</label>
-							<textarea name="inclusions" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('inclusions') }}</textarea>
-							<div class="label">
-								<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
-							</div>
+					<div class="d-form-control w-full">
+						<label class="label">
+							<span class="label-text font-semibold">Termasuk (Inclusions)</span>
+						</label>
+						<textarea name="inclusions" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('inclusions', \App\Helpers\PreferenceHelper::get('package_inclusions_template')) }}</textarea>
+						<div class="label">
+							<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
 						</div>
-						<div class="d-form-control w-full">
-							<label class="label">
-								<span class="label-text font-semibold">Tidak Termasuk (Exclusions)</span>
-							</label>
-							<textarea name="exclusions" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('exclusions') }}</textarea>
-							<div class="label">
-								<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
-							</div>
+					</div>
+					<div class="d-form-control w-full">
+						<label class="label">
+							<span class="label-text font-semibold">Tidak Termasuk (Exclusions)</span>
+						</label>
+						<textarea name="exclusions" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('exclusions', \App\Helpers\PreferenceHelper::get('package_exclusions_template')) }}</textarea>
+						<div class="label">
+							<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
 						</div>
-						<div class="d-form-control w-full">
-							<label class="label">
-								<span class="label-text font-semibold">Persyaratan</span>
-							</label>
-							<textarea name="requirements" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('requirements') }}</textarea>
-							<div class="label">
-								<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
-							</div>
-                        </div>
+					</div>
+					<div class="d-form-control w-full">
+						<label class="label">
+							<span class="label-text font-semibold">Persyaratan</span>
+						</label>
+						<textarea name="requirements" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('requirements', \App\Helpers\PreferenceHelper::get('package_requirements_template')) }}</textarea>
+						<div class="label">
+							<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
+						</div>
 					</div>
 
 					<div class="pt-4 flex gap-2">

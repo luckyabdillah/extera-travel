@@ -174,34 +174,32 @@
 						</div>
 					</div>
 
-					<div class="grid gap-4 sm:grid-cols-3">
-						<div class="d-form-control w-full">
-							<label class="label">
-								<span class="label-text font-semibold">Termasuk (Inclusions)</span>
-							</label>
-							<textarea name="inclusions" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('inclusions', $package->inclusions) }}</textarea>
-							<div class="label">
-								<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
-							</div>
+					<div class="d-form-control w-full">
+						<label class="label">
+							<span class="label-text font-semibold">Termasuk (Inclusions)</span>
+						</label>
+						<textarea name="inclusions" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('inclusions', $package->inclusions) }}</textarea>
+						<div class="label">
+							<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
 						</div>
-						<div class="d-form-control w-full">
-							<label class="label">
-								<span class="label-text font-semibold">Tidak Termasuk (Exclusions)</span>
-							</label>
-							<textarea name="exclusions" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('exclusions', $package->exclusions) }}</textarea>
-							<div class="label">
-								<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
-							</div>
+					</div>
+					<div class="d-form-control w-full">
+						<label class="label">
+							<span class="label-text font-semibold">Tidak Termasuk (Exclusions)</span>
+						</label>
+						<textarea name="exclusions" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('exclusions', $package->exclusions) }}</textarea>
+						<div class="label">
+							<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
 						</div>
-						<div class="d-form-control w-full">
-							<label class="label">
-								<span class="label-text font-semibold">Persyaratan</span>
-							</label>
-							<textarea name="requirements" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('requirements', $package->requirements) }}</textarea>
-							<div class="label">
-								<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
-							</div>
-                        </div>
+					</div>
+					<div class="d-form-control w-full">
+						<label class="label">
+							<span class="label-text font-semibold">Persyaratan</span>
+						</label>
+						<textarea name="requirements" rows="5" class="d-textarea d-textarea-bordered w-full text-sm">{{ old('requirements', $package->requirements) }}</textarea>
+						<div class="label">
+							<span class="label-text-alt text-base-content/50">Pisahkan per baris</span>
+						</div>
 					</div>
 
 					<div class="pt-4 flex gap-2">

@@ -31,7 +31,7 @@
                         </div>
                         <div>
                             <p class="font-semibold text-ink-900">Alamat</p>
-                            <p class="mt-0.5 text-sm text-ink-400">Jl. Contoh Alamat No. 123, Jakarta, Indonesia</p>
+                            <p class="mt-0.5 text-sm text-ink-400">{{ \App\Helpers\PreferenceHelper::get('address', 'Jl. Contoh Alamat No. 123, Jakarta, Indonesia') }}</p>
                         </div>
                     </div>
 
@@ -43,7 +43,7 @@
                         </div>
                         <div>
                             <p class="font-semibold text-ink-900">Telepon</p>
-                            <p class="mt-0.5 text-sm text-ink-400">+62 812-3456-7890</p>
+                            <p class="mt-0.5 text-sm text-ink-400">{{ \App\Helpers\PreferenceHelper::get('whatsapp_number', '+62 812-3456-7890') }}</p>
                         </div>
                     </div>
 
@@ -55,7 +55,7 @@
                         </div>
                         <div>
                             <p class="font-semibold text-ink-900">Email</p>
-                            <p class="mt-0.5 text-sm text-ink-400">hello@exteratravel.com</p>
+                            <p class="mt-0.5 text-sm text-ink-400">{{ \App\Helpers\PreferenceHelper::get('email', 'hello@exteratravel.com') }}</p>
                         </div>
                     </div>
 
@@ -67,7 +67,7 @@
                         </div>
                         <div>
                             <p class="font-semibold text-ink-900">WhatsApp</p>
-                            <p class="mt-0.5 text-sm text-ink-400">+62 812-8389-0098</p>
+                            <p class="mt-0.5 text-sm text-ink-400">{{ \App\Helpers\PreferenceHelper::get('whatsapp_number', '+62 812-8389-0098') }}</p>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,8 @@
         var name = document.getElementById('contactName').value.trim();
         var message = document.getElementById('contactMessage').value.trim();
         var whatsappMessage = encodeURIComponent(message + '\n\n\u2013 ' + name);
-        var whatsappLink = 'https://wa.me/6281283890098?text=' + whatsappMessage;
+        var waNumber = '{{ \App\Helpers\PreferenceHelper::get('whatsapp_number', '6281283890098') }}'.replace(/\D/g, '');
+        var whatsappLink = 'https://wa.me/' + waNumber + '?text=' + whatsappMessage;
         window.open(whatsappLink, '_blank');
     });
 </script>
