@@ -1,4 +1,4 @@
-﻿<aside class="min-h-full w-72 bg-ink-950 text-ink-100">
+<div class="min-h-full w-72 bg-ink-950 text-ink-100 [grid-column-start:1] [grid-row-start:1]">
 
 	{{-- Brand --}}
 	<div class="flex items-center gap-3 px-5 py-5">
@@ -91,11 +91,11 @@
 					Pengaturan
 				</summary>
 				<ul>
-					<li><a href="#" class="{{ request()->routeIs('admin.settings.users') ? 'd-menu-active' : '' }}">Pengguna</a></li>
-					<li><a href="#" class="{{ request()->routeIs('admin.settings.roles') ? 'd-menu-active' : '' }}">Role & Akses</a></li>
-					<li><a href="#" class="{{ request()->routeIs('admin.settings.preferences') ? 'd-menu-active' : '' }}">Preferensi</a></li>
+					<li><a href="{{ route('admin.settings.preferences') }}" class="{{ request()->routeIs('admin.settings.users') ? 'd-menu-active' : '' }}">Pengguna</a></li>
+					<li><a href="{{ route('admin.settings.preferences') }}" class="{{ request()->routeIs('admin.settings.roles') ? 'd-menu-active' : '' }}">Role & Akses</a></li>
+					<li><a href="{{ route('admin.settings.preferences') }}" class="{{ request()->routeIs('admin.settings.preferences') ? 'd-menu-active' : '' }}">Preferensi</a></li>
 				</ul>
 			</details>
 		</li>
 	</ul>
-</aside>
+</div>

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeroImageController;
@@ -12,6 +12,7 @@ use App\Http\Controllers\PackageItineraryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionDetailController;
+use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\CustomerController;
 use App\Models\HeroImage;
 
@@ -219,7 +220,13 @@ Route::get('/faq', function () {
 });
 
 Route::get('/admin', function () {
-    return view('admin.index');
+    $totalJamaah = App\Models\Customer::count();
+    $bookingBaru = App\Models\Transaction::where('created_at', '>=', now()->startOfWeek())->count();
+    $menungguKonfirmasi = App\Models\Transaction::where('status', 'pending')->count();
+    $paketAktif = App\Models\Package::where('quota', '>', 0)->where('date', '>=', now())->count();
+    $bookingTerbaru = App\Models\Transaction::with('package')->latest()->take(5)->get();
+
+    return view('admin.index', compact('totalJamaah', 'bookingBaru', 'menungguKonfirmasi', 'paketAktif', 'bookingTerbaru'));
 })->name('admin');
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -241,5 +248,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::patch('transactions/{transaction}/details/{detail}', [TransactionDetailController::class, 'update'])->name('transactions.details.update');
     Route::delete('transactions/{transaction}/details/{detail}', [TransactionDetailController::class, 'destroy'])->name('transactions.details.destroy');
     Route::resource('customers', CustomerController::class);
-});
 
+    Route::get('settings/preferences', [PreferenceController::class, 'edit'])->name('settings.preferences');
+    Route::put('settings/preferences', [PreferenceController::class, 'update'])->name('settings.preferences.update');
+});

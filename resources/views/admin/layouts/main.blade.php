@@ -57,7 +57,7 @@
 
 		{{-- Sidebar --}}
 		<div class="d-drawer-side z-40">
-			<label for="admin-drawer" aria-label="Tutup sidebar" class="d-drawer-overlay"></label>
+			<label for="admin-drawer" aria-label="Tutup sidebar" class="d-drawer-overlay lg:hidden"></label>
 			@include('admin.partials.sidebar')
 		</div>
 	</div>

@@ -48,7 +48,6 @@
                     <li><a href="/" class="nav-link transition">Home</a></li>
                     <li><a href="/packages" class="nav-link transition">Paket</a></li>
                     <li><a href="/blogs" class="nav-link transition">Artikel</a></li>
-                    <li><a href="/packages" class="nav-link transition">Paket</a></li>
                     <li><a href="/faq" class="nav-link transition">FAQ</a></li>
                     <li><a href="/contact" class="nav-link transition">Kontak</a></li>
                 </ul>
@@ -109,7 +108,7 @@
             </div>
 
             <div class="border-t border-white/10 py-4 text-center text-xs text-ink-100/50">
-                © 2026 Extera Travel. All rights reserved.
+                © {{ date('Y') }} Extera Travel. All rights reserved.
             </div>
         </footer>
 

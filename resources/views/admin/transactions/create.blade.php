@@ -53,7 +53,7 @@
 							<span>Paket (opsional)</span>
 						</label>
 						<select name="package_id" class="d-select d-select-bordered w-full">
-							<option value="">-- Tanpa Paket --</option>
+							<option value="">Tanpa Paket</option>
 							@foreach($packages as $pkg)
 								<option value="{{ $pkg->id }}" @selected(old('package_id') == $pkg->id)>{{ $pkg->title }}</option>
 							@endforeach
@@ -80,11 +80,11 @@
 						</select>
 					</div>
 
-					<div class="sm:col-span-2">
+					<div>
 						<label class="d-label text-xs mb-1">
 							<span>Tenggat Pembayaran (jam)</span>
 						</label>
-						<input type="number" name="expiration_time" value="{{ old('expiration_time', 24) }}" min="0" class="d-input d-input-bordered w-full sm:w-32" />
+						<input type="number" name="expiration_time" value="{{ old('expiration_time', 24) }}" min="0" class="d-input d-input-bordered w-full" />
 					</div>
 				</div>
 

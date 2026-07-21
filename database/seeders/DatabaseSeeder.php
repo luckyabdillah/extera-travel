@@ -10,6 +10,7 @@ use Database\Seeders\HotelSeeder;
 use Database\Seeders\PackageCategorySeeder;
 use Database\Seeders\PackageSeeder;
 use Database\Seeders\PackageItinerarySeeder;
+use Database\Seeders\PreferenceSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
             PackageCategorySeeder::class,
             PackageSeeder::class,
             PackageItinerarySeeder::class,
+            PreferenceSeeder::class,
         ]);
     }
 }
