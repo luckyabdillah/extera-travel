@@ -133,18 +133,17 @@
 			});
 
 			sameCheck.addEventListener("change", function() {
-				let inputs = container.querySelectorAll("input");
-				let genderSelects = container.querySelectorAll("select");
+				let firstPassenger = container.querySelector(".rounded-xl");
+				if (!firstPassenger) return;
 				if (this.checked) {
-					inputs.forEach(function(inp) {
+					firstPassenger.querySelectorAll("input").forEach(function(inp) {
 						let name = inp.name;
 						if (name.includes("[name]")) inp.value = bookerName.value;
 						else if (name.includes("[email]")) inp.value = bookerEmail.value;
 						else if (name.includes("[phone]")) inp.value = bookerPhone.value;
 					});
 				} else {
-					inputs.forEach(function(inp) { inp.value = ""; });
-					genderSelects.forEach(function(sel) { sel.value = "male"; });
+					firstPassenger.querySelectorAll("input").forEach(function(inp) { inp.value = ""; });
 				}
 			});
 

@@ -27,7 +27,7 @@
 				@csrf
 
 				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-					<div>
+					<div class="sm:col-span-2">
 						<label class="d-label text-xs mb-1">
 							<span>Nama Pemesan <span class="text-error">*</span></span>
 						</label>

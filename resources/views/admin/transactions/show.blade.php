@@ -83,8 +83,10 @@
 						<p class="text-xs text-base-content/50">Pembayaran</p>
 						@if($transaction->payment_status === 'paid')
 							<span class="d-badge d-badge-success d-badge-sm">Paid</span>
-						@else
+						@elseif($transaction->payment_status === 'unpaid')
 							<span class="d-badge d-badge-warning d-badge-sm">Unpaid</span>
+						@else
+							<span class="d-badge d-badge-error d-badge-sm">Refunded</span>
 						@endif
 					</div>
 					<div>
@@ -260,6 +262,7 @@
 							<select name="payment_status" class="d-select d-select-bordered d-select-sm w-full">
 								<option value="unpaid" @selected($transaction->payment_status === 'unpaid')>Unpaid</option>
 								<option value="paid" @selected($transaction->payment_status === 'paid')>Paid</option>
+								<option value="refunded" @selected($transaction->payment_status === 'refunded')>Refunded</option>
 							</select>
 						</div>
 

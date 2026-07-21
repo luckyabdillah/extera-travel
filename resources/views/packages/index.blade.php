@@ -128,10 +128,17 @@
 										data-uuid="{{ $package->uuid }}">
 										Lihat Detail
 									</button>
-									<a href="{{ route('checkout', $package->uuid) }}"
-										class="flex-1 rounded-full text-center border border-primary-200 bg-white px-4 py-2.5 text-sm font-bold text-ink-600 transition hover:bg-primary-50 hover:text-primary-700">
-										Book
-									</a>
+									@if($package->quota > 0)
+										<a href="{{ route('checkout', $package->uuid) }}"
+											class="flex-1 rounded-full text-center border border-primary-200 bg-white px-4 py-2.5 text-sm font-bold text-ink-600 transition hover:bg-primary-50 hover:text-primary-700">
+											Book
+										</a>
+									@else
+										<span
+											class="flex-1 rounded-full text-center border border-ink-200 bg-ink-50 px-4 py-2.5 text-sm font-bold text-ink-300 cursor-not-allowed">
+											Kuota Habis
+										</span>
+									@endif
 								</div>
 							</div>
 						</article>

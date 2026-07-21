@@ -11,54 +11,74 @@ class CustomerController extends Controller
     {
         $query = Customer::latest();
 
-        if ($request->filled('search')) {
+        if ($request->filled("search")) {
             $s = $request->search;
             $query->where(function ($q) use ($s) {
-                $q->where('name', 'like', "%{$s}%")
-                  ->orWhere('email', 'like', "%{$s}%")
-                  ->orWhere('phone', 'like', "%{$s}%");
+                $q->where("name", "like", "%{$s}%")
+                  ->orWhere("email", "like", "%{$s}%")
+                  ->orWhere("phone", "like", "%{$s}%");
             });
         }
 
-        if ($request->filled('sex')) {
-            $query->where('sex', $request->sex);
+        if ($request->filled("sex")) {
+            $query->where("sex", $request->sex);
         }
 
         $customers = $query->paginate(15);
 
-        return view('admin.customers.index', compact('customers'));
+        return view("admin.customers.index", compact("customers"));
+    }
+
+    public function create()
+    {
+        return view("admin.customers.create");
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            "name" => "required|string|max:255",
+            "email" => "required|email|max:255",
+            "phone" => "nullable|string|max:100",
+            "sex" => "required|in:male,female",
+        ]);
+
+        Customer::create($validated);
+
+        return redirect()->route("admin.customers.index")
+            ->with("success", "Data jamaah berhasil ditambahkan.");
     }
 
     public function show(Customer $customer)
     {
-        return view('admin.customers.show', compact('customer'));
+        return view("admin.customers.show", compact("customer"));
     }
 
     public function edit(Customer $customer)
     {
-        return view('admin.customers.edit', compact('customer'));
+        return view("admin.customers.edit", compact("customer"));
     }
 
     public function update(Request $request, Customer $customer)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:100',
-            'sex' => 'required|in:male,female',
+            "name" => "required|string|max:255",
+            "email" => "required|email|max:255",
+            "phone" => "nullable|string|max:100",
+            "sex" => "required|in:male,female",
         ]);
 
         $customer->update($validated);
 
-        return redirect()->route('admin.customers.index')
-            ->with('success', 'Data jamaah berhasil diperbarui.');
+        return redirect()->route("admin.customers.index")
+            ->with("success", "Data jamaah berhasil diperbarui.");
     }
 
     public function destroy(Customer $customer)
     {
         $customer->delete();
 
-        return redirect()->route('admin.customers.index')
-            ->with('success', 'Data jamaah berhasil dihapus.');
+        return redirect()->route("admin.customers.index")
+            ->with("success", "Data jamaah berhasil dihapus.");
     }
 }

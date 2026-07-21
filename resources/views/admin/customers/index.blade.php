@@ -22,6 +22,15 @@
 					<p class="text-xs text-base-content/50">Daftar seluruh jamaah yang pernah melakukan pemesanan.</p>
 				</div>
 				<div class="flex gap-2">
+					<a href="{{ route('admin.customers.create') }}" class="d-btn d-btn-primary d-btn-sm">
+						<x-lucide-plus class="h-4 w-4 mr-1" />
+						Tambah Jamaah
+					</a>
+				</div>
+			</div>
+
+			<div class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+				<div class="flex gap-2">
 					<form method="GET" class="flex flex-wrap gap-2">
 						<input type="text" name="search" placeholder="Cari nama, email, telepon..." value="{{ request('search') }}"
 							class="d-input d-input-bordered d-input-sm w-44 lg:w-56" />

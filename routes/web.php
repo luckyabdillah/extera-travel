@@ -14,6 +14,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionDetailController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ReportController;
 use App\Models\HeroImage;
 
 Route::get('/custom-package-mail-preview', function () {
@@ -251,4 +252,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('settings/preferences', [PreferenceController::class, 'edit'])->name('settings.preferences');
     Route::put('settings/preferences', [PreferenceController::class, 'update'])->name('settings.preferences.update');
+    Route::get('reports/financial', [ReportController::class, 'financial'])->name('reports.financial');
+    Route::get('reports/financial/pdf', [ReportController::class, 'financialPdf'])->name('reports.financial.pdf');
 });

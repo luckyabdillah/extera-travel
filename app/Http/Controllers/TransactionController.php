@@ -87,7 +87,7 @@ class TransactionController extends Controller
     {
         $validated = $request->validate([
             'status' => 'nullable|in:pending,confirmed',
-            'payment_status' => 'nullable|in:unpaid,paid',
+            'payment_status' => 'nullable|in:unpaid,paid,refunded',
         ]);
 
         $oldStatus = $transaction->status;

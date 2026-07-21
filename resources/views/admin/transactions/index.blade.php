@@ -42,6 +42,7 @@
 							<option value="">Semua Pembayaran</option>
 							<option value="unpaid" @selected(request('payment_status') === 'unpaid')>Unpaid</option>
 							<option value="paid" @selected(request('payment_status') === 'paid')>Paid</option>
+							<option value="refunded" @selected(request('payment_status') === 'refunded')>Refunded</option>
 						</select>
 						<button type="submit" class="d-btn d-btn-primary d-btn-sm">Filter</button>
 						@if(request()->anyFilled(['search', 'status', 'payment_status']))
@@ -98,8 +99,10 @@
 									<td>
 										@if($t->payment_status === 'paid')
 											<span class="d-badge d-badge-success d-badge-sm">Paid</span>
-										@else
+										@elseif($t->payment_status === 'unpaid')
 											<span class="d-badge d-badge-warning d-badge-sm">Unpaid</span>
+										@else
+											<span class="d-badge d-badge-error d-badge-sm">Refunded</span>
 										@endif
 									</td>
 									<td class="text-right">

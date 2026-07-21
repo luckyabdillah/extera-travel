@@ -82,6 +82,13 @@
 			</a>
 		</li>
 
+		<li>
+			<a href="{{ route('admin.reports.financial') }}" class="{{ request()->routeIs('admin.reports*') ? 'd-menu-active' : '' }}">
+				<x-lucide-bar-chart-3 class="h-4 w-4" />
+				Laporan Keuangan
+			</a>
+		</li>
+
 		<li class="menu-title mt-3 text-[11px] uppercase tracking-wider text-ink-100/40">Lainnya</li>
 
 		<li>
