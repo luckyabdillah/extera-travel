@@ -199,6 +199,7 @@
 					Itinerary Perjalanan
 				</h4>
 				<div class="space-y-3"></div>
+				<div id="modalItineraryPdf" class="mt-3"></div>
 			</div>
 		</div>
 
@@ -244,6 +245,15 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 
+
+		var pdfContainer = document.getElementById("modalItineraryPdf");
+		var pdfUrl = data.itinerary_pdf_url || data.itinerary_pdf_dynamic_url;
+		if (pdfUrl) {
+			var label = data.itinerary_pdf_url ? "Download Itinerary PDF" : "Generate Itinerary PDF";
+			pdfContainer.innerHTML = '<a href="' + pdfUrl + '" target="_blank" class="d-btn d-btn-outline d-btn-primary d-btn-sm w-full gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg> ' + label + '</a>';
+		} else {
+			pdfContainer.innerHTML = "";
+		}
 
 		modalItinerary.innerHTML = "";
 		if (data.itineraries && data.itineraries.length) {

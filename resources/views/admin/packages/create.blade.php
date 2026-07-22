@@ -54,10 +54,10 @@
 
 						<div class="d-form-control w-full">
 							<label class="label">
-								<span class="label-text font-semibold">Maskapai</span>
+								<span class="label-text font-semibold">Kuota <span class="text-error">*</span></span>
 							</label>
-							<input type="text" name="flight_by" value="{{ old('flight_by') }}" placeholder="Contoh: Saudia Airlines" class="d-input d-input-bordered w-full" />
-							@error('flight_by')
+							<input type="number" name="quota" value="{{ old('quota', 25) }}" min="0" max="32767" class="d-input d-input-bordered w-full" required />
+							@error('quota')
 								<span class="text-xs text-error mt-1">{{ $message }}</span>
 							@enderror
 						</div>
@@ -82,17 +82,30 @@
 							@enderror
 						</div>
 
-						<div class="d-form-control w-full">
+						<div class="d-form-control w-full sm:col-span-2">
 							<label class="label">
-								<span class="label-text font-semibold">Kuota <span class="text-error">*</span></span>
+								<span class="label-text font-semibold">Maskapai</span>
 							</label>
-							<input type="number" name="quota" value="{{ old('quota', 25) }}" min="0" max="32767" class="d-input d-input-bordered w-full" required />
-							@error('quota')
+							<input type="text" name="flight_by" value="{{ old('flight_by') }}" placeholder="Contoh: Saudia Airlines" class="d-input d-input-bordered w-full" />
+							@error('flight_by')
 								<span class="text-xs text-error mt-1">{{ $message }}</span>
 							@enderror
 						</div>
 
-						<div class="d-form-control w-full sm:col-span-2">
+						<div class="d-form-control w-full">
+							<label class="label">
+								<span class="label-text font-semibold">Itinerary PDF</span>
+							</label>
+							<input type="file" name="itinerary_pdf" class="d-file-input d-file-input-bordered w-full" accept=".pdf,application/pdf" />
+							<div class="label">
+								<span class="label-text-alt text-base-content/50">Format: PDF. Maks 10MB.</span>
+							</div>
+							@error("itinerary_pdf")
+								<span class="text-xs text-error mt-1">{{ $message }}</span>
+							@enderror
+						</div>
+
+						<div class="d-form-control w-full">
 							<label class="label">
 								<span class="label-text font-semibold">Flyer / Gambar Paket</span>
 							</label>

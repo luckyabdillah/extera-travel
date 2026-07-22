@@ -6,6 +6,7 @@ use App\Models\Package;
 use App\Models\PackageCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\FlyerGenerator;
 
 class PackageController extends Controller
 {
@@ -34,6 +35,7 @@ class PackageController extends Controller
             'inclusions' => 'nullable|string',
             'exclusions' => 'nullable|string',
             'requirements' => 'nullable|string',
+            'itinerary_pdf' => 'nullable|mimes:pdf|max:10240',
             'prices' => 'nullable|array',
             'prices.*.currency' => 'required|string|max:10',
             'prices.*.price_type' => 'required|string|max:50',
@@ -43,6 +45,11 @@ class PackageController extends Controller
         $flyerPath = null;
         if ($request->hasFile('flyer_path')) {
             $flyerPath = $request->file('flyer_path')->store('packages', 'public');
+        }
+
+        $itineraryPdf = null;
+        if ($request->hasFile('itinerary_pdf')) {
+            $itineraryPdf = $request->file('itinerary_pdf')->store('packages', 'public');
         }
 
         $package = Package::create([
@@ -56,6 +63,7 @@ class PackageController extends Controller
             'inclusions' => $request->inclusions,
             'exclusions' => $request->exclusions,
             'requirements' => $request->requirements,
+            'itinerary_pdf' => $itineraryPdf,
         ]);
 
         if ($request->prices) {
@@ -92,6 +100,7 @@ class PackageController extends Controller
             'inclusions' => 'nullable|string',
             'exclusions' => 'nullable|string',
             'requirements' => 'nullable|string',
+            'itinerary_pdf' => 'nullable|mimes:pdf|max:10240',
             'prices' => 'nullable|array',
             'prices.*.currency' => 'required|string|max:10',
             'prices.*.price_type' => 'required|string|max:50',
@@ -115,6 +124,13 @@ class PackageController extends Controller
                 Storage::disk('public')->delete($package->flyer_path);
             }
             $data['flyer_path'] = $request->file('flyer_path')->store('packages', 'public');
+        }
+
+        if ($request->hasFile('itinerary_pdf')) {
+            if ($package->itinerary_pdf) {
+                Storage::disk('public')->delete($package->itinerary_pdf);
+            }
+            $data['itinerary_pdf'] = $request->file('itinerary_pdf')->store('packages', 'public');
         }
 
         $package->update($data);
@@ -141,6 +157,43 @@ class PackageController extends Controller
 
         return redirect()->route('admin.packages.index')
             ->with('success', 'Paket berhasil dihapus.');
+    }
+
+    
+    public function deleteFlyer(Package $package)
+    {
+        if ($package->flyer_path) {
+            Storage::disk("public")->delete($package->flyer_path);
+            $package->update(["flyer_path" => null]);
+        }
+
+        return redirect()->route("admin.packages.edit", $package)
+            ->with("success", "Flyer berhasil dihapus.");
+    }
+
+    public function deleteItineraryPdf(Package $package)
+    {
+        if ($package->itinerary_pdf) {
+            Storage::disk("public")->delete($package->itinerary_pdf);
+            $package->update(["itinerary_pdf" => null]);
+        }
+
+        return redirect()->route("admin.packages.edit", $package)
+            ->with("success", "Itinerary PDF berhasil dihapus.");
+    }
+
+
+
+    public function generateFlyer(Package $package)
+    {
+        $package->load(["prices", "category"]);
+
+        $path = FlyerGenerator::generate($package);
+
+        $package->update(["flyer_path" => $path]);
+
+        return redirect()->route("admin.packages.edit", $package)
+            ->with("success", "Flyer berhasil digenerate.");
     }
 
     public function restore($uuid)

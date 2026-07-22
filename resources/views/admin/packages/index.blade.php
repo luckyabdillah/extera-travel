@@ -38,6 +38,7 @@
 						<thead>
 							<tr>
 								<th class="w-20">Flyer</th>
+								<th class="w-24">Itinerary</th>
 								<th>Paket</th>
 								<th class="hidden lg:table-cell">Keberangkatan</th>
 								<th class="hidden md:table-cell">Harga Mulai</th>
@@ -56,6 +57,18 @@
 											<div class="h-14 w-20 rounded-lg bg-base-200 flex items-center justify-center">
 												<x-lucide-image class="h-5 w-5 text-base-content/30" />
 											</div>
+										@endif
+									</td>
+									<td>
+										@if($package->itinerary_pdf)
+											<a href="{{ asset('storage/' . $package->itinerary_pdf) }}" target="_blank" class="d-btn d-btn-ghost d-btn-sm gap-2">
+												<x-lucide-file-text class="h-4 w-4" /> Lihat
+											</a>
+										@else
+											<!-- <button class="d-btn d-btn-ghost d-btn-sm gap-2" disabled>
+												<x-lucide-file-text class="h-4 w-4" /> Lihat
+											</button> -->
+											<span class="text-xs text-base-content/40">-</span>
 										@endif
 									</td>
 									<td>

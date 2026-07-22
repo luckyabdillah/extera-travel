@@ -54,10 +54,10 @@
 
 						<div class="d-form-control w-full">
 							<label class="label">
-								<span class="label-text font-semibold">Maskapai</span>
+								<span class="label-text font-semibold">Kuota <span class="text-error">*</span></span>
 							</label>
-							<input type="text" name="flight_by" value="{{ old('flight_by', $package->flight_by) }}" class="d-input d-input-bordered w-full" />
-							@error('flight_by')
+							<input type="number" name="quota" value="{{ old('quota', $package->quota) }}" min="0" max="32767" class="d-input d-input-bordered w-full" required />
+							@error('quota')
 								<span class="text-xs text-error mt-1">{{ $message }}</span>
 							@enderror
 						</div>
@@ -82,12 +82,12 @@
 							@enderror
 						</div>
 
-						<div class="d-form-control w-full">
+						<div class="d-form-control w-full sm:col-span-2">
 							<label class="label">
-								<span class="label-text font-semibold">Kuota <span class="text-error">*</span></span>
+								<span class="label-text font-semibold">Maskapai</span>
 							</label>
-							<input type="number" name="quota" value="{{ old('quota', $package->quota) }}" min="0" max="32767" class="d-input d-input-bordered w-full" required />
-							@error('quota')
+							<input type="text" name="flight_by" value="{{ old('flight_by', $package->flight_by) }}" class="d-input d-input-bordered w-full" />
+							@error('flight_by')
 								<span class="text-xs text-error mt-1">{{ $message }}</span>
 							@enderror
 						</div>
@@ -97,13 +97,24 @@
 								<span class="label-text font-semibold">Flyer Saat Ini</span>
 							</label>
 							@if($package->flyer_path)
-								<div class="mb-3">
+								<div class="mb-3 flex items-start gap-3">
 									<img src="{{ asset('storage/' . $package->flyer_path) }}" alt="{{ $package->title }}" class="h-32 w-auto object-cover rounded-lg border border-base-300 shadow-sm" />
+									<button type="button" onclick="if(confirm('Hapus flyer ini?')) document.getElementById('deleteFlyerForm').submit()" class="d-btn d-btn-square d-btn-ghost d-btn-sm text-error" title="Hapus Flyer">
+										<x-lucide-trash-2 class="h-4 w-4" />
+									</button>
 								</div>
+								<button type="button" onclick="document.getElementById('generateFlyerForm').submit()" class="d-btn d-btn-outline d-btn-primary d-btn-sm gap-1.5 mt-2 mb-3">
+									<x-lucide-sparkles class="h-4 w-4" />
+									Generate Flyer
+								</button>
 							@else
 								<p class="text-sm text-base-content/50 mb-3">Belum ada flyer.</p>
+								<button type="button" onclick="document.getElementById('generateFlyerForm').submit()" class="d-btn d-btn-outline d-btn-primary d-btn-sm gap-1.5 mb-3">
+									<x-lucide-sparkles class="h-4 w-4" />
+									Generate Flyer
+								</button>
 							@endif
-							<label class="label">
+							<label class="label block">
 								<span class="label-text font-semibold">Ganti Flyer <span class="text-base-content/50">(Opsional)</span></span>
 							</label>
 							<input type="file" name="flyer_path" class="d-file-input d-file-input-bordered w-full" accept="image/*" />
@@ -111,6 +122,53 @@
 								<span class="label-text-alt text-base-content/50">Kosongkan jika tidak ingin mengganti. Format: JPEG, PNG, JPG, WEBP, SVG. Maks 2MB.</span>
 							</div>
 							@error('flyer_path')
+								<span class="text-xs text-error mt-1">{{ $message }}</span>
+							@enderror
+						</div>
+
+						<div class="d-form-control w-full sm:col-span-2">
+							<label class="label">
+								<span class="label-text font-semibold">Itinerary PDF Saat Ini</span>
+							</label>
+							@if($package->itinerary_pdf)
+								<div class="mb-3 flex items-center gap-2">
+									<a href="{{ asset('storage/' . $package->itinerary_pdf) }}" target="_blank" class="d-btn d-btn-ghost d-btn-xs gap-1">
+										<x-lucide-file-text class="h-4 w-4" />
+										Lihat
+									</a>
+									<button type="button" onclick="if(confirm('Hapus itinerary PDF ini?')) document.getElementById('deleteItineraryPdfForm').submit()" class="d-btn d-btn-square d-btn-ghost d-btn-sm text-error" title="Hapus Itinerary PDF">
+										<x-lucide-trash-2 class="h-4 w-4" />
+									</button>
+								</div>
+							@else
+								<p class="text-sm text-base-content/50 mb-3">Belum ada itinerary PDF.</p>
+							@endif
+							<!-- <label class="label">
+								<span class="label-text font-semibold">Itinerary PDF</span>
+							</label>
+							@if($package->itinerary_pdf)
+								<div class="mb-2 flex items-center gap-2">
+									<a href="{{ asset("storage/" . $package->itinerary_pdf) }}" target="_blank" class="d-btn d-btn-ghost d-btn-xs gap-1">
+										<x-lucide-file-text class="h-4 w-4" />
+										Lihat PDF saat ini
+									</a>
+								</div>
+							@endif -->
+							<!-- <input type="file" name="itinerary_pdf" class="d-file-input d-file-input-bordered w-full" accept=".pdf,application/pdf" />
+							<div class="label">
+								<span class="label-text-alt text-base-content/50">Format: PDF. Maks 10MB. Biarkan kosong jika tidak ingin mengubah.</span>
+							</div>
+							@error("itinerary_pdf")
+								<span class="text-xs text-error mt-1">{{ $message }}</span>
+							@enderror -->
+							<label class="label">
+								<span class="label-text font-semibold">Ganti Itinerary PDF</span>
+							</label>
+							<input type="file" name="itinerary_pdf" class="d-file-input d-file-input-bordered w-full" accept=".pdf,application/pdf" />
+							<div class="label">
+								<span class="label-text-alt text-base-content/50">Kosongkan jika tidak ingin mengganti. Format: PDF. Maks 10MB.</span>
+							</div>
+							@error('itinerary_pdf')
 								<span class="text-xs text-error mt-1">{{ $message }}</span>
 							@enderror
 						</div>
@@ -209,6 +267,20 @@
 						</button>
 						<a href="{{ route('admin.packages.index') }}" class="d-btn d-btn-ghost">Batal</a>
 					</div>
+				</form>
+
+				<form id="generateFlyerForm" action="{{ route('admin.packages.generate-flyer', $package) }}" method="POST" class="hidden">
+					@csrf
+				</form>
+
+				<form id="deleteFlyerForm" action="{{ route('admin.packages.delete-flyer', $package) }}" method="POST" class="hidden">
+					@csrf
+					@method('DELETE')
+				</form>
+
+				<form id="deleteItineraryPdfForm" action="{{ route('admin.packages.delete-itinerary-pdf', $package) }}" method="POST" class="hidden">
+					@csrf
+					@method('DELETE')
 				</form>
 			</div>
 		</div>

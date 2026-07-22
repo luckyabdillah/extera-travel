@@ -13,7 +13,7 @@ class Package extends Model
     protected $fillable = [
         'uuid', 'package_category_id', 'title', 'slug', 'flyer_path',
         'flight_by', 'date', 'total_days', 'quota',
-        'inclusions', 'exclusions', 'requirements',
+        'inclusions', 'exclusions', 'requirements', 'itinerary_pdf',
     ];
 
     public function getRouteKeyName(): string

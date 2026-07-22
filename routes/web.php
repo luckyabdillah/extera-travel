@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeroImageController;
@@ -87,6 +87,8 @@ Route::get('/api/packages/{package}', function (App\Models\Package $package) {
         'date' => \Carbon\Carbon::parse($package->date)->locale('id')->isoFormat('DD MMMM YYYY'),
         'total_days' => $package->total_days,
         'quota' => $package->quota,
+        'itinerary_pdf_url' => $package->itinerary_pdf ? asset('storage/' . $package->itinerary_pdf) : null,
+        'itinerary_pdf_dynamic_url' => route('packages.itinerary-pdf', $package),
         'inclusions' => $package->inclusions,
         'exclusions' => $package->exclusions,
         'requirements' => $package->requirements,
@@ -105,6 +107,15 @@ Route::get('/api/packages/{package}', function (App\Models\Package $package) {
         ]),
     ]);
 });
+
+
+Route::get('/packages/{package}/itinerary-pdf', function (App\Models\Package $package) {
+    $package->load(['prices', 'category', 'itineraries']);
+
+    $pdf = Barryvdh\DomPDF\Facade\Pdf::loadView('packages.itinerary-pdf', compact('package'));
+
+    return $pdf->stream('itinerary-' . $package->slug . '.pdf');
+})->name('packages.itinerary-pdf');
 
 Route::get('/checkout/{package}', [OrderController::class, 'checkout'])->name('checkout');
 Route::post('/checkout/{package}/customers', [OrderController::class, 'storeCustomers'])->name('checkout.customers');
@@ -240,6 +251,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('package-categories/{uuid}/restore', [PackageCategoryController::class, 'restore'])->name('package-categories.restore');
     Route::resource('package-categories', PackageCategoryController::class);
     Route::get('packages/{uuid}/restore', [PackageController::class, 'restore'])->name('packages.restore');
+    Route::delete('packages/{package}/flyer', [PackageController::class, 'deleteFlyer'])->name('packages.delete-flyer');
+    Route::delete('packages/{package}/itinerary-pdf', [PackageController::class, 'deleteItineraryPdf'])->name('packages.delete-itinerary-pdf');
+    Route::post('packages/{package}/generate-flyer', [PackageController::class, 'generateFlyer'])->name('packages.generate-flyer');
     Route::resource('packages', PackageController::class);
     Route::resource('packages.itineraries', PackageItineraryController::class)->except(['show']);
     Route::resource('transactions', TransactionController::class)->only(['index', 'create', 'store', 'show', 'update']);
@@ -255,3 +269,4 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('reports/financial', [ReportController::class, 'financial'])->name('reports.financial');
     Route::get('reports/financial/pdf', [ReportController::class, 'financialPdf'])->name('reports.financial.pdf');
 });
+
