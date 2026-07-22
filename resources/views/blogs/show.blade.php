@@ -16,6 +16,9 @@
 	</section>
 
 	<section class="mx-auto max-w-3xl px-6 py-16 lg:py-24">
+		@if($blog->image_cover)
+			<img src="{{ asset('storage/' . $blog->image_cover) }}" class="mb-8 w-full rounded-2xl object-cover max-h-96" alt="{{ $blog->title }}" />
+		@endif
 		<article class="prose prose-lg prose-headings:font-display prose-a:text-primary-600 max-w-none text-ink-700">
 			{!! $blog->content !!}
 		</article>

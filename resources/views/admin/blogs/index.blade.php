@@ -37,6 +37,7 @@
 					<table class="d-table d-table-zebra">
 						<thead>
 							<tr>
+								<th>Sampul</th>
 								<th>Judul Artikel</th>
 								<th class="hidden md:table-cell">Tanggal Publikasi</th>
 								<th class="w-32 text-right">Aksi</th>
@@ -45,6 +46,13 @@
 						<tbody>
 							@foreach($blogs as $blog)
 								<tr>
+									<td>
+									@if($blog->image_cover)
+										<img src="{{ asset('storage/' . $blog->image_cover) }}" class="h-10 w-16 rounded object-cover" />
+									@else
+										<span class="text-xs text-base-content/30">-</span>
+									@endif
+								</td>
 									<td>
 										<span class="font-medium text-base-content">{{ $blog->title }}</span>
                                         <p class="text-xs text-base-content/50 mt-1">/blogs/{{ $blog->slug }}</p>

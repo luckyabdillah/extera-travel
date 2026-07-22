@@ -22,13 +22,16 @@
 			<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 				@foreach($blogs as $blog)
 					<article class="group overflow-hidden rounded-3xl border border-primary-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-soft">
+						@if($blog->image_cover)
+							<img src="{{ asset('storage/' . $blog->image_cover) }}" class="h-44 w-full object-cover" alt="{{ $blog->title }}" />
+						@endif
 						<div class="p-6">
 							<p class="text-xs text-ink-400">{{ $blog->created_at->format('d M Y') }}</p>
 							<a href="{{ route('blogs.show', $blog->slug) }}" class="mt-2 block">
 								<h3 class="font-display text-xl text-ink-900 group-hover:text-primary-700 transition">{{ $blog->title }}</h3>
 							</a>
 							<p class="mt-3 text-sm text-ink-500 line-clamp-3">
-								{{ Str::limit(strip_tags($blog->content), 120) }}
+								{!! Str::limit(strip_tags($blog->content), 120) !!}
 							</p>
 							<a href="{{ route('blogs.show', $blog->slug) }}" class="mt-5 inline-flex items-center gap-1 text-sm font-bold text-primary-600 transition group-hover:text-primary-800">
 								Baca selengkapnya

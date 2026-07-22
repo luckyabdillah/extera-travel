@@ -12,94 +12,112 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::latest()->get();
-        return view('admin.blogs.index', compact('blogs'));
+        return view("admin.blogs.index", compact("blogs"));
     }
 
     public function create()
     {
-        return view('admin.blogs.create');
+        return view("admin.blogs.create");
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            "title" => "required|string|max:255",
+            "image_cover" => "nullable|image|mimes:jpeg,png,jpg,webp|max:2048",
+            "content" => "required|string",
         ]);
 
         $slug = Str::slug($request->title);
         $originalSlug = $slug;
         $counter = 1;
-        while (Blog::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $counter;
+        while (Blog::where("slug", $slug)->exists()) {
+            $slug = $originalSlug . "-" . $counter;
             $counter++;
         }
 
-        Blog::create([
-            'title' => $request->title,
-            'slug' => $slug,
-            'content' => $request->content,
-        ]);
+        $data = [
+            "title" => $request->title,
+            "slug" => $slug,
+            "content" => $request->content,
+        ];
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Artikel blog berhasil ditambahkan.');
+        if ($request->hasFile("image_cover")) {
+            $data["image_cover"] = $request->file("image_cover")->store("blog-covers", "public");
+        }
+
+        Blog::create($data);
+
+        return redirect()->route("admin.blogs.index")->with("success", "Artikel blog berhasil ditambahkan.");
     }
 
     public function edit(Blog $blog)
     {
-        return view('admin.blogs.edit', compact('blog'));
+        return view("admin.blogs.edit", compact("blog"));
     }
 
     public function update(Request $request, Blog $blog)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            "title" => "required|string|max:255",
+            "image_cover" => "nullable|image|mimes:jpeg,png,jpg,webp|max:2048",
+            "content" => "required|string",
         ]);
 
         $oldImagePaths = $this->extractBlogImagePaths($blog->content);
         $newImagePaths = $this->extractBlogImagePaths($request->content);
 
         $data = [
-            'title' => $request->title,
-            'content' => $request->content,
+            "title" => $request->title,
+            "content" => $request->content,
         ];
+
+        if ($request->hasFile("image_cover")) {
+            if ($blog->image_cover) {
+                Storage::disk("public")->delete($blog->image_cover);
+            }
+            $data["image_cover"] = $request->file("image_cover")->store("blog-covers", "public");
+        }
 
         if ($request->title !== $blog->title) {
             $slug = Str::slug($request->title);
             $originalSlug = $slug;
             $counter = 1;
-            while (Blog::where('slug', $slug)->where('id', '!=', $blog->id)->exists()) {
-                $slug = $originalSlug . '-' . $counter;
+            while (Blog::where("slug", $slug)->where("id", "!=", $blog->id)->exists()) {
+                $slug = $originalSlug . "-" . $counter;
                 $counter++;
             }
-            $data['slug'] = $slug;
+            $data["slug"] = $slug;
         }
 
         $blog->update($data);
 
         $this->deleteBlogImages(array_diff($oldImagePaths, $newImagePaths));
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Artikel blog berhasil diperbarui.');
+        return redirect()->route("admin.blogs.index")->with("success", "Artikel blog berhasil diperbarui.");
     }
 
     public function destroy(Blog $blog)
     {
         $this->deleteBlogImages($this->extractBlogImagePaths($blog->content));
+        if ($blog->image_cover) {
+            Storage::disk("public")->delete($blog->image_cover);
+        }
         $blog->delete();
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Artikel blog berhasil dihapus.');
+        return redirect()->route("admin.blogs.index")->with("success", "Artikel blog berhasil dihapus.");
     }
 
     public function uploadImage(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            "image" => "required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048",
         ]);
 
-        $path = $request->file('image')->store('blog-images', 'public');
+        $path = $request->file("image")->store("blog-images", "public");
 
         return response()->json([
-            'url' => Storage::disk('public')->url($path),
+            "url" => Storage::disk("public")->url($path),
         ]);
     }
 
@@ -111,11 +129,11 @@ class BlogController extends Controller
         return collect($matches[1] ?? [])
             ->map(function (string $url) {
                 $path = parse_url($url, PHP_URL_PATH) ?: $url;
-                $path = ltrim($path, '/');
+                $path = ltrim($path, "/");
 
-                return Str::startsWith($path, 'storage/') ? Str::after($path, 'storage/') : null;
+                return Str::startsWith($path, "storage/") ? Str::after($path, "storage/") : null;
             })
-            ->filter(fn ($path) => is_string($path) && Str::startsWith($path, 'blog-images/'))
+            ->filter(fn ($path) => is_string($path) && Str::startsWith($path, "blog-images/"))
             ->values()
             ->all();
     }
@@ -123,7 +141,7 @@ class BlogController extends Controller
     private function deleteBlogImages(array $paths): void
     {
         foreach ($paths as $path) {
-            Storage::disk('public')->delete($path);
+            Storage::disk("public")->delete($path);
         }
     }
 }

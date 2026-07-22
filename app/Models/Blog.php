@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class Blog extends Model
 {
-    protected $fillable = ['title', 'slug', 'content'];
+    protected $fillable = ['title', 'image_cover', 'slug', 'content'];
 
     public function getRouteKeyName(): string
     {

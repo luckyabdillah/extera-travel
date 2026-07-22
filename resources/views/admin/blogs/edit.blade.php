@@ -22,7 +22,7 @@
 					</a>
 				</div>
 
-				<form action="{{ route('admin.blogs.update', $blog) }}" method="POST" class="space-y-4" id="blogForm" data-blog-editor data-upload-url="{{ route('admin.blogs.upload-image') }}">
+				<form action="{{ route('admin.blogs.update', $blog) }}" method="POST" enctype="multipart/form-data" class="space-y-4" id="blogForm" data-blog-editor data-upload-url="{{ route('admin.blogs.upload-image') }}">
 					@csrf
 					@method('PUT')
 
@@ -32,6 +32,24 @@
 						</label>
 						<input type="text" name="title" value="{{ old('title', $blog->title) }}" class="d-input d-input-bordered w-full" required />
 						@error('title')
+							<span class="text-xs text-error mt-1">{{ $message }}</span>
+						@enderror
+					</div>
+
+					<div class="d-form-control w-full">
+						<label class="label">
+							<span class="label-text font-semibold">Gambar Sampul</span>
+						</label>
+						@if($blog->image_cover)
+							<div class="mb-2">
+								<img src="{{ asset('storage/' . $blog->image_cover) }}" class="h-32 w-auto rounded-lg object-cover" />
+							</div>
+						@endif
+						<input type="file" name="image_cover" class="d-file-input d-file-input-bordered w-full" accept="image/*" />
+						<div class="label">
+							<span class="label-text-alt text-base-content/50">Format: JPEG, PNG, JPG, WEBP. Maks 2MB. Biarkan kosong jika tidak ingin mengubah.</span>
+						</div>
+						@error('image_cover')
 							<span class="text-xs text-error mt-1">{{ $message }}</span>
 						@enderror
 					</div>
