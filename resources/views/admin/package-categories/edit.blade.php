@@ -41,8 +41,11 @@
 							<span class="label-text font-semibold">Gambar Cover Saat Ini</span>
 						</label>
 						@if($packageCategory->image_cover)
-							<div class="mb-3">
+							<div class="mb-3 flex items-start gap-3">
 								<img src="{{ asset('storage/' . $packageCategory->image_cover) }}" alt="{{ $packageCategory->name }}" class="h-32 w-auto object-cover rounded-lg border border-base-300 shadow-sm" />
+								<button type="button" onclick="if(confirm('Hapus gambar cover ini?')) document.getElementById('deleteImageCoverForm').submit()" class="d-btn d-btn-square d-btn-ghost d-btn-sm text-error shrink-0" title="Hapus Cover">
+									<x-lucide-trash-2 class="h-4 w-4" />
+								</button>
 							</div>
 						@else
 							<p class="text-sm text-base-content/50 mb-3">Belum ada cover.</p>
@@ -76,6 +79,11 @@
 						</button>
 						<a href="{{ route('admin.package-categories.index') }}" class="d-btn d-btn-ghost">Batal</a>
 					</div>
+				</form>
+
+				<form id="deleteImageCoverForm" action="{{ route('admin.package-categories.delete-image-cover', $packageCategory) }}" method="POST" class="hidden">
+					@csrf
+					@method('DELETE')
 				</form>
 			</div>
 		</div>

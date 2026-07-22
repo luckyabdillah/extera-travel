@@ -249,6 +249,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('blogs/upload-image', [BlogController::class, 'uploadImage'])->name('blogs.upload-image');
     Route::resource('blogs', BlogController::class);
     Route::get('package-categories/{uuid}/restore', [PackageCategoryController::class, 'restore'])->name('package-categories.restore');
+    Route::delete('package-categories/{packageCategory}/image-cover', [PackageCategoryController::class, 'deleteImageCover'])->name('package-categories.delete-image-cover');
     Route::resource('package-categories', PackageCategoryController::class);
     Route::get('packages/{uuid}/restore', [PackageController::class, 'restore'])->name('packages.restore');
     Route::delete('packages/{package}/flyer', [PackageController::class, 'deleteFlyer'])->name('packages.delete-flyer');

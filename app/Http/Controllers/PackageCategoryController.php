@@ -85,6 +85,18 @@ class PackageCategoryController extends Controller
             ->with('success', 'Kategori paket berhasil dihapus.');
     }
 
+
+    public function deleteImageCover(PackageCategory $packageCategory)
+    {
+        if ($packageCategory->image_cover) {
+            Storage::disk("public")->delete($packageCategory->image_cover);
+            $packageCategory->update(["image_cover" => null]);
+        }
+
+        return redirect()->route("admin.package-categories.edit", $packageCategory)
+            ->with("success", "Gambar cover berhasil dihapus.");
+    }
+
     public function restore($uuid)
     {
         $category = PackageCategory::withTrashed()->where('uuid', $uuid)->firstOrFail();
